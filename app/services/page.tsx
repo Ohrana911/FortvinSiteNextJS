@@ -1,0 +1,195 @@
+import Link from "next/link";
+import "./services.css";
+import { Button } from "@/components/ui";
+
+export default function ServicesPage() {
+  return (
+      <div className="services-container">
+        <nav className="breadcrumb">
+            <ol>
+                <li>
+                    <Link href="/" className="breadcrumb-link">Главная</Link>
+                </li>
+                <li className="breadcrumb-separator">→</li>
+                <li className="breadcrumb-current">Услуги</li>
+            </ol>
+        </nav>
+        <div className="service-block">
+            <h1>Строительство домов под ключ</h1>
+            <div className="service-card">
+                <div className="left-side-card">
+                    <img src="/house.jpg" alt="Дом" className="service-image" />
+                    <div className="desktop-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>
+                </div>
+                <div className="right-side-card">
+                    <h2>Проектируем и строим монолитные и газобетонные дома в Санкт-Петербурге и Ленинградской области</h2>
+
+                    <ul className="service-list">
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Работаем с 2003 года</p>
+                                <p className="item-desc">Обладаем богатым опытом, сформировали штат настоящих профессионалов</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Строим по индивидуальным проектам</p>
+                                <p className="item-desc">Возможна адаптация и доработка любых готовых проектов</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Сотрудничаем только с проверенными поставщиками материалов</p>
+                                <p className="item-desc">Приемка только качественного сырья, контроль каждой поставки</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">В нашей команде более 20 бригад</p>
+                                <p className="item-desc">Реализовываем проекты любых масштабов без ущерба качеству и завышения цен</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div className="mobile-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div className="service-block">
+            <h1>Благоустройство и мощение</h1>
+            <div className="service-card reverse">
+                <div className="left-side-card">
+                    <img src="/moshenie.jpg" alt="Мощение" className="service-image" />
+                    <div className="desktop-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>
+                </div>
+                <div className="right-side-card">
+                    <h2>Работаем как с частными, так и с коммерческими объектами. Предлагаем полный комплекс услуг:</h2>
+
+                    <ul className="service-list">
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Мощение тротуарной плиткой (любые формы)</p>
+                                <p className="item-desc">Подготовка основания (песчаная, щебеночная подушка), установка бордюров и поребриков, выравнивание и уплотнение поверхности</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Благоустройство территорий</p>
+                                <p className="item-desc">Планировка и озеленение участков, устройство клумб, газонов и цветников, посадка деревьев и кустарников, установка декоративных элементов</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Дренажные и ливневые системы</p>
+                                <p className="item-desc">Обустройство поверхностного и подземного водоотвода, монтаж ливневых решеток и трубопровода</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Устройство подпорных стенок</p>
+                                <p className="item-desc">А также монтаж малых архитектурных форм (лавочки, урны, навесы), демонтаж старого покрытия</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div className="mobile-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+
+        <div className="service-block">
+            <h1>Дизайн интерьеров</h1>
+            <div className="service-card">
+                <div className="left-side-card">
+                    <img src="/design.jpg" alt="Дизайн" className="service-image" />
+                    <div className="desktop-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>                </div>
+                <div className="right-side-card">
+                    <h2>Предлагаем профессиональные услуги в сфере дизайна интерьеров для квартир, домов и коммерческих помещений</h2>
+
+                    <ul className="service-list">
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Дизайн интерьера под ключ</p>
+                                <p className="item-desc">Разработка индивидуальных дизайн-проектов, 3D-визуализация помещений, подбор отделочных материалов, мебели и освещения, авторский надзор на всех этапах реализации</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Планировочные решения</p>
+                                <p className="item-desc">Рациональное зонирование пространства, перепланировка с учетом строительных норм, подготовка планов для согласования и ремонта</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Комплектация объектов</p>
+                                <p className="item-desc">Подбор и закупка мебели, светильников, сантехники, работа с проверенными поставщиками и производителями, ведение бюджета проекта</p>
+                            </div>
+                        </li>
+
+                        <li>
+                            <div className="text-wrapper">
+                                <p className="item-title">Декор и стилизация</p>
+                                <p className="item-desc">Разработка концепции оформления, выбор текстиля, аксессуаров, произведений искусства, финальная настройка атмосферы в интерьере</p>
+                            </div>
+                        </li>
+                    </ul>
+                    <div className="mobile-button">
+                        <Button variant="custom" size="custom">Заказать</Button>
+                    </div>                    
+                </div>
+            </div>
+        </div>
+        
+        <div className="request-block">
+            <h1>Хотите заказать услугу?</h1>
+            <div className="request-card">
+                <div className="request-left">
+                    <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
+                    <img src="/request.jpg" alt="Заявка" className="request-image" />
+                </div>
+
+                <div className="request-right">
+                    <form className="request-form">
+                        <label htmlFor="fio">ФИО</label>
+                        <input id="fio" type="text" placeholder="Иван Иванович Иванов" required />
+
+                        <label htmlFor="phone">Номер телефона</label>
+                        <input id="phone" type="tel" placeholder="+7 (000) 000-00-00" required />
+
+                        <label htmlFor="city">Город</label>
+                        <input id="city" type="text" placeholder="Например: Санкт-Петербург" required />
+
+                        <label htmlFor="service">Услуга</label>
+                        <select id="service" required>
+                            <option value=""></option>
+                            <option value="house">Строительство домов</option>
+                            <option value="design">Дизайн интерьеров</option>
+                            <option value="landscape">Благоустройство</option>
+                        </select>
+
+                        <Button variant="request" size="request">Оставить заявку</Button>
+                    </form>
+                    <p className="note">Нажимая на кнопку «Оставить заявку», Вы даете Согласие на обработку данных и соглашаетесь c Политикой конфиденциальности</p>
+                </div>
+            </div>
+        </div>
+    </div>
+  );
+}

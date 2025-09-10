@@ -120,3 +120,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+@font-face {
+  font-family: "Gotham";
+  src: url("/font/gothampro.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Gotham";
+  src: url("/font/gothampro_medium.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+body {
+  font-family: "Gotham";
+  color: #2F3336;
+  line-height: 1.2;
+}
+
