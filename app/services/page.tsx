@@ -1,6 +1,7 @@
 import Link from "next/link";
 import "./services.css";
 import { Button } from "@/components/ui";
+import RequestForm from "@/components/shared/request-form";
 
 export default function ServicesPage() {
   return (
@@ -156,40 +157,7 @@ export default function ServicesPage() {
                 </div>
             </div>
         </div>
-        
-        <div className="request-block">
-            <h1 className="underline">Хотите заказать услугу?</h1>
-            <div className="request-card">
-                <div className="request-left">
-                    <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
-                    <img src="/request.jpg" alt="Заявка" className="request-image" />
-                </div>
-
-                <div className="request-right">
-                    <form className="request-form">
-                        <label htmlFor="fio">ФИО</label>
-                        <input id="fio" type="text" placeholder="Иван Иванович Иванов" required />
-
-                        <label htmlFor="phone">Номер телефона</label>
-                        <input id="phone" type="tel" placeholder="+7 (000) 000-00-00" required />
-
-                        <label htmlFor="city">Город</label>
-                        <input id="city" type="text" placeholder="Например: Санкт-Петербург" required />
-
-                        <label htmlFor="service">Услуга</label>
-                        <select id="service" required>
-                            <option value=""></option>
-                            <option value="house">Строительство домов</option>
-                            <option value="design">Дизайн интерьеров</option>
-                            <option value="landscape">Благоустройство</option>
-                        </select>
-
-                        <Button variant="request" size="request">Оставить заявку</Button>
-                    </form>
-                    <p className="note">Нажимая на кнопку «Оставить заявку», Вы даете <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаетесь c <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a></p>
-                </div>
-            </div>
-        </div>
+        <RequestForm />
     </div>
   );
 }
