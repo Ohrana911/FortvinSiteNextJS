@@ -1,68 +1,105 @@
+'use client';
+
 import React, { useState } from 'react';
+import { Button } from '../ui';
 
 interface FormData {
     name: string;
-    email: string;
-    message: string;
+    phone: string;
+    city: string;
+    service: string;
 }
 
 const RequestForm: React.FC = () => {
     const [form, setForm] = useState<FormData>({
         name: '',
-        email: '',
-        message: '',
+        phone: '',
+        city: '',
+        service: '',
     });
 
     const [submitted, setSubmitted] = useState(false);
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+    ) => {
         setForm({ ...form, [e.target.name]: e.target.value });
     };
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
-        // You can handle form submission here (e.g., send to API)
-        setSubmitted(true);
+        try {
+            const res = await fetch('/api/send-request', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(form),
+            });
+            if (res.ok) setSubmitted(true);
+        } catch (err) {
+            // handle error
+        }
     };
 
     return (
-        <form onSubmit={handleSubmit} style={{ maxWidth: 400, margin: '0 auto' }}>
-            <h2>Request Form</h2>
-            <div>
-                <label htmlFor="name">Name</label>
-                <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    value={form.name}
-                    onChange={handleChange}
-                    required
-                />
+        <div className="request-block">
+                <h1 className="underline">Хотите заказать услугу?</h1>
+                <div className="request-card">
+                    <div className="request-left">
+                        <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
+                        <img src="/request.jpg" alt="Заявка" className="request-image" />
+                    </div>
+
+                    <div className="request-right">
+                    <form className="request-form" onSubmit={handleSubmit}>
+                        <label htmlFor="name">ФИО</label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="Иван Иванович Иванов"
+                                value={form.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        <label htmlFor="phone">Номер телефона</label>
+                                <input 
+                                    id="phone" 
+                                    type="tel" 
+                                    placeholder="+7 (000) 000-00-00" 
+                                    value={form.phone}
+                                    onChange={handleChange}
+                                    required 
+                                />
+                        <label htmlFor="city">Город</label>
+                            <input
+                                id="city"
+                                name="city"
+                                type="text"
+                                placeholder="Например: Санкт-Петербург"
+                                value={form.city}
+                                onChange={handleChange}
+                                required
+                            />
+                        <label htmlFor="service">Услуга</label>
+                        <select 
+                            id="service"
+                            name="service"
+                            value={form.service}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value=""></option>
+                            <option value="house">Строительство домов</option>
+                            <option value="design">Дизайн интерьеров</option>
+                            <option value="landscape">Благоустройство</option>
+                        </select>
+                        <Button variant="request" size="request">Оставить заявку</Button>
+                    </form>
+                <p className="note">Нажимая на кнопку «Оставить заявку», Вы даете <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаетесь c <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a></p>
+                {submitted && <p className="success-message">Заявка успешно отправлена!</p>}
+                </div>
             </div>
-            <div>
-                <label htmlFor="email">Email</label>
-                <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    value={form.email}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <div>
-                <label htmlFor="message">Message</label>
-                <textarea
-                    id="message"
-                    name="message"
-                    value={form.message}
-                    onChange={handleChange}
-                    required
-                />
-            </div>
-            <button type="submit">Submit</button>
-            {submitted && <p>Thank you for your request!</p>}
-        </form>
+        </div>
     );
 };
 

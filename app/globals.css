@@ -179,6 +179,103 @@ button.linear:hover{
   font-weight: bold;
 }
 
+button:hover{
+  background-color: #5482A4;
+  color: #F4F5F7;
+  font-weight: bold;
+}
+
+.mobile-button {
+  display: none;
+}
+
+/* REQUEST BLOCK --------------------------------------------------------------------------*/
+
+.request-block {
+  margin-bottom: 80px;
+}
+
+.request-card {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  align-items: stretch;
+}
+
+.request-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.request-left p {
+  font-size: 22px;
+  color: #2F3336;
+  margin-top: auto;
+}
+
+.request-image {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  object-fit: cover;
+}
+
+.request-right {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.request-form label {
+  font-size: 18px;
+  margin-bottom: 5px;
+}
+
+.request-right .note {
+  font-size: 16px;
+  margin: 0;
+  line-height: 1;
+} 
+
+.request-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.request-form input,
+.request-form select {
+  padding: 12px;
+  font-size: 20px;
+  border: 1px solid #2F3336;
+  background: #E3E8ED;
+  transition: border-color 0.2s ease;
+  margin-bottom: 20px;
+}
+
+.request-form input:focus,
+.request-form select:focus {
+  outline: none;
+  background: #BCDBF2;
+}
+
+.request-form input:valid,
+.request-form select:valid {
+  background: #BCDBF2;
+}
+
+.request-form select option {
+  font-size: 20px;
+}
+
+.request-form button {
+  margin-top: 20px;
+}
+
 /* Хлебные крошки --------------------------------------------------------------------------*/
 .breadcrumb {
   font-size: 16px;
