@@ -15,7 +15,7 @@ export default function ServicesPage() {
             </ol>
         </nav>
         <div className="service-block">
-            <h1>Строительство домов под ключ</h1>
+            <h1 className="underline">Строительство домов под ключ</h1>
             <div className="service-card">
                 <div className="left-side-card">
                     <img src="/house.jpg" alt="Дом" className="service-image" />
@@ -63,7 +63,7 @@ export default function ServicesPage() {
         </div>
 
         <div className="service-block">
-            <h1>Благоустройство и мощение</h1>
+            <h1 className="underline">Благоустройство и мощение</h1>
             <div className="service-card reverse">
                 <div className="left-side-card">
                     <img src="/moshenie.jpg" alt="Мощение" className="service-image" />
@@ -111,7 +111,7 @@ export default function ServicesPage() {
         </div>
 
         <div className="service-block">
-            <h1>Дизайн интерьеров</h1>
+            <h1 className="underline">Дизайн интерьеров</h1>
             <div className="service-card">
                 <div className="left-side-card">
                     <img src="/design.jpg" alt="Дизайн" className="service-image" />
@@ -158,7 +158,7 @@ export default function ServicesPage() {
         </div>
         
         <div className="request-block">
-            <h1>Хотите заказать услугу?</h1>
+            <h1 className="underline">Хотите заказать услугу?</h1>
             <div className="request-card">
                 <div className="request-left">
                     <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
@@ -186,7 +186,7 @@ export default function ServicesPage() {
 
                         <Button variant="request" size="request">Оставить заявку</Button>
                     </form>
-                    <p className="note">Нажимая на кнопку «Оставить заявку», Вы даете Согласие на обработку данных и соглашаетесь c Политикой конфиденциальности</p>
+                    <p className="note">Нажимая на кнопку «Оставить заявку», Вы даете <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаетесь c <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a></p>
                 </div>
             </div>
         </div>

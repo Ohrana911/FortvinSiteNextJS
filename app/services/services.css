@@ -17,34 +17,6 @@ body {
   margin-bottom: 80px;
 }
 
-.breadcrumb {
-  font-size: 16px;
-  color: #63696F;
-}
-
-.breadcrumb ol {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.breadcrumb-link {
-  text-decoration: none;
-  color: #63696F;
-}
-
-.breadcrumb-link:hover {
-  text-decoration: underline;
-}
-
-.breadcrumb-separator,
-.breadcrumb-current {
-  color: #63696F;
-}
-
 .service-card {
   display: flex;
   flex-direction: row;
@@ -54,14 +26,6 @@ body {
 
 .service-card.reverse {
   flex-direction: row-reverse;
-}
-
-h1 {
-  font-size: 50px;
-  font-weight: bold;
-  text-decoration: underline;
-  margin-bottom: 40px;
-  color: #2F3336;
 }
 
 .left-side-card {
@@ -85,10 +49,6 @@ h1 {
 
 .right-side-card {
   flex: 1;
-}
-
-h2 {
-    font-size: 26px;
 }
 
 .service-list {
@@ -117,12 +77,12 @@ h2 {
 
 .item-title {
   margin: 0;
-  font-size: 26px;
+  font-size: 22px;
 }
 
 .item-desc {
   margin: 5px 0 0;
-  font-size: 20px;
+  font-size: 18px;
   color: #63696F;
 }
 
@@ -148,7 +108,7 @@ h2 {
 }
 
 .request-left p {
-  font-size: 26px;
+  font-size: 22px;
   color: #2F3336;
   margin-top: auto;
 }
@@ -169,7 +129,7 @@ h2 {
 }
 
 .request-form label {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 5px;
 }
 
