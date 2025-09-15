@@ -11,6 +11,7 @@ import Link from "next/link";
 
 export default function Home() {
   return <>
+  <main>
     <Container className="mt-5">
       <div className="flex items-center gap-3">
         <Title text="Каталог" size="lg" className="font-extrabold" /><LibraryBig size={45}/>
@@ -125,5 +126,6 @@ export default function Home() {
         
       </div>
     </Container>
+  </main>
   </>;
 }

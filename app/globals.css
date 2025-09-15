@@ -44,9 +44,16 @@
 }
 
 :root {
+  --font-small: 14px;
+  --color-dark: #2F3336;
+  --color-blue: #5482A4;
+  --color-light-blue: #BCDBF2;
+  --color-gray: #63696F;
+  --color-light-gray: #E3E8ED;
   --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.147 0.004 49.25);
+  --gray-background: #63696F;
+  --background: #F4F5F7;
+  --foreground: #2F3336;
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.147 0.004 49.25);
   --popover: oklch(1 0 0);
@@ -141,3 +148,62 @@ body {
   line-height: 1.2;
 }
 
+main{
+  margin-top: 100px;
+}
+
+/* Текст --------------------------------------------------------------------------*/
+h1.underline {
+  font-size: 50px;
+  font-weight: bold;
+  text-decoration: underline;
+  margin-bottom: 40px;
+  color: #2F3336;
+}
+
+h2 {
+    font-size: 22px;
+}
+
+h3 {
+  font-size: 18px;
+}
+
+p {
+  font-size: 16px;
+}
+
+button.linear:hover{
+  background-color: #F4F5F7;
+  color: #5482A4;
+  font-weight: bold;
+}
+
+/* Хлебные крошки --------------------------------------------------------------------------*/
+.breadcrumb {
+  font-size: 16px;
+  color: #63696F;
+}
+
+.breadcrumb ol {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.breadcrumb-link {
+  text-decoration: none;
+  color: #63696F;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-separator,
+.breadcrumb-current {
+  color: #63696F;
+}
