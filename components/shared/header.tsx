@@ -15,9 +15,10 @@ import { useState } from "react";
 
 interface Props {
     className?: string;
+    onOpenModal: () => void; // функция открытия модалки
 }
 
-export const Header: React.FC<Props> = ({ className }) => {
+export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
     const [hideTop, setHideTop] = useState(false);
 
     useEffect(() => {
@@ -90,12 +91,12 @@ export const Header: React.FC<Props> = ({ className }) => {
 
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
-                            <button className="linear"><User size={24}/></button>
-                            <button className="linear"><Heart size={24}/></button>
-                            <CartButton />
-                    </div>
+                    <button onClick={onOpenModal} className="linear cursor-pointer"><User size={24}/></button>
+                    <button className="linear cursor-pointer"><Heart size={24}/></button>
+                    <CartButton className="cursor-pointer" />
                 </div>
-            </div>  
+            </div>
+        </div>
         </header>
     )
 }

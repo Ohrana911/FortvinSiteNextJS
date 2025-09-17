@@ -21,7 +21,7 @@ export default function ServicesPage() {
                 <div className="left-side-card">
                     <img src="/house.jpg" alt="Дом" className="service-image" />
                     <div className="desktop-button">
-                        <Button variant="custom" size="custom">Заказать</Button>
+                        <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
                     </div>
                 </div>
                 <div className="right-side-card">
@@ -57,7 +57,7 @@ export default function ServicesPage() {
                         </li>
                     </ul>
                     <div className="mobile-button">
-                        <Button variant="custom" size="custom">Заказать</Button>
+                        <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
                     </div>
                 </div>
             </div>
@@ -69,7 +69,7 @@ export default function ServicesPage() {
                 <div className="left-side-card">
                     <img src="/moshenie.jpg" alt="Мощение" className="service-image" />
                     <div className="desktop-button">
-                        <Button variant="custom" size="custom">Заказать</Button>
+                        <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
                     </div>
                 </div>
                 <div className="right-side-card">
@@ -117,7 +117,7 @@ export default function ServicesPage() {
                 <div className="left-side-card">
                     <img src="/design.jpg" alt="Дизайн" className="service-image" />
                     <div className="desktop-button">
-                        <Button variant="custom" size="custom">Заказать</Button>
+                        <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
                     </div>                </div>
                 <div className="right-side-card">
                     <h2>Предлагаем профессиональные услуги в сфере дизайна интерьеров для квартир, домов и коммерческих помещений</h2>
@@ -152,7 +152,7 @@ export default function ServicesPage() {
                         </li>
                     </ul>
                     <div className="mobile-button">
-                        <Button variant="custom" size="custom">Заказать</Button>
+                        <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
                     </div>                    
                 </div>
             </div>
