@@ -191,6 +191,10 @@ p {
   font-size: 16px;
 }
 
+.small-text {
+  font-size: 12px;
+}
+
 button.linear:hover{
   background-color: #F4F5F7;
   color: #5482A4;
@@ -207,8 +211,54 @@ button:hover{
   display: none;
 }
 
-/* REQUEST BLOCK --------------------------------------------------------------------------*/
+.small-button {
+  font-size: 14px;
+  color: #5482A4;
+  cursor: pointer;
+  text-decoration: none;
+}
 
+/* Форма входа --------------------------------------------------------------------------*/
+.login-block {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+.login-block h2 {
+  font-size: 28px;
+}
+
+.modal-content{
+  background: var(--background);
+  padding: 32px;
+  width: 600px;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.2);
+  position: relative;
+}
+
+.modal-backdrop{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.small-button{
+  background: var(--color-light-gray);
+  padding: 8px;
+  font-size: 14px;
+  color: var(--color-dark);
+  cursor: pointer;
+  border: var(--color-dark) 1px solid;
+}
+
+/* REQUEST BLOCK --------------------------------------------------------------------------*/
 .request-block {
   margin-bottom: 80px;
 }
@@ -290,9 +340,6 @@ button:hover{
   font-size: 20px;
 }
 
-.request-form button {
-  margin-top: 20px;
-}
 
 /* Хлебные крошки --------------------------------------------------------------------------*/
 .breadcrumb {

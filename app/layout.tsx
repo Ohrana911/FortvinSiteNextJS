@@ -1,8 +1,12 @@
-import type { Metadata } from "next";
+"use client";
+
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
+import { useEffect, useState } from "react";
+import ModalWindow from "@/components/shared/modal-window";
+import LoginForm from "@/components/shared/login-form";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -14,20 +18,32 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata: Metadata = {
-  title: "Create Next App",
-  description: "Fortvin Sale of building materials. Improvement and construction services",
-};
-
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isOpen, setIsOpen] = useState(false);
+  
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isOpen]);
+  
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <Header />
+          <Header onOpenModal={() => setIsOpen(true)} />
+          <ModalWindow isOpen={isOpen} onClose={() => setIsOpen(false)} setFormType={(type) => {"login"}} >
+            <LoginForm />
+          </ModalWindow>
           <main>{children}</main>
           <Footer />
       </body>
