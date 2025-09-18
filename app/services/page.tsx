@@ -5,11 +5,11 @@ import RequestForm from "@/components/shared/request-form";
 
 export default function ServicesPage() {
   return (
-      <div className="services-container">
+      <div className="container">
         <nav className="breadcrumb">
             <ol>
                 <li>
-                    <Link href="/" className="breadcrumb-link">Главная</Link>
+                    <a href="/" className="breadcrumb-link">Главная</a>
                 </li>
                 <li className="breadcrumb-separator">→</li>
                 <li className="breadcrumb-current">Услуги</li>

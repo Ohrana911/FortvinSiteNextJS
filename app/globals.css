@@ -142,6 +142,7 @@
   font-style: normal;
 }
 
+/* Общие стили --------------------------------------------------------------------------*/
 body {
   font-family: "Gotham";
   color: #2F3336;
@@ -152,6 +153,17 @@ main{
   margin-top: 100px;
   padding-left: 130px;
   padding-right: 130px;
+}
+
+.container {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  width: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  box-sizing: border-box;
 }
 
 .footer-top {
@@ -211,13 +223,6 @@ button:hover{
   display: none;
 }
 
-.small-button {
-  font-size: 14px;
-  color: #5482A4;
-  cursor: pointer;
-  text-decoration: none;
-}
-
 /* Форма входа --------------------------------------------------------------------------*/
 .login-block {
   display: flex;
@@ -249,12 +254,33 @@ button:hover{
   z-index: 1000;
 }
 
+/* Кнопки --------------------------------------------------------------------------*/
 .small-button{
   background: var(--color-light-gray);
   padding: 8px;
   font-size: 14px;
   color: var(--color-dark);
   cursor: pointer;
+  border: var(--color-dark) 1px solid;
+}
+
+.colored-button {
+  background: var(--color-blue);
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  font-size: 14px;
+  width: fit-content;
+  color: var(--color-white);
+  cursor: pointer;
+  border: var(--color-blue) 1px solid;
+}
+
+.colored-button:hover {
+  background-color: var(--color-light-gray);
+  color: var(--color-dark);
+  font-weight: bold;
   border: var(--color-dark) 1px solid;
 }
 
