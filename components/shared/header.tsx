@@ -54,10 +54,10 @@ export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
                     <span>Санкт-Петербург</span>
                 </div>
                 <nav className="flex gap-6">
-                    <a href="#" className="hover:underline">Акции и скидки</a>
+                    <a href="/catalog" className="hover:underline">Акции и скидки</a>
                     <a href="about_us" className="hover:underline">О нас</a>
                     <a href="articles" className="hover:underline">Статьи</a>
-                    <a href="/" className="hover:underline">Производители</a>
+                    <a href="/#carousel" className="hover:underline">Производители</a>
                 </nav>
                 <div className="flex items-center gap-2">
                     <a href="tel:+79588582747" className="font-medium hover:underline"> +7 (958) 858-27-47 </a>
@@ -84,9 +84,9 @@ export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
 
                 {/* Навигация */}
                 <nav className="flex gap-6 text-gray-700 font-medium  mx-8">
-                    <a href="#">Каталог</a>
+                    <a href="/catalog">Каталог</a>
                     <a href="services">Услуги</a>
-                    <a href="/">Контакты</a>
+                    <a href="#footer">Контакты</a>
                 </nav>
 
                 {/* Иконки */}
