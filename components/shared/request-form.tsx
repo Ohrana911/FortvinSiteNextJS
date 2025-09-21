@@ -41,7 +41,7 @@ const RequestForm: React.FC = () => {
     };
 
     return (
-        <div className="request-block">
+        <div className="request-block scroll-mt-20" id="request-form">
                 <h1 className="underline">Хотите заказать услугу?</h1>
                 <div className="request-card">
                     <div className="request-left">

@@ -205,30 +205,42 @@ h2 {
 
 h3 {
   font-size: 18px;
+  line-height: 18px;
 }
 
 p {
   font-size: 16px;
 }
 
+.big-text {
+  font-size: 28px;
+  line-height: 25px;
+  font-weight: bold;
+}
+
+.small-bold-text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .small-text {
   font-size: 12px;
 }
 
-button.linear:hover{
-  background-color: #F4F5F7;
-  color: #5482A4;
-  font-weight: bold;
+/* Личный кабинет --------------------------------------------------------------------------*/
+.profile-block {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
-button:hover{
-  background-color: #5482A4;
-  color: #F4F5F7;
-  font-weight: bold;
-}
-
-.mobile-button {
-  display: none;
+.profile-card{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 20px;
+  background: var(--color-light-gray);
+  width: 100%;
 }
 
 /* Форма входа --------------------------------------------------------------------------*/
@@ -265,11 +277,30 @@ button:hover{
 /* Кнопки --------------------------------------------------------------------------*/
 .small-button{
   background: var(--color-light-gray);
-  padding: 8px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 8px;
+  padding-bottom: 8px;
   font-size: 14px;
   color: var(--color-dark);
   cursor: pointer;
   border: var(--color-dark) 1px solid;
+}
+
+button.linear:hover{
+  background-color: #F4F5F7;
+  color: #5482A4;
+  font-weight: bold;
+}
+
+button:hover{
+  background-color: #5482A4;
+  color: #F4F5F7;
+  font-weight: bold;
+}
+
+.mobile-button {
+  display: none;
 }
 
 .colored-button {
