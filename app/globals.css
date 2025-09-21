@@ -143,6 +143,14 @@
 }
 
 /* Общие стили --------------------------------------------------------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+[id].height-scroll {
+  scroll-margin-top: 300px; /* высота хедера */
+}
+
 body {
   font-family: "Gotham";
   color: #2F3336;
@@ -396,7 +404,30 @@ button:hover{
   color: #63696F;
 }
 
+/* Анимация --------------------------------------------------------------------------*/
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-scroll {
+  display: flex;
+  width: max-content;
+  animation: scroll 20s linear infinite;
+}
+
 /* Адаптив --------------------------------------------------------------------------*/
+.full-width {
+  width: 99vw;                 /* ширина окна */
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%); /* центрируем */
+}
+
 @media (max-width: 992px) {
   main {
     padding-left: 45px;

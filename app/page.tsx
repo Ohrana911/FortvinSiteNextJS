@@ -8,14 +8,17 @@ import { Filters } from "@/components/shared/filters";
 import { ProductCard } from "@/components/shared/product-card";
 import { ProductsGroupList } from "@/components/shared/products-group-list";
 import Link from "next/link";
+import Carousel from "@/components/ui/carousel";
+import RequestForm from "@/components/shared/request-form";
 
 export default function Home() {
-  return <>
-    <Container className="mt-5">
-      <div className="flex items-center gap-3">
-        <Title text="Каталог" size="lg" className="font-extrabold" /><LibraryBig size={45}/>
-      </div>
-    </Container>
+  return (
+    <div className="gap-[80px] flex flex-col">
+      <Container className="mt-5">
+        <div className="flex items-center gap-3">
+          <Title text="Каталог" size="lg" className="font-extrabold" /><LibraryBig size={45}/>
+        </div>
+      </Container>
     
     <TopBar />
 
@@ -25,8 +28,6 @@ export default function Home() {
         <div className="w-[250px]">
           <Filters />
         </div>
-        
-        
 
         {/* Список товаров */}
         <div className="flex-1">
@@ -125,5 +126,9 @@ export default function Home() {
         
       </div>
     </Container>
-  </>;
+
+    <Carousel className="full-width" />
+    <RequestForm />
+  </div>
+  )
 }
