@@ -12,14 +12,21 @@ import { CartButton } from "./cart-button";
 import { MapPin } from "lucide-react";
 import { Search } from "lucide-react";
 import { useState } from "react";
+import { AuthModal } from "./modals/auth-modal";
+import { ProfileButton } from "./profile-button";
+import { useRouter } from "next/router";
 
 interface Props {
     className?: string;
+    hasSearch?: boolean;
+    hasCart?: boolean;
     onOpenModal: () => void; // функция открытия модалки
 }
 
-export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
+export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className, onOpenModal }) => {
     const [hideTop, setHideTop] = useState(false);
+    // const router = useRouter();
+    const [openAuthModal, setOpenAuthModal] = React.useState(false);
 
     useEffect(() => {
         let lastScroll = 0;
@@ -75,11 +82,12 @@ export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
 
                 {/* Поиск */}
                 <div className="flex-1 mx-8">
-                    <input
+                    <SearchInput />
+                    {/* <input
                     type="text"
                     placeholder="Поиск по товарам"
                     className="w-full border border-gray-400 px-4 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    />
+                    /> */}
                 </div>
 
                 {/* Навигация */}
@@ -91,10 +99,20 @@ export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
 
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
-                    <button onClick={onOpenModal} className="linear cursor-pointer"><User size={24}/></button>
-                    <button className="linear cursor-pointer"><Heart size={24}/></button>
-                    <CartButton className="cursor-pointer" />
+                    {/* <button onClick={onOpenModal} className="linear cursor-pointer"><User size={24}/></button> */}
+                    {/* <button className="linear cursor-pointer"><Heart size={24}/></button>
+                    <CartButton /> */}
                 </div>
+
+                {/* Правая часть */}
+                <div className="flex items-center gap-3">
+                <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+
+                <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
+
+                {hasCart && <CartButton className="cursor-pointer"/>}
+                </div>
+                
             </div>
         </div>
         </header>

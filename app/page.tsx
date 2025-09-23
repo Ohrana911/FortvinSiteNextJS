@@ -19,23 +19,19 @@ export default function Home() {
           <Title text="Каталог" size="lg" className="font-extrabold" /><LibraryBig size={45}/>
         </div>
       </Container>
+            <Button>
+            <Link href={"/api/products"}>Перейти в Каталог</Link>
+            </Button>
     
     <TopBar />
-
+{/* 
     <Container className="mt-10 pb-14">
       <div className="flex gap-[60px]">
-        {/* Фильтрация */}
-        <div className="w-[250px]">
-          <Filters />
-        </div>
-
-        {/* Список товаров */}
         <div className="flex-1">
           <div className="flex flex-col gap-16">
             <Button>
             <Link href={"/api/products"}>Перейти в Каталог</Link>
             </Button>
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
             <ProductsGroupList title={"Бетонные блоки"} items={[
               {
               id: 1,
@@ -64,7 +60,6 @@ export default function Home() {
             ]} categoryId={1} />
           </div>
           <div className="flex flex-col gap-16">
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
             <ProductsGroupList title={"Кирпичи"} items={[
               {
               id: 1,
@@ -93,7 +88,6 @@ export default function Home() {
             ]} categoryId={1} />
           </div>
           <div className="flex flex-col gap-16">
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
             <ProductsGroupList title={"Плитка"} items={[
               {
               id: 1,
@@ -125,7 +119,7 @@ export default function Home() {
 
         
       </div>
-    </Container>
+    </Container> */}
 
     <Carousel className="full-width" />
     <RequestForm />
