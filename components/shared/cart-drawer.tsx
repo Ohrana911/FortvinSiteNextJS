@@ -30,10 +30,23 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
     const fetchCartItems = useCartStore(state => state.fetchCartItems);
     const items = useCartStore(state => state.items);
 
-    const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    // const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    //     console.log(id, quantity, type);
+    //     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+    //     updateItemQuantity(id, newQuantity);
+    // };
+
+    const onClickCountButton = async (id: number, quantity: number, type: 'plus' | 'minus') => {
         const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
-        updateItemQuantity(id, newQuantity);
+
+        // обновляем на сервере
+        await updateItemQuantity(id, newQuantity);
+
+        // обновляем локальный Zustand store
+        fetchCartItems(); // если fetchCartItems подтягивает свежие items и totalAmount
+        console.log(id, quantity, type);
     };
+
 
 
     React.useEffect(() => {
@@ -56,10 +69,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                             key={item.id} // ← обязательно!
                             id={item.id}
                             imageUrl={item.imageUrl}
-
                             disabled={item.disabled}
                             name={item.name}
-                            price={item.productItem.product.retailPriceRubWithVAT}
+                            price={item.price}
                             quantity={item.quantity}
                             onClickCountButton={(type) =>
                                 onClickCountButton(item.id, item.quantity, type)
@@ -70,10 +82,6 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                     }
                 </div>
             </div>
-
-
-
-
             <SheetFooter className="bg-white p-8">
                 <div>
                     <div className="flex mb-4">

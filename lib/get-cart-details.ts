@@ -23,8 +23,8 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
     quantity: item.quantity,
     name: item.productItem.product.name,
     imageUrl: item.productItem.product.imageUrl,
-    // price: item.productItem.product.retailPriceRubWithVAT,
-    price: calcCartItemTotalPrice(item),
+    price: item.productItem.product.retailPriceRubWithVAT,
+    // price: calcCartItemTotalPrice(item),
     disabled: false,
     // ingredients: item.ingredients.map((ingredient) => ({
     //   name: ingredient.name,
