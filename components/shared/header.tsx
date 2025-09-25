@@ -1,17 +1,9 @@
 "use client";
 
-import { cn } from "@/lib/utils";
-import React, { useEffect } from "react";
-import { Container } from "./container";
-import Image from 'next/image'
-import { Button } from "../ui";
-import { Heart, ShoppingCart, Star, User } from "lucide-react";
-import { SearchInput } from "./search-input";
-import { CartDrawer } from "./cart-drawer";
+import React, { useState, useEffect, useRef } from "react";
+import { Heart, User } from "lucide-react";
 import { CartButton } from "./cart-button";
-import { MapPin } from "lucide-react";
-import { Search } from "lucide-react";
-import { useState } from "react";
+import { CityDropdown } from "./city-dropdown";
 
 interface Props {
     className?: string;
@@ -20,6 +12,18 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
     const [hideTop, setHideTop] = useState(false);
+    const [city, setCity] = useState("Санкт-Петербург");
+
+    const handleCityChange = async (selectedCity: string) => {
+        setCity(selectedCity);
+
+        // Send to backend
+        await fetch("/api/city", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city: selectedCity }),
+        });
+    };
 
     useEffect(() => {
         let lastScroll = 0;
@@ -49,15 +53,12 @@ export const Header: React.FC<Props> = ({ className, onOpenModal }) => {
                 ${hideTop ? "h-0 opacity-0 py-0 px-0" : "h-10 opacity-100 py-2 px-4"}`} style={{ backgroundColor: "#63696F" }}>
 
                 <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
-                <div className="flex items-center gap-2">
-                    <MapPin size={16} />
-                    <span>Санкт-Петербург</span>
-                </div>
-                <nav className="flex gap-6">
-                    <a href="/catalog" className="hover:underline">Акции и скидки</a>
-                    <a href="about_us" className="hover:underline">О нас</a>
-                    <a href="articles" className="hover:underline">Статьи</a>
-                    <a href="/#carousel" className="hover:underline">Производители</a>
+                    <CityDropdown value={city} onChange={handleCityChange} />
+                    <nav className="flex gap-6">
+                        <a href="/catalog" className="hover:underline">Акции и скидки</a>
+                        <a href="about_us" className="hover:underline">О нас</a>
+                        <a href="articles" className="hover:underline">Статьи</a>
+                        <a href="/#carousel" className="hover:underline">Производители</a>
                 </nav>
                 <div className="flex items-center gap-2">
                     <a href="tel:+79588582747" className="font-medium hover:underline"> +7 (958) 858-27-47 </a>

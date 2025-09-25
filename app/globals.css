@@ -143,12 +143,12 @@
 }
 
 /* Общие стили --------------------------------------------------------------------------*/
-html {
-  scroll-behavior: smooth;
-}
-
 [id].height-scroll {
   scroll-margin-top: 300px; /* высота хедера */
+}
+
+html{
+  scroll-behavior: smooth;
 }
 
 body {
@@ -174,7 +174,17 @@ main{
   box-sizing: border-box;
 }
 
+.background-img {
+  width: 100%;
+  height: 520px;
+  background-image: linear-gradient(rgba(51, 51, 51, 0.7), rgba(51, 51, 51, 0.7)),
+                    url('/background.jpg');
+  background-size: cover;
+  background-position: center;
+}
+
 .footer-top {
+  margin-top: 80px;
   width: 100%;
   padding-top: 80px;
   padding-bottom: 120px;
@@ -192,6 +202,11 @@ main{
 }
 
 /* Текст --------------------------------------------------------------------------*/
+h1 {
+  font-size: 48px;
+  font-weight: bold;
+}
+
 h1.underline {
   font-size: 50px;
   font-weight: bold;
@@ -227,6 +242,25 @@ p {
   font-size: 12px;
 }
 
+/* Главная --------------------------------------------------------------------------*/
+.home-img-block{
+  padding-left: 130px;
+  padding-right: 130px;
+  padding-top: 130px;
+  padding-bottom: 2rem;
+  gap: 2.5rem;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Сервисы --------------------------------------------------------------------------*/
+.service-blocks {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  width: 100%;
+}
+
 /* Личный кабинет --------------------------------------------------------------------------*/
 .profile-block {
   display: flex;
@@ -234,10 +268,9 @@ p {
   gap: 10px;
 }
 
-.profile-card{
+.blue-card{
   display: flex;
   flex-direction: column;
-  gap: 5px;
   padding: 20px;
   background: var(--color-light-gray);
   width: 100%;
@@ -275,6 +308,23 @@ p {
 }
 
 /* Кнопки --------------------------------------------------------------------------*/
+.home-button{
+  padding-left: 40px;
+  padding-right: 40px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  font-size: 18px;
+  color: var(--color-background);
+  cursor: pointer;
+  font-weight: bold;
+  border: var(--color-background) 1px solid;
+}
+
+.home-button:hover{
+  background-color: var(--color-light-gray);
+  color: var(--color-dark);
+}
+
 .small-button{
   background: var(--color-light-gray);
   padding-left: 20px;
