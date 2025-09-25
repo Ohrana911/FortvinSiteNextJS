@@ -36,6 +36,57 @@ export default function Home() {
       </div>
 
       <Carousel className="full-width" />
+      
+      {/*
+            <Button>
+            <Link href={"/api/products"}>Перейти в Каталог</Link>
+            </Button>
+       */}
+    
+      {/* <TopBar /> */}
+{/* 
+    <Container className="mt-10 pb-14">
+      <div className="flex gap-[60px]">
+        <div className="flex-1">
+          <div className="flex flex-col gap-16">
+            <Button>
+            <Link href={"/api/products"}>Перейти в Каталог</Link>
+            </Button>
+            <ProductsGroupList title={"Бетонные блоки"} items={[
+              {
+              id: 1,
+              name: 'Бетон блок',
+              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
+              price: 5550,
+              items: [{price: 5550}],
+
+            },
+            {
+              id: 2,
+              name: 'Бетон блок',
+              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
+              price: 5550,
+              items: [{price: 5550}],
+
+            },
+            {
+              id: 3,
+              name: 'Бетон блок',
+              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
+              price: 5550,
+              items: [{price: 5550}],
+
+            },
+            ]} categoryId={1} />
+          </div>
+          <div className="flex flex-col gap-16">
+            <ProductsGroupList title={"Кирпичи"} items={[
+              {
+              id: 1,
+              name: 'Бетон блок',
+              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
+              price: 5550,
+              items: [{price: 5550}],
 
       <div>
         <div className="flex justify-between w-full items-end">
@@ -62,6 +113,15 @@ export default function Home() {
             </div>
           </div>
 
+          <div className="flex flex-col gap-16">
+            <ProductsGroupList title={"Плитка"} items={[
+              {
+              id: 1,
+              name: 'Бетон блок',
+              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
+              price: 5550,
+              items: [{price: 5550}],
+
           <div className="blue-card gap-[20px]">
             <img src="./home/mosh2.jpg" alt="Благоустройство" />
             <h2>Благоустройство и мощение</h2>
@@ -83,6 +143,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+    </Container> */}
 
       <RequestForm />
     </div>
