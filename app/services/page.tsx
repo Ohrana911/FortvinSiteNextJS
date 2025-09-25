@@ -15,7 +15,7 @@ export default function ServicesPage() {
                 <li className="breadcrumb-current">Услуги</li>
             </ol>
         </nav>
-        <div className="service-block">
+        <div id="house" className="service-block scroll-mt-[120px]">
             <h1 className="underline">Строительство домов под ключ</h1>
             <div className="service-card">
                 <div className="left-side-card">
@@ -67,7 +67,7 @@ export default function ServicesPage() {
             </div>
         </div>
 
-        <div className="service-block">
+        <div id="landscape" className="service-block scroll-mt-[120px]">
             <h1 className="underline">Благоустройство и мощение</h1>
             <div className="service-card reverse">
                 <div className="left-side-card">
@@ -119,7 +119,7 @@ export default function ServicesPage() {
             </div>
         </div>
 
-        <div className="service-block">
+        <div id="design" className="service-block scroll-mt-[120px]">
             <h1 className="underline">Дизайн интерьеров</h1>
             <div className="service-card">
                 <div className="left-side-card">

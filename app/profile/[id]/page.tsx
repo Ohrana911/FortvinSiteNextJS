@@ -45,15 +45,15 @@ export default function ProfilePage() {
                     <div className="profile-block">
                         <p className="font-bold">Персональные данные</p>
                         <div className="w-full flex flex-row gap-10">
-                            <div className="profile-card">
+                            <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">ФИО</p>
                                 <h3>{profile.name}</h3>
                             </div>
-                            <div className="profile-card">
+                            <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">Номер телефона</p>
                                 <h3>{profile.phone}</h3>
                             </div>
-                            <div className="profile-card">
+                            <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">Email</p>
                                 <h3>{profile.email}</h3>
                             </div>
@@ -65,7 +65,7 @@ export default function ProfilePage() {
                         </div>
                     <div className="profile-block">
                         <p className="font-bold">История заявок</p>
-                        <div className="profile-card">
+                        <div className="blue-card gap-[5px]">
                             <div className="flex flex-col gap-5">
                                 <div className="flex flex-row w-full justify-between items-start">
                                     <div className="flex flex-col gap-[5px]">
