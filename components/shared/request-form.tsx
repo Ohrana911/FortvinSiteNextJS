@@ -2,43 +2,48 @@
 
 import React, { useState } from 'react';
 import { Button } from '../ui';
+import toast from "react-hot-toast";
 
 interface FormData {
-    name: string;
-    phone: string;
-    city: string;
-    service: string;
+  name: string;
+  phone: string;
+  city: string;
+  service: string;
 }
 
 const RequestForm: React.FC = () => {
-    const [form, setForm] = useState<FormData>({
-        name: '',
-        phone: '',
-        city: '',
-        service: '',
-    });
+  const [form, setForm] = useState<FormData>({
+    name: '',
+    phone: '',
+    city: '',
+    service: '',
+  });
 
-    const [submitted, setSubmitted] = useState(false);
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
+  ) => {
+    setForm({ ...form, [e.target.name]: e.target.value });
+  };
 
-    const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
-    ) => {
-        setForm({ ...form, [e.target.name]: e.target.value });
-    };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('/api/send-request', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
 
-    const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault();
-        try {
-            const res = await fetch('/api/send-request', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(form),
-            });
-            if (res.ok) setSubmitted(true);
-        } catch (err) {
-            // handle error
-        }
-    };
+      if (res.ok) {
+        toast.success("✅ Заявка успешно отправлена!");
+        setForm({ name: '', phone: '', city: '', service: '' }); // очистим форму
+      } else {
+        toast.error("❌ Ошибка при отправке заявки");
+      }
+    } catch (err) {
+      toast.error("⚠️ Что-то пошло не так, попробуйте позже");
+    }
+  };
 
     return (
         <div className="request-block scroll-mt-20" id="request-form">
@@ -63,7 +68,7 @@ const RequestForm: React.FC = () => {
                             />
                         <label htmlFor="phone">Номер телефона</label>
                                 <input 
-                                    id="phone" 
+                                    id="phone"
                                     name="phone"
                                     type="tel" 
                                     placeholder="+7 (000) 000-00-00" 
@@ -108,11 +113,10 @@ const RequestForm: React.FC = () => {
                         </div>
                         <Button variant="request" size="request">Оставить заявку</Button>
                     </form>
-                {submitted && <p className="success-message">Заявка успешно отправлена!</p>}
                 </div>
             </div>
         </div>
-    );
+  );
 };
 
 export default RequestForm;

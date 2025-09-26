@@ -18,7 +18,7 @@ import { redirect } from 'next/dist/server/api-utils';
 import { ArrowRight } from 'lucide-react';
 import { CartDrawerItem } from './cart-drawer-item';
 import { useCartStore } from '@/store';
-import { removeCartItem } from '@/services/cart';
+import { removeCartItem, updateItemQuantity } from '@/services/cart';
 
 interface Props {
   className?: string;
@@ -29,6 +29,73 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
     const totalAmount = useCartStore(state => state.totalAmount);
     const fetchCartItems = useCartStore(state => state.fetchCartItems);
     const items = useCartStore(state => state.items);
+
+    const [redirecting, setRedirecting] = React.useState(false);
+
+    // const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    //     console.log(id, quantity, type);
+    //     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+    //     updateItemQuantity(id, newQuantity);
+    // };
+
+    // const onClickCountButton = async (id: number, quantity: number, type: 'plus' | 'minus') => {
+    //     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+
+    //     // обновляем на сервере
+    //     await updateItemQuantity(id, newQuantity);
+
+    //     // обновляем локальный Zustand store
+    //     fetchCartItems(); // если fetchCartItems подтягивает свежие items и totalAmount
+    //     console.log(id, quantity, type);
+    // };
+
+    const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
+    const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
+
+    // 1. Оптимистически обновляем Zustand store
+    useCartStore.setState(state => {
+        const updatedItems = state.items.map(item =>
+            item.id === id ? { ...item, quantity: newQuantity } : item
+        );
+
+        const newTotal = updatedItems.reduce(
+            (sum, item) => sum + item.price * item.quantity,
+            0
+        );
+
+        return { items: updatedItems, totalAmount: newTotal };
+    });
+
+        // 2. Асинхронно отправляем запрос на сервер
+        updateItemQuantity(id, newQuantity).catch(() => {
+            // если ошибка — откатываем обратно, перезапрашиваем с сервера
+            fetchCartItems();
+        });
+    };
+
+
+    const onClickRemove = (id: number) => {
+    // 1. Оптимистически обновляем Zustand store
+    useCartStore.setState(state => {
+        const updatedItems = state.items.filter(item => item.id !== id);
+
+        const newTotal = updatedItems.reduce(
+        (sum, item) => sum + item.price * item.quantity,
+        0
+        );
+
+        return { items: updatedItems, totalAmount: newTotal };
+    });
+
+    // 2. Асинхронно обновляем сервер
+    removeCartItem(id).catch(() => {
+        // если ошибка — откат
+        fetchCartItems();
+    });
+    };
+
+
+
 
 
     React.useEffect(() => {
@@ -48,26 +115,22 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                     {
                         items.map((item) => (
                             <CartDrawerItem
+                            key={item.id} // ← обязательно!
                             id={item.id}
                             imageUrl={item.imageUrl}
-                            details='Какие то детали'
                             disabled={item.disabled}
                             name={item.name}
                             price={item.price}
                             quantity={item.quantity}
-                            // onClickCountButton={(type) =>
-                            //     onClickCountButton(item.id, item.quantity, type)
-                            // }
-                            onClickRemove={() => removeCartItem(item.id)}
+                            onClickCountButton={(type) =>
+                                onClickCountButton(item.id, item.quantity, type)
+                            }
+                            onClickRemove={() => onClickRemove(item.id)} // ← используем свою функцию!
                             />
                         ))
                     }
                 </div>
             </div>
-
-
-
-
             <SheetFooter className="bg-white p-8">
                 <div>
                     <div className="flex mb-4">
@@ -79,8 +142,12 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                         <span className="font-bold text-lg">{totalAmount} Рублей</span>
                     </div>
 
-                    <Link href="/cart">
-                        <Button type="submit" className="w-full h-12 text-base">
+                    <Link href="/checkout">
+                        <Button
+                            onClick={() => setRedirecting(true)}
+                            loading={redirecting}
+                            type="submit"
+                            className="w-full h-12 text-base">
                             Оформить заказ
                             <ArrowRight className="w-5 ml-2" />
                         </Button>

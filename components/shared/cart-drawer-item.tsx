@@ -20,7 +20,6 @@ export const CartDrawerItem: React.FC<Props> = ({
   name,
   price,
   quantity,
-  details,
   disabled,
   onClickCountButton,
   onClickRemove,
@@ -38,7 +37,7 @@ export const CartDrawerItem: React.FC<Props> = ({
       <CartItem.Image src={imageUrl} />
 
       <div className="flex-1">
-        <CartItem.Info name={name} details={details} />
+        <CartItem.Info name={name} />
 
         <hr className="my-3" />
 

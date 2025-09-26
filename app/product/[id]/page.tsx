@@ -20,20 +20,24 @@ import { Container } from '@/components/shared/container';
 import { prisma } from '@/prisma/prisma-client';
 import { notFound } from 'next/navigation';
 import { Title } from '@/components/shared';
+import { AddToCartButton } from '@/components/shared/add-to-cart-button';
 
-export default async function ProductPage({ params: { id } }: { params: { id: string } }) {
-  const product = await prisma.product.findFirst({ where: { id: Number(id) } });
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
 
-  if (!product){
+  const product = await prisma.product.findFirst({
+    where: { id: Number(id) },
+  });
+
+  if (!product) {
     return notFound();
   }
 
-  return     <Container className="flex flex-col my-10">
+  return (
+    <Container className="flex flex-col my-10">
       <div className="flex flex-1 gap-6">
-        {/* Изображение */}
         <ProductImage imageUrl={product.imageUrl ?? '/placeholder.png'} size={20} />
 
-        {/* Характеристики */}
         <div className="w-[490px] bg-[#FCFCFC] p-7 rounded-lg shadow-md">
           <Title text={product.name} size="md" className="font-extrabold mb-4" />
           <ul className="space-y-2 text-gray-700">
@@ -50,6 +54,12 @@ export default async function ProductPage({ params: { id } }: { params: { id: st
           </ul>
         </div>
       </div>
-    </Container>
+      {product.id > 0 && (
+        <AddToCartButton productItemId={product.id} />
+      )}
+      
 
+    </Container>
+  );
 }
+

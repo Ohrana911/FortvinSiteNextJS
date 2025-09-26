@@ -7,6 +7,7 @@ import { Filters } from "@/components/shared/filters";
 import { ProductsGroupList } from "@/components/shared/products-group-list";
 import Link from "next/link";
 
+
 export default function CatalogPage() {
   return (
     <>
@@ -17,7 +18,6 @@ export default function CatalogPage() {
     </Container>
     
     <TopBar />
-
     <Container className="mt-10 pb-14">
       <div className="flex gap-[60px]">
         {/* Фильтрация */}
