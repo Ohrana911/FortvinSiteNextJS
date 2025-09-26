@@ -51,13 +51,15 @@ export default function CheckoutPage() {
 
       const url = await createOrder(data);
 
-      toast.error('Заказ успешно оформлен! 📝 Переход на оплату... ', {
+      toast.error('Заказ успешно оформлен! 📝 Отправление заявки... ', {
         icon: '✅',
       });
 
       // if (url) {
       //   location.href = url;
       // }
+      
+      setSubmitting(false); // <-- сброс состояния
     } catch (err) {
       console.log(err);
       setSubmitting(false);

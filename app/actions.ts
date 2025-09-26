@@ -79,10 +79,10 @@ export async function createOrder(data: CheckoutFormValues) {
     // Отправляем письмо-подтверждение без оплаты
     await sendEmail(
       data.email,
-      'Next Pizza / Заказ #' + order.id,
-      `<h1>Спасибо за заказ!</h1>
-       <p>Ваш заказ #${order.id} успешно оформлен.</p>
-       <p>Сумма: ${order.totalAmount} ₽</p>`
+      'Заказ #' + order.id,
+      `Спасибо за заказ!
+       Ваш заказ #${order.id} успешно оформлен.
+       Сумма: ${order.totalAmount} ₽`
     );
 
     return order;

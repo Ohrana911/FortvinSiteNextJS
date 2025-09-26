@@ -1,18 +1,27 @@
 'use client';
 
 import React from 'react';
-import { AddressSuggestions } from 'react-dadata';
+import dynamic from 'next/dynamic';
+import { DaDataSuggestion, DaDataAddress } from 'react-dadata';
 import 'react-dadata/dist/react-dadata.css';
 
-interface Props {
+interface AdressInputProps {
   onChange?: (value?: string) => void;
 }
 
-export const AdressInput: React.FC<Props> = ({ onChange }) => {
+// Загружаем AddressSuggestions только на клиенте
+const AddressSuggestionsClient = dynamic(
+  () => import('react-dadata').then((mod) => mod.AddressSuggestions),
+  { ssr: false }
+);
+
+export const AdressInput: React.FC<AdressInputProps> = ({ onChange }) => {
   return (
-    <AddressSuggestions
-      token="b5b8bb983ddcd08648080e0271d9dd367bb7aa65"
-      onChange={(data) => onChange?.(data?.value)}
+    <AddressSuggestionsClient
+      token="270b4d26a7ce41a9344303ab8d0416c4511eaa79"
+      onChange={(data: DaDataSuggestion<DaDataAddress> | undefined) =>
+        onChange?.(data?.value)
+      }
     />
   );
 };
