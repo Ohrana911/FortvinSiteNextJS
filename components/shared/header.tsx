@@ -6,10 +6,10 @@ import { CartButton } from "./cart-button";
 import { CityDropdown } from "./city-dropdown";
 import { MapPin } from "lucide-react";
 import { Search } from "lucide-react";
-import { useState } from "react";
 import { AuthModal } from "./modals/auth-modal";
 import { ProfileButton } from "./profile-button";
 import { useRouter } from "next/router";
+import { SearchInput } from "./search-input";
 
 interface Props {
     className?: string;
@@ -104,8 +104,8 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
                     {<button onClick={onOpenModal} className="linear cursor-pointer"><User size={24}/></button>}
-                    {<button className="linear cursor-pointer"><Heart size={24}/></button>
-                    <CartButton />}
+                    <button className="linear cursor-pointer"><Heart size={24}/></button>
+                    <CartButton />
                 </div>
 
                 {/* Правая часть */}
