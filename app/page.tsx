@@ -4,6 +4,7 @@ import React from "react";
 import Link from "next/link";
 import Carousel from "@/components/ui/carousel";
 import RequestForm from "@/components/shared/request-form"
+import { Button } from "@/components/ui";
 
 export default function Home() {
   return (
@@ -36,12 +37,18 @@ export default function Home() {
       </div>
 
       <Carousel className="full-width" />
-      
-      {/*
-            <Button>
-            <Link href={"/api/products"}>Перейти в Каталог</Link>
-            </Button>
-       */}
+
+      <div>
+        <div className="flex justify-between w-full items-end">
+          <h1 className="underline">Каталог</h1>
+          <Link href="/api/products">
+              <button className="small-button mb-[40px]">Перейти в раздел</button>
+          </Link>
+        </div>
+        <div className="service-blocks">
+
+        </div>
+      </div>
     
       {/* <TopBar /> */}
 {/* 
@@ -99,6 +106,7 @@ export default function Home() {
 
         </div>
       </div>
+    </Container> */}
 
       <div>
         <h1 className="underline">Услуги</h1>
@@ -112,15 +120,6 @@ export default function Home() {
               </Link>
             </div>
           </div>
-
-          <div className="flex flex-col gap-16">
-            <ProductsGroupList title={"Плитка"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
 
           <div className="blue-card gap-[20px]">
             <img src="./home/mosh2.jpg" alt="Благоустройство" />
@@ -143,7 +142,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </Container> */}
 
       <RequestForm />
     </div>
