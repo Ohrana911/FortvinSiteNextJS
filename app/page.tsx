@@ -18,7 +18,7 @@ export default function Home() {
             <h1 className="leading-[90%] text-[var(--background)]">Ваш надежный поставщик<br/>строительных материалов</h1>
           </div>
           <h3 className="text-[var(--background)]">Работаем напрямую с производителями с 2003 года</h3>
-          <Link href="/catalog">
+          <Link href="/api/products">
             <button className="home-button">Перейти в каталог</button>
           </Link>
         </div>
@@ -27,7 +27,7 @@ export default function Home() {
       <div>
         <div className="flex justify-between w-full items-end">
           <h1 className="underline">Акции и скидки</h1>
-          <Link href="/catalog">
+          <Link href="/api/products">
               <button className="small-button mb-[40px]">Перейти в раздел</button>
           </Link>
         </div>
