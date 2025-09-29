@@ -343,10 +343,16 @@ button.linear:hover{
   font-weight: bold;
 }
 
-button:hover{
+button.blue-hover:hover{
   background-color: #5482A4;
   color: #F4F5F7;
   font-weight: bold;
+}
+
+button.light-hover:hover{
+  background-color: #BCDBF2;
+  color: #2F3336;
+  font-weight: lighter;
 }
 
 .mobile-button {

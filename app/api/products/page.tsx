@@ -156,6 +156,7 @@ type Product = {
 };
 
 const categories = [
+  { key: 'SALES', label: 'Акции и скидки' },
   { key: 'GAZOBETONNYE_BLOKI', label: 'Газобетонные блоки' },
   { key: 'OBLITSOVOCHNYY_KIRPICH', label: 'Облицовочный кирпич' },
   { key: 'TROTUARNAYA_PLITKA', label: 'Тротуарная плитка' },
@@ -181,76 +182,87 @@ export default function ProductsPage() {
   }, [page, category]);
 
   return (
-    <div className="p-5 max-w-7xl mx-auto">
-      <h1 className="text-3xl font-bold mb-6">Каталог продукции</h1>
+    <div className="container">
+      <nav className="breadcrumb">
+            <ol>
+                <li>
+                    <a href="/" className="breadcrumb-link">Главная</a>
+                </li>
+                <li className="breadcrumb-separator">→</li>
+                <li className="breadcrumb-current">Каталог</li>
+            </ol>
+        </nav>
 
-      {/* Кнопки категорий */}
-      <div className="flex gap-3 mb-6">
-        {categories.map((c) => (
-          <button
-            key={c.key}
-            onClick={() => {
-              setCategory(c.key);
-              setPage(1); // при смене категории возвращаемся на первую страницу
-            }}
-            className={`px-4 py-2 rounded border transition ${
-              category === c.key
-                ? 'bg-blue-600 text-white'
-                : 'bg-gray-100 hover:bg-gray-200'
-            }`}
-          >
-            {c.label}
-          </button>
-        ))}
-      </div>
+      <div>
+        <h1 className='underline'>Каталог</h1>
 
-      {/* Сетка продуктов */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {products.map((p) => (
-          <div
-            key={p.id}
-            className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition"
-          >
-            <img
-              src={p.imageUrl ?? '/placeholder.png'}
-              alt={p.name}
-              className="w-40 h-40 object-cover mb-4 rounded"
-            />
-            <h2 className="text-lg font-semibold text-center">{p.name}</h2>
-            <p className="text-gray-600 mt-2">
-              {p.retailPriceRubWithVAT
-                ? `${p.retailPriceRubWithVAT} ₽`
-                : 'Цена по запросу'}
-            </p>
-            <a
-              href={`/product/${p.id}`}
-              className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+        {/* Кнопки категорий */}
+        <div className="flex gap-3 mb-6">
+          {categories.map((c) => (
+            <button
+              key={c.key}
+              onClick={() => {
+                setCategory(c.key);
+                setPage(1); // при смене категории возвращаемся на первую страницу
+              }}
+              className={`special px-4 py-2 border-1 border-[var(--color-gray)] transition cursor-pointer ${
+                category === c.key
+                  ? 'bg-[var(--color-blue)] text-white'
+                  : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'
+              }`}
             >
-              Подробнее
-            </a>
-          </div>
-        ))}
-      </div>
+              {c.label}
+            </button>
+          ))}
+        </div>
+        {/* Сетка продуктов */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          {products.map((p) => (
+            <div
+              key={p.id}
+              className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition"
+            >
+              <img
+                src={p.imageUrl ?? '/placeholder.png'}
+                alt={p.name}
+                className="w-40 h-40 object-cover mb-4 rounded"
+              />
+              <h2 className="text-lg font-semibold text-center">{p.name}</h2>
+              <p className="text-gray-600 mt-2">
+                {p.retailPriceRubWithVAT
+                  ? `${p.retailPriceRubWithVAT} ₽`
+                  : 'Цена по запросу'}
+              </p>
+              <a
+                href={`/product/${p.id}`}
+                className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              >
+                Подробнее
+              </a>
+            </div>
+          ))}
+        </div>
 
-      {/* Пагинация */}
-      <div className="flex justify-center items-center gap-4 mt-8">
-        <button
-          disabled={page === 1}
-          onClick={() => setPage((p) => p - 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
-        >
-          Предыдущая
-        </button>
-        <span>
-          Страница {page} из {totalPages}
-        </span>
-        <button
-          disabled={page === totalPages}
-          onClick={() => setPage((p) => p + 1)}
-          className="px-3 py-1 border rounded disabled:opacity-50"
-        >
-          Следующая
-        </button>
+        {/* Пагинация */}
+        <div className="flex justify-center items-center gap-4 mt-8">
+          <button
+            disabled={page === 1}
+            onClick={() => setPage((p) => p - 1)}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Предыдущая
+          </button>
+          <span>
+            Страница {page} из {totalPages}
+          </span>
+          <button
+            disabled={page === totalPages}
+            onClick={() => setPage((p) => p + 1)}
+            className="px-3 py-1 border rounded disabled:opacity-50"
+          >
+            Следующая
+          </button>
+        </div>
       </div>
     </div>
   );

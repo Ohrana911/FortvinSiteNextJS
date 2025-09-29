@@ -22,7 +22,7 @@ export default function ServicesPage() {
                     <img src="/house.jpg" alt="Дом" className="service-image" />
                     <div className="desktop-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>
                 </div>
@@ -60,7 +60,7 @@ export default function ServicesPage() {
                     </ul>
                     <div className="mobile-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ export default function ServicesPage() {
                     <img src="/moshenie.jpg" alt="Мощение" className="service-image" />
                     <div className="desktop-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hovercursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>
                 </div>
@@ -112,7 +112,7 @@ export default function ServicesPage() {
                     </ul>
                     <div className="mobile-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>                    
                 </div>
@@ -126,7 +126,7 @@ export default function ServicesPage() {
                     <img src="/design.jpg" alt="Дизайн" className="service-image" />
                     <div className="desktop-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>                
                 </div>
@@ -164,7 +164,7 @@ export default function ServicesPage() {
                     </ul>
                     <div className="mobile-button">
                         <a href="#request-form">
-                            <Button className="cursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>                    
                 </div>

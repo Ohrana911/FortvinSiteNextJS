@@ -111,7 +111,7 @@ const RequestForm: React.FC = () => {
                             Я даю <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаюсь с <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a>
                             </label>
                         </div>
-                        <Button variant="request" size="request">Оставить заявку</Button>
+                        <Button className="cursor-pointer" variant="request" size="request">Оставить заявку</Button>
                     </form>
                 </div>
             </div>
