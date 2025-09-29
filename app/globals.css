@@ -337,6 +337,11 @@ p {
   border: var(--color-dark) 1px solid;
 }
 
+.small-button:hover{
+  background-color: #BCDBF2;
+  color: #2F3336;
+}
+
 button.linear:hover{
   background-color: #F4F5F7;
   color: #5482A4;

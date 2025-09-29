@@ -21,8 +21,18 @@ const Footer: React.FC = () => (
             </div>
         </div>
         <div className='footer-bottom bg-[var(--color-dark)] flex flex-col justify-start gap-0'>
-            <a className='text-[var(--color-light-blue)] text-sm underline' href="/privacy-policy">Политика обработки персональных данных</a>
-            <a className='text-[var(--color-light-blue)] text-sm underline' href="/privacy-policy">Согласие на обработку персональных данных</a>
+            <a 
+                className='text-[var(--color-light-blue)] text-sm underline' 
+                href="/privacy-policy">
+                    Политика обработки персональных данных
+            </a>
+            <a 
+                className='text-[var(--color-light-blue)] text-sm underline' 
+                href="/Согласие на обработку пд Фортвин.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer">
+                    Согласие на обработку персональных данных
+            </a>
         </div>
     </footer>
 );
