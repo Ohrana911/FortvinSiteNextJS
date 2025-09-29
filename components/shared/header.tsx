@@ -87,36 +87,23 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                 {/* Поиск */}
                 <div className="flex-1 mx-8">
                     <SearchInput />
-                    { <input
-                    type="text"
-                    placeholder="Поиск по товарам"
-                    className="w-full border border-gray-400 px-4 py-2 rounded-none focus:outline-none focus:ring-2 focus:ring-gray-500"
-                    />}
                 </div>
 
                 {/* Навигация */}
                 <nav className="flex gap-6 text-gray-700 font-medium  mx-8">
-                    <a href="/catalog">Каталог</a>
-                    <a href="services">Услуги</a>
-                    <a href="#footer">Контакты</a>
+                    <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
+                    <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
+                    <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
                 </nav>
 
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
-                    {<button onClick={onOpenModal} className="linear cursor-pointer"><User size={24}/></button>}
+                    <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+                        <ProfileButton className="cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
+                    {/* <button onClick={() => setOpenAuthModal(true)} className="linear cursor-pointer"><User size={24}/></button> */}
                     <button className="linear cursor-pointer"><Heart size={24}/></button>
-                    <CartButton />
-                </div>
-
-                {/* Правая часть */}
-                <div className="flex items-center gap-3">
-                <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-
-                <ProfileButton onClickSignIn={() => setOpenAuthModal(true)} />
-
-                {hasCart && <CartButton className="cursor-pointer"/>}
-                </div>
-                
+                    {hasCart && <CartButton className="cursor-pointer"/>}
+                </div>                
             </div>
         </div>
         </header>

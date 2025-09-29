@@ -45,84 +45,77 @@ const RequestForm: React.FC = () => {
     }
   };
 
-  return (
-    <div className="request-block scroll-mt-20" id="request-form">
-      <h1 className="underline">Хотите заказать услугу?</h1>
-      <div className="request-card">
-        <div className="request-left">
-          <p>
-            Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ
-          </p>
-          <img src="/request.jpg" alt="Заявка" className="request-image" />
+    return (
+        <div className="request-block scroll-mt-20" id="request-form">
+                <h1 className="underline">Хотите заказать услугу?</h1>
+                <div className="request-card">
+                    <div className="request-left">
+                        <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
+                        <img src="/request.jpg" alt="Заявка" className="request-image" />
+                    </div>
+
+                    <div className="request-right">
+                    <form className="request-form" onSubmit={handleSubmit}>
+                        <label htmlFor="name">ФИО</label>
+                            <input
+                                id="name"
+                                name="name"
+                                type="text"
+                                placeholder="Иван Иванович Иванов"
+                                value={form.name}
+                                onChange={handleChange}
+                                required
+                            />
+                        <label htmlFor="phone">Номер телефона</label>
+                                <input 
+                                    id="phone"
+                                    name="phone"
+                                    type="tel" 
+                                    placeholder="+7 (000) 000-00-00" 
+                                    value={form.phone}
+                                    onChange={handleChange}
+                                    required 
+                                />
+                        <label htmlFor="city">Город</label>
+                            <input
+                                id="city"
+                                name="city"
+                                type="text"
+                                placeholder="Например: Санкт-Петербург"
+                                value={form.city}
+                                onChange={handleChange}
+                                required
+                            />
+                        <label htmlFor="service">Услуга</label>
+                        <select 
+                            id="service"
+                            name="service"
+                            value={form.service}
+                            onChange={handleChange}
+                            required
+                        >
+                            <option value=""></option>
+                            <option value="house">Строительство домов</option>
+                            <option value="design">Дизайн интерьеров</option>
+                            <option value="landscape">Благоустройство</option>
+                        </select>
+                        <div className="flex items-center gap-2">
+                            <input
+                            type="checkbox"
+                            id="agreement"
+                            name="agreement"
+                            required
+                            className="cursor-pointer accent-[var(--color-blue)] w-[24px] h-[24px]"
+                            />
+                            <label htmlFor="agreement" className="note mb-[20px]">
+                            Я даю <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаюсь с <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a>
+                            </label>
+                        </div>
+                        <Button className="cursor-pointer" variant="request" size="request">Оставить заявку</Button>
+                    </form>
+                </div>
+            </div>
         </div>
-
-        <div className="request-right">
-          <form className="request-form" onSubmit={handleSubmit}>
-            <label htmlFor="name">ФИО</label>
-            <input
-              id="name"
-              name="name"
-              type="text"
-              placeholder="Иван Иванович Иванов"
-              value={form.name}
-              onChange={handleChange}
-              required
-            />
-
-            <label htmlFor="phone">Номер телефона</label>
-            <input
-              id="phone"
-              name="phone"
-              type="tel"
-              placeholder="+7 (000) 000-00-00"
-              value={form.phone}
-              onChange={handleChange}
-              required
-            />
-
-            <label htmlFor="city">Город</label>
-            <input
-              id="city"
-              name="city"
-              type="text"
-              placeholder="Например: Санкт-Петербург"
-              value={form.city}
-              onChange={handleChange}
-              required
-            />
-
-            <label htmlFor="service">Услуга</label>
-            <select
-              id="service"
-              name="service"
-              value={form.service}
-              onChange={handleChange}
-              required
-            >
-              <option value=""></option>
-              <option value="house">Строительство домов</option>
-              <option value="design">Дизайн интерьеров</option>
-              <option value="landscape">Благоустройство</option>
-            </select>
-
-            <Button variant="request" size="request">
-              Оставить заявку
-            </Button>
-          </form>
-
-          <p className="note">
-            Нажимая на кнопку «Оставить заявку», Вы даете{" "}
-            <a className="text-[var(--color-blue)] underline" href="/privacy-policy">
-              Согласие на обработку данных
-            </a>{" "}
-            и соглашаетесь c{" "}
-            <a className="text-[var(--color-blue)] underline" href="/privacy-policy">
-              Политикой конфиденциальности
-            </a>
-          </p>
-        </div>
-      </div>
-    </div>
   );
 };
 
