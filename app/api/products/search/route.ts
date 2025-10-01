@@ -134,6 +134,7 @@ export async function GET(req: NextRequest) {
   const limit = searchParams.get('limit');
 
   // Фильтр по категории (если указана)
+  // Фильтр по категории (если указана)
   const where: any = {
     name: {
       contains: query,
@@ -141,9 +142,14 @@ export async function GET(req: NextRequest) {
     },
   };
 
-  if (category) {
-    where.category = { name: category };
+  if (category && category !== "ALL") {
+    if (category === "SALES") {
+      where.isOnSale = true; // фильтр по акции
+    } else {
+      where.category = { name: category };
+    }
   }
+
 
   // Если page/limit нет → автоподсказки (5 штук)
   if (!page || !limit) {
