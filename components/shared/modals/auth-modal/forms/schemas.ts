@@ -12,6 +12,7 @@ export const formRegisterSchema = formLoginSchema
     z.object({
       fullName: z.string().min(2, { message: 'Введите имя и фамилию' }),
       confirmPassword: passwordSchema,
+      phone: z.string().min(10, { message: 'Введите корректный номер телефона' }), // ← добавлено
     }),
   )
   .refine((data) => data.password === data.confirmPassword, {

@@ -116,6 +116,7 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
         password: body.password
           ? hashSync(body.password as string, 10)
           : findUser?.password,
+        phone: (body as any).phone ?? findUser?.phone,
       },
     });
   } catch (err) {
@@ -140,32 +141,98 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       throw new Error('Пользователь уже существует');
     }
 
+    // const createdUser = await prisma.user.create({
+    //   data: {
+    //     fullName: body.fullName,
+    //     email: body.email,
+    //     password: hashSync(body.password, 10),
+    //     phone: body.phone,
+    //   },
+    // });
+
+    // const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+
+    // await prisma.verificationCode.create({
+    //   data: {
+    //     code,
+    //     userId: createdUser.id,
+    //   },
+    // });
+
+  //   const code = Math.floor(100000 + Math.random() * 900000).toString();
+
+
+  //   const createdUser = await prisma.user.create({
+  //     data: {
+  //       fullName: body.fullName,
+  //       email: body.email,
+  //       password: hashSync(body.password, 10),
+  //       phone: body.phone,
+  //     },
+  //   });
+
+  //   try {
+  //     const verification = await prisma.verificationCode.create({
+  //       data: {
+  //         userId: createdUser.id,
+  //         code,
+  //       },
+  //     });
+  //     console.log('Verification code created in DB:', verification);
+  //   } catch (err) {
+  //     console.error('Error creating verification code:', err);
+  //   }
+
+  //   await sendEmail(
+  //     createdUser.email,
+  //     '📝 Подтверждение регистрации',
+  //     VerificationUserTemplate({
+  //       code,
+  //     }),
+  //   );
+
+  //   console.log('Verification code created:', code);
+  // } catch (err) {
+  //   console.log('Error [CREATE_USER]', err);
+  //   throw err;
+  // }
+
+  // Создаём пользователя
     const createdUser = await prisma.user.create({
       data: {
         fullName: body.fullName,
         email: body.email,
         password: hashSync(body.password, 10),
+        phone: body.phone,
+        // создаём первый код верификации сразу через relation
+        verificationCode: {
+          create: {
+            code: Math.floor(100000 + Math.random() * 900000).toString(),
+          },
+        },
       },
+      include: { verificationCode: true },
     });
 
-    const code = Math.floor(100000 + Math.random() * 900000).toString();
+    const latestCode = createdUser.verificationCode.at(-1)?.code;
 
-    await prisma.verificationCode.create({
-      data: {
-        code,
-        userId: createdUser.id,
-      },
-    });
+    // Отправляем код на почту
+    if (latestCode) {
+      await sendEmail(
+        createdUser.email,
+        '📝 Подтверждение регистрации',
+        VerificationUserTemplate({ code: latestCode })
+      );
+    }
 
-    await sendEmail(
-      createdUser.email,
-      'Next Pizza / 📝 Подтверждение регистрации',
-      VerificationUserTemplate({
-        code,
-      }),
-    );
+    console.log('User and verification code created:', createdUser);
+
+    return createdUser;
   } catch (err) {
-    console.log('Error [CREATE_USER]', err);
+    console.error('Error [CREATE_USER]', err);
     throw err;
   }
+
+  
 }

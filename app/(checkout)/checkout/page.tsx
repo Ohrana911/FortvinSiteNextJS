@@ -38,6 +38,8 @@ export default function CheckoutPage() {
       form.setValue('firstName', firstName);
       form.setValue('lastName', lastName);
       form.setValue('email', data.email);
+      form.setValue('phone', data.phone ?? '');
+      console.log('Phone after setValue:', form.getValues('phone'));
     }
 
     if (session) {

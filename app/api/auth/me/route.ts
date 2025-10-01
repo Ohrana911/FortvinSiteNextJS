@@ -60,6 +60,7 @@ export async function GET(req: Request) {
         fullName: true,
         email: true,
         password: false,
+        phone: true,
       },
     });
 

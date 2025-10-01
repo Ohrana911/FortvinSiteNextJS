@@ -90,6 +90,7 @@ export const authOptions: AuthOptions = {
             verified: new Date(),
             provider: account?.provider,
             providerId: account?.providerAccountId,
+            phone: '', // Убрать в случае ошибки
           },
         });
 
