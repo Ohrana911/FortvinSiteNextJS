@@ -99,7 +99,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
                     <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-                        <ProfileButton className="cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
+                    <ProfileButton className="b-0 cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
                     {/* <button onClick={() => setOpenAuthModal(true)} className="linear cursor-pointer"><User size={24}/></button> */}
                     <button className="linear cursor-pointer"><Heart size={24}/></button>
                     {hasCart && <CartButton className="cursor-pointer"/>}
