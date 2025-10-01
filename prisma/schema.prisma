@@ -34,12 +34,14 @@ model User {
   role     UserRole  @default(USER)
   verified DateTime?
 
+  phone String?
+
   provider   String?
   providerId String?
 
   cart             Cart?
   orders           Order[]
-  verificationCode VerificationCode?
+  verificationCode VerificationCode[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -152,7 +154,7 @@ model VerificationCode {
   id Int @id @default(autoincrement())
 
   user   User @relation(fields: [userId], references: [id])
-  userId Int  @unique
+  userId Int  
 
   code String
 
