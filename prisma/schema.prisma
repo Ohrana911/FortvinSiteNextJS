@@ -19,6 +19,7 @@ enum UserRole {
 }
 
 enum CategoryName {
+  SALES
   GAZOBETONNYE_BLOKI
   OBLITSOVOCHNYY_KIRPICH
   TROTUARNAYA_PLITKA
@@ -42,6 +43,8 @@ model User {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  posts Post[]
 }
 
 model Category {
@@ -76,6 +79,8 @@ model Product {
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  isOnSale    Boolean  @default(false)
 }
 
 model ProductItem {
@@ -174,4 +179,16 @@ model StoryItem {
   sourceUrl String
 
   createdAt DateTime @default(now())
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  date        String
+  title       String
+  description String
+  content     String
+  createdAt   DateTime @default(now())
+  
+  author   User   @relation(fields: [authorId], references: [id])
+  authorId Int
 }
