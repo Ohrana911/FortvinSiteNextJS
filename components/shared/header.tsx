@@ -116,10 +116,12 @@ import React, { useState, useEffect } from "react";
 import { Heart } from "lucide-react";
 import { CartButton } from "./cart-button";
 import { CityDropdown } from "./city-dropdown";
-import { SearchInput } from "./search-input";
+import { MapPin } from "lucide-react";
+import { Search } from "lucide-react";
 import { AuthModal } from "./modals/auth-modal";
 import { ProfileButton } from "./profile-button";
-import { FavoritesSidebar } from "./favorites-sidebar";
+import { useRouter } from "next/router";
+import { SearchInput } from "./search-input";
 
 interface Props {
     className?: string;
@@ -163,8 +165,8 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                     <CityDropdown value={city} onChange={handleCityChange} />
                     <nav className="flex gap-6">
                         <a href="/catalog" className="hover:underline">Акции и скидки</a>
-                        <a href="/about_us" className="hover:underline">О нас</a>
-                        <a href="/articles" className="hover:underline">Статьи</a>
+                        <a href="about_us" className="hover:underline">О нас</a>
+                        <a href="articles" className="hover:underline">Статьи</a>
                         <a href="/#carousel" className="hover:underline">Производители</a>
                     </nav>
                     <div className="flex items-center gap-2">
@@ -186,33 +188,23 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                         <SearchInput />
                     </div>
 
-                    {/* Навигация */}
-                    <nav className="flex gap-6 text-gray-700 font-medium mx-8">
-                        <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
-                        <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
-                        <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
-                    </nav>
+                {/* Навигация */}
+                <nav className="flex gap-6 text-gray-700 font-medium  mx-8">
+                    <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
+                    <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
+                    <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
+                </nav>
 
-                    {/* Иконки */}
-                    <div className="flex items-center gap-3">
-                        <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+                {/* Иконки */}
+                <div className="flex items-center gap-3">
+                    <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
                         <ProfileButton className="cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
-
-                        {/* Кнопка открытия избранного */}
-                        <button
-                            className="linear cursor-pointer"
-                            onClick={() => setShowFavorites(true)}
-                        >
-                            <Heart size={24} className="lucide lucide-heart text-black" suppressHydrationWarning/>
-                        </button>
-
-                        {hasCart && <CartButton className="cursor-pointer" />}
-                    </div>
-                </div>
+                    {/* <button onClick={() => setOpenAuthModal(true)} className="linear cursor-pointer"><User size={24}/></button> */}
+                    <button className="linear cursor-pointer"><Heart size={24}/></button>
+                    {hasCart && <CartButton className="cursor-pointer"/>}
+                </div>                
             </div>
-
-            {/* Сайдбар с избранным */}
-            <FavoritesSidebar open={showFavorites} onClose={() => setShowFavorites(false)} />
+        </div>
         </header>
     );
 };
