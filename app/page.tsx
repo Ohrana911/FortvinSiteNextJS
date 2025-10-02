@@ -42,7 +42,9 @@ export default function Home() {
                 <p>выполненных заказов</p>
               </div>
             </div>
-            <Button className="cursor-pointer" variant="request" size="request">Подробнее о компании</Button>
+            <Link href="/about_us">
+              <Button className="cursor-pointer" variant="request" size="request">Подробнее о компании</Button>
+            </Link>
           </div>
         </div>
       </div>
