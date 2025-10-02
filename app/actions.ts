@@ -13,6 +13,7 @@ export async function createOrder(data: CheckoutFormValues) {
   try {
     const cookieStore = cookies();
     const cartToken = (await cookieStore).get('cartToken')?.value;
+    const currentUser = await getUserSession();
 
     if (!cartToken) {
       throw new Error('Cart token not found');
@@ -45,6 +46,19 @@ export async function createOrder(data: CheckoutFormValues) {
       throw new Error('Cart is empty');
     }
 
+    const totalAmount = userCart.items.reduce((sum, item) => {
+      const product = item.productItem?.product;
+
+      if (!product) return sum;
+
+      const pricePerBrick = Number(product.retailPriceRubWithVAT ?? 0);
+      const qtyPerPallet = Number(product.quantityPerPallet ?? 1);
+      const palletPrice = pricePerBrick * qtyPerPallet;
+
+      return sum + palletPrice * Number(item.quantity);
+    }, 0);
+
+
     // Создаем заказ (без оплаты)
     const order = await prisma.order.create({
       data: {
@@ -54,9 +68,11 @@ export async function createOrder(data: CheckoutFormValues) {
         phone: data.phone,
         address: data.address,
         comment: data.comment,
-        totalAmount: userCart.totalAmount,
+        totalAmount,
         status: OrderStatus.PENDING,
-        items: JSON.stringify(userCart.items),
+        // items: JSON.stringify(userCart.items),
+        items: userCart.items, // см. ниже про JSON
+        user: currentUser ? { connect: { id: Number(currentUser.id) } } : undefined,
       },
     });
 
