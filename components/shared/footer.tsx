@@ -23,7 +23,9 @@ const Footer: React.FC = () => (
         <div className='footer-bottom bg-[var(--color-dark)] flex flex-col justify-start gap-0'>
             <a 
                 className='text-[var(--color-light-blue)] text-sm underline' 
-                href="/privacy-policy">
+                href="/Политика конфиденциальности Фортвин.pdf" 
+                target="_blank" 
+                rel="noopener noreferrer">
                     Политика обработки персональных данных
             </a>
             <a 

@@ -4,11 +4,8 @@ import React, { useState, useEffect, useRef } from "react";
 import { Heart, User } from "lucide-react";
 import { CartButton } from "./cart-button";
 import { CityDropdown } from "./city-dropdown";
-import { MapPin } from "lucide-react";
-import { Search } from "lucide-react";
 import { AuthModal } from "./modals/auth-modal";
 import { ProfileButton } from "./profile-button";
-import { useRouter } from "next/router";
 import { SearchInput } from "./search-input";
 
 interface Props {
@@ -65,9 +62,9 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                 <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
                     <CityDropdown value={city} onChange={handleCityChange} />
                     <nav className="flex gap-6">
-                        <a href="/catalog" className="hover:underline">Акции и скидки</a>
-                        <a href="about_us" className="hover:underline">О нас</a>
-                        <a href="articles" className="hover:underline">Статьи</a>
+                        <a href="/api/products" className="hover:underline">Акции и скидки</a>
+                        <a href="/about_us" className="hover:underline">О нас</a>
+                        <a href="/articles" className="hover:underline">Статьи</a>
                         <a href="/#carousel" className="hover:underline">Производители</a>
                 </nav>
                 <div className="flex items-center gap-2">
@@ -91,7 +88,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
                 {/* Навигация */}
                 <nav className="flex gap-6 text-gray-700 font-medium  mx-8">
-                    <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
+                    <a className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</a>
                     <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
                     <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
                 </nav>
@@ -99,7 +96,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                 {/* Иконки */}
                 <div className="flex items-center gap-3">
                     <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-                        <ProfileButton className="cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
+                    <ProfileButton className="b-0 cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
                     {/* <button onClick={() => setOpenAuthModal(true)} className="linear cursor-pointer"><User size={24}/></button> */}
                     <button className="linear cursor-pointer"><Heart size={24}/></button>
                     {hasCart && <CartButton className="cursor-pointer"/>}

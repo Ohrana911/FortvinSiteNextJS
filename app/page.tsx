@@ -25,6 +25,31 @@ export default function Home() {
       </div>
 
       <div>
+        <h1 className="underline">О нас</h1>
+        <div className="flex justify-between w-full gap-[120px] items-center">
+          <div className="request-left w-full">
+              <p>Специализируемся на поставках высококачественных строительных материалов для частного и коммерческого строительства.</p>
+              <p>Мы не просто поставляем строительные материалы — мы воплощаем мечты о идеальном доме в реальность.</p>
+          </div>
+          <div className="flex flex-col w-[480px] gap-[40px]">
+            <div className="flex justify-between w-full">
+              <div className="flex flex-col">
+                <h1>20+</h1>
+                <p>лет опыта работы</p>
+              </div>
+              <div className="flex flex-col">
+                <h1>1200+</h1>
+                <p>выполненных заказов</p>
+              </div>
+            </div>
+            <Link href="/about_us">
+              <Button className="cursor-pointer" variant="request" size="request">Подробнее о компании</Button>
+            </Link>
+          </div>
+        </div>
+      </div>
+
+      <div>
         <div className="flex justify-between w-full items-end">
           <h1 className="underline">Акции и скидки</h1>
           <Link href="/api/products">
@@ -49,64 +74,6 @@ export default function Home() {
 
         </div>
       </div>
-    
-      {/* <TopBar /> */}
-{/* 
-    <Container className="mt-10 pb-14">
-      <div className="flex gap-[60px]">
-        <div className="flex-1">
-          <div className="flex flex-col gap-16">
-            <Button>
-            <Link href={"/api/products"}>Перейти в Каталог</Link>
-            </Button>
-            <ProductsGroupList title={"Бетонные блоки"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 2,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 3,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            ]} categoryId={1} />
-          </div>
-          <div className="flex flex-col gap-16">
-            <ProductsGroupList title={"Кирпичи"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-      <div>
-        <div className="flex justify-between w-full items-end">
-          <h1 className="underline">Каталог</h1>
-          <Link href="/catalog">
-              <button className="small-button mb-[40px]">Перейти в раздел</button>
-          </Link>
-        </div>
-        <div className="service-blocks">
-
-        </div>
-      </div>
-    </Container> */}
 
       <div>
         <h1 className="underline">Услуги</h1>
