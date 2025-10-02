@@ -5,4 +5,8 @@ export interface CartItemProps {
   price: number;
   quantity: number;
   disabled?: boolean;
+
+    // новые поля
+  quantityPerPallet: number;    // кирпичей в поддоне
+  retailPriceRubWithVAT: number;// цена за 1 кирпич
 }

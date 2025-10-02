@@ -18,6 +18,8 @@ export const CheckoutItem: React.FC<Props> = ({
   imageUrl,
   quantity,
   className,
+  quantityPerPallet,
+  retailPriceRubWithVAT,
   disabled,
   onClickCountButton,
   onClickRemove,
@@ -36,7 +38,13 @@ export const CheckoutItem: React.FC<Props> = ({
         <CartItemDetails.Info name={name} />
       </div>
 
-      <CartItemDetails.Price value={price} />
+      {/* <CartItemDetails.Price value={price} /> */}
+
+      <div className="flex flex-col mt-2 text-sm text-gray-600 gap-1">
+        {quantityPerPallet && <span>Количество на поддон: {quantityPerPallet}</span>}
+        {retailPriceRubWithVAT && <span>Цена за поддон: {retailPriceRubWithVAT} ₽</span>}
+        <span>Итого за {quantity} шт: {price} ₽</span>
+      </div>
 
       <div className="flex items-center gap-5 ml-20">
         <CartItemDetails.CountButton onClick={onClickCountButton} value={quantity} />

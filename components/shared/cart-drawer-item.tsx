@@ -20,6 +20,8 @@ export const CartDrawerItem: React.FC<Props> = ({
   name,
   price,
   quantity,
+  quantityPerPallet,
+  retailPriceRubWithVAT,
   disabled,
   onClickCountButton,
   onClickRemove,
@@ -41,7 +43,7 @@ export const CartDrawerItem: React.FC<Props> = ({
 
         <hr className="my-3" />
 
-        <div className="flex items-center justify-between">
+        {/* <div className="flex items-center justify-between">
           <CountButton onClick={onClickCountButton} value={quantity} />
 
           <div className="flex items-center gap-3">
@@ -52,7 +54,30 @@ export const CartDrawerItem: React.FC<Props> = ({
               size={16}
             />
           </div>
+        </div> */}
+
+        <div className="flex items-center justify-between">
+          <CountButton onClick={onClickCountButton} value={quantity} />
+
+          <div className="flex flex-col items-end gap-1">
+            {/* Цена за поддон */}
+            <CartItem.Price value={price * quantity} />
+
+            {/* Подсказка: кирпичи и цена за штуку */}
+            <span className="text-xs text-gray-500">
+              {quantityPerPallet} шт × {retailPriceRubWithVAT} ₽
+              
+            </span>
+
+            <Trash2Icon
+              onClick={onClickRemove}
+              className="text-gray-400 cursor-pointer hover:text-gray-600"
+              size={16}
+            />
+          </div>
         </div>
+
+
       </div>
     </div>
   );

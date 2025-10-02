@@ -26,4 +26,5 @@ export { ClearButton } from './clear-button';
 export { ProfileButton } from './profile-button';
 export { InfoBlock } from './info-block';
 export { ProfileForm } from './profile-form';
+export { FavoritesSidebar } from './favorites-sidebar';
 // export { Stories } from './stories';

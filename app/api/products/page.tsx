@@ -122,9 +122,142 @@
 //   );
 // }
 
+// Добавление избранного, ниже код который без избранного, в случае ошибки - расскоментить
+
+// 'use client';
+
+// import { useEffect, useState } from 'react';
+
+// type Product = {
+//   id: number;
+//   name: string;
+//   imageUrl?: string;
+//   retailPriceRubWithVAT?: number;
+// };
+
+// const categories = [
+//   { key: 'ALL', label: 'Все товары' }, // добавляем
+//   { key: 'SALES', label: 'Акции и скидки' },
+//   { key: 'GAZOBETONNYE_BLOKI', label: 'Газобетонные блоки' },
+//   { key: 'OBLITSOVOCHNYY_KIRPICH', label: 'Облицовочный кирпич' },
+//   { key: 'TROTUARNAYA_PLITKA', label: 'Тротуарная плитка' },
+// ];
+
+// export default function ProductsPage() {
+//   const [products, setProducts] = useState<Product[]>([]);
+//   const [page, setPage] = useState(1);
+//   const [totalPages, setTotalPages] = useState(1);
+//   const [category, setCategory] = useState('ALL'); // по умолчанию все товары
+
+//   useEffect(() => {
+//     const fetchProducts = async () => {
+//       const query = category === 'ALL'
+//         ? `/api/products/search?page=${page}&limit=6`
+//         : `/api/products/search?page=${page}&limit=6&category=${category}`;
+
+//       const res = await fetch(query);
+//       const data = await res.json();
+
+//       setProducts(data.data);
+//       setTotalPages(data.totalPages);
+//     };
+
+//     fetchProducts();
+//   }, [page, category]);
+
+//   return (
+//     <div className="container">
+//       <nav className="breadcrumb">
+//         <ol>
+//           <li>
+//             <a href="/" className="breadcrumb-link">Главная</a>
+//           </li>
+//           <li className="breadcrumb-separator">→</li>
+//           <li className="breadcrumb-current">Каталог</li>
+//         </ol>
+//       </nav>
+
+//       <div>
+//         <h1 className="underline">Каталог</h1>
+
+//         {/* Кнопки категорий */}
+//         <div className="flex gap-3 mb-6 flex-wrap">
+//           {categories.map((c) => (
+//             <button
+//               key={c.key}
+//               onClick={() => {
+//                 setCategory(c.key);
+//                 setPage(1);
+//               }}
+//               className={`special px-4 py-2 border-1 border-[var(--color-gray)] transition cursor-pointer ${
+//                 category === c.key
+//                   ? 'bg-[var(--color-blue)] text-white'
+//                   : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'
+//               }`}
+//             >
+//               {c.label}
+//             </button>
+//           ))}
+//         </div>
+
+//         {/* Сетка продуктов */}
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+//           {products.map((p) => (
+//             <div
+//               key={p.id}
+//               className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition"
+//             >
+//               <img
+//                 src={p.imageUrl ?? '/placeholder.png'}
+//                 alt={p.name}
+//                 className="w-40 h-40 object-cover mb-4 rounded"
+//               />
+//               <h2 className="text-lg font-semibold text-center">{p.name}</h2>
+//               <p className="text-gray-600 mt-2">
+//                 {p.retailPriceRubWithVAT
+//                   ? `${p.retailPriceRubWithVAT} ₽`
+//                   : 'Цена по запросу'}
+//               </p>
+//               <a
+//                 href={`/product/${p.id}`}
+//                 className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+//               >
+//                 Подробнее
+//               </a>
+//             </div>
+//           ))}
+//         </div>
+
+//         {/* Пагинация */}
+//         <div className="flex justify-center items-center gap-4 mt-8">
+//           <button
+//             disabled={page === 1}
+//             onClick={() => setPage((p) => p - 1)}
+//             className="px-3 py-1 border rounded disabled:opacity-50"
+//           >
+//             Предыдущая
+//           </button>
+//           <span>
+//             Страница {page} из {totalPages}
+//           </span>
+//           <button
+//             disabled={page === totalPages}
+//             onClick={() => setPage((p) => p + 1)}
+//             className="px-3 py-1 border rounded disabled:opacity-50"
+//           >
+//             Следующая
+//           </button>
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+
 'use client';
 
 import { useEffect, useState } from 'react';
+import { Heart } from 'lucide-react';
 
 type Product = {
   id: number;
@@ -134,7 +267,7 @@ type Product = {
 };
 
 const categories = [
-  { key: 'ALL', label: 'Все товары' }, // добавляем
+  { key: 'ALL', label: 'Все товары' },
   { key: 'SALES', label: 'Акции и скидки' },
   { key: 'GAZOBETONNYE_BLOKI', label: 'Газобетонные блоки' },
   { key: 'OBLITSOVOCHNYY_KIRPICH', label: 'Облицовочный кирпич' },
@@ -145,8 +278,12 @@ export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [category, setCategory] = useState('ALL'); // по умолчанию все товары
+  const [category, setCategory] = useState('ALL');
 
+  const [favorites, setFavorites] = useState<number[]>([]);
+  const [loadingFav, setLoadingFav] = useState(false);
+
+  // Получаем продукты
   useEffect(() => {
     const fetchProducts = async () => {
       const query = category === 'ALL'
@@ -163,13 +300,53 @@ export default function ProductsPage() {
     fetchProducts();
   }, [page, category]);
 
+  // Получаем избранное
+  useEffect(() => {
+    const fetchFavorites = async () => {
+      try {
+        const res = await fetch('/api/favorites');
+        if (res.ok) {
+          const data = await res.json();
+          setFavorites(data.map((f: { productId: number }) => f.productId));
+        }
+      } catch (err) {
+        console.error('Error fetching favorites', err);
+      }
+    };
+
+    fetchFavorites();
+  }, []);
+
+  const toggleFavorite = async (productId: number) => {
+    if (loadingFav) return;
+
+    setLoadingFav(true);
+    try {
+      if (favorites.includes(productId)) {
+        // удалить из избранного
+        const res = await fetch(`/api/favorites/${productId}`, { method: 'DELETE' });
+        if (res.ok) setFavorites(favorites.filter((id) => id !== productId));
+      } else {
+        // добавить в избранное
+        const res = await fetch('/api/favorites', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productId }),
+        });
+        if (res.ok) setFavorites([...favorites, productId]);
+      }
+    } catch (err) {
+      console.error('Error toggling favorite', err);
+    } finally {
+      setLoadingFav(false);
+    }
+  };
+
   return (
     <div className="container">
       <nav className="breadcrumb">
         <ol>
-          <li>
-            <a href="/" className="breadcrumb-link">Главная</a>
-          </li>
+          <li><a href="/" className="breadcrumb-link">Главная</a></li>
           <li className="breadcrumb-separator">→</li>
           <li className="breadcrumb-current">Каталог</li>
         </ol>
@@ -178,19 +355,13 @@ export default function ProductsPage() {
       <div>
         <h1 className="underline">Каталог</h1>
 
-        {/* Кнопки категорий */}
         <div className="flex gap-3 mb-6 flex-wrap">
           {categories.map((c) => (
             <button
               key={c.key}
-              onClick={() => {
-                setCategory(c.key);
-                setPage(1);
-              }}
+              onClick={() => { setCategory(c.key); setPage(1); }}
               className={`special px-4 py-2 border-1 border-[var(--color-gray)] transition cursor-pointer ${
-                category === c.key
-                  ? 'bg-[var(--color-blue)] text-white'
-                  : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'
+                category === c.key ? 'bg-[var(--color-blue)] text-white' : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'
               }`}
             >
               {c.label}
@@ -198,51 +369,34 @@ export default function ProductsPage() {
           ))}
         </div>
 
-        {/* Сетка продуктов */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {products.map((p) => (
-            <div
-              key={p.id}
-              className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition"
-            >
-              <img
-                src={p.imageUrl ?? '/placeholder.png'}
-                alt={p.name}
-                className="w-40 h-40 object-cover mb-4 rounded"
-              />
-              <h2 className="text-lg font-semibold text-center">{p.name}</h2>
-              <p className="text-gray-600 mt-2">
-                {p.retailPriceRubWithVAT
-                  ? `${p.retailPriceRubWithVAT} ₽`
-                  : 'Цена по запросу'}
-              </p>
-              <a
-                href={`/product/${p.id}`}
-                className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
-              >
-                Подробнее
-              </a>
-            </div>
-          ))}
+          {products.map((p) => {
+            const isFav = favorites.includes(p.id);
+            return (
+              <div key={p.id} className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition relative">
+                <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-40 h-40 object-cover mb-4 rounded" />
+                <h2 className="text-lg font-semibold text-center">{p.name}</h2>
+                <p className="text-gray-600 mt-2">{p.retailPriceRubWithVAT ? `${p.retailPriceRubWithVAT} ₽` : 'Цена по запросу'}</p>
+                <a href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                  Подробнее
+                </a>
+                <button
+                  onClick={() => toggleFavorite(p.id)}
+                  className="absolute top-2 right-2 p-1 rounded-full hover:bg-gray-200 transition"
+                >
+                  <Heart size={24} className={isFav ? 'text-red-500' : 'text-gray-400'} />
+                </button>
+              </div>
+            );
+          })}
         </div>
 
-        {/* Пагинация */}
         <div className="flex justify-center items-center gap-4 mt-8">
-          <button
-            disabled={page === 1}
-            onClick={() => setPage((p) => p - 1)}
-            className="px-3 py-1 border rounded disabled:opacity-50"
-          >
+          <button disabled={page === 1} onClick={() => setPage((p) => p - 1)} className="px-3 py-1 border rounded disabled:opacity-50">
             Предыдущая
           </button>
-          <span>
-            Страница {page} из {totalPages}
-          </span>
-          <button
-            disabled={page === totalPages}
-            onClick={() => setPage((p) => p + 1)}
-            className="px-3 py-1 border rounded disabled:opacity-50"
-          >
+          <span>Страница {page} из {totalPages}</span>
+          <button disabled={page === totalPages} onClick={() => setPage((p) => p + 1)} className="px-3 py-1 border rounded disabled:opacity-50">
             Следующая
           </button>
         </div>

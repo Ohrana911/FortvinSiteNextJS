@@ -47,6 +47,7 @@ model User {
   updatedAt DateTime @updatedAt
 
   posts Post[]
+  favorites  Favorite[] // связь
 }
 
 model Category {
@@ -83,6 +84,8 @@ model Product {
   updatedAt DateTime @updatedAt
 
   isOnSale    Boolean  @default(false)
+
+  favorites  Favorite[]
 }
 
 model ProductItem {
@@ -193,4 +196,14 @@ model Post {
   
   author   User   @relation(fields: [authorId], references: [id])
   authorId Int
+}
+
+model Favorite {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  productId Int
+  user      User     @relation(fields: [userId], references: [id])
+  product   Product  @relation(fields: [productId], references: [id])
+
+  @@unique([userId, productId])
 }

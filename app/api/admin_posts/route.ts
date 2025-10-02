@@ -17,7 +17,7 @@ export async function POST(req: Request) {
     }
 
     // Берём существующего админа
-    const currentUser = await prisma.user.findUnique({ where: { id: 12 } });
+    const currentUser = await prisma.user.findUnique({ where: { id: 21 } });
 
     if (!currentUser || currentUser.role !== "ADMIN") {
       return NextResponse.json({ error: "Только админ может добавлять посты" }, { status: 403 });

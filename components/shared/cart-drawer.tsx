@@ -122,6 +122,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                             name={item.name}
                             price={item.price}
                             quantity={item.quantity}
+                            quantityPerPallet={item.quantityPerPallet}
+                            retailPriceRubWithVAT={item.retailPriceRubWithVAT}
                             onClickCountButton={(type) =>
                                 onClickCountButton(item.id, item.quantity, type)
                             }
