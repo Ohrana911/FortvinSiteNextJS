@@ -384,6 +384,41 @@ button.light-hover:hover{
   border: var(--color-dark) 1px solid;
 }
 
+.about_us p{
+  font-size: 22px;
+  color: #2F3336;
+  margin-top: auto;
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.list li {
+  position: relative;
+  margin-top: 20px;
+}
+
+.list li::before {
+  content: "△";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #5a7d9a;
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.text-wrapper {
+  margin-left: 50px;
+}
+
+.item-title {
+  margin: 0;
+  font-size: 22px;
+}
+
 /* REQUEST BLOCK --------------------------------------------------------------------------*/
 .request-block {
   margin-bottom: 80px;
