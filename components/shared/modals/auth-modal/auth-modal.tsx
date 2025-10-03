@@ -65,7 +65,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
             <RegisterForm onClose={onClose} />
           )}
 
-          <hr className="my-4" />
+          <hr className="my-8" />
 
           <div className="flex gap-2 mb-4">
             <Button
