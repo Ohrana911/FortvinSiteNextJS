@@ -43,7 +43,10 @@ export default function Home() {
               </div>
             </div>
             <Link href="/about_us">
-              <Button className="cursor-pointer" variant="request" size="request">Подробнее о компании</Button>
+              <Button className="cursor-pointer 
+              hover:bg-[var(--background)] hover:text-[var(--color-dark)] hover:border-black
+              border border-transparent" 
+              variant="request" size="request">Подробнее о компании</Button>
             </Link>
           </div>
         </div>

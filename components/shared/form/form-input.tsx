@@ -29,18 +29,32 @@ export const FormInput: React.FC<Props> = ({ className, name, label, required, .
   return (
     <div className={className}>
       {label && (
-        <p className="font-medium mb-2">
+        <p className="font-[18px] mb-2">
           {label} {required && <RequiredSymbol />}
         </p>
       )}
 
       <div className="relative">
-        <Input className="h-12 text-md" {...register(name)} {...props} />
+        <input
+          {...register(name)}
+          {...props}
+          className="
+            w-full
+            px-3 py-3
+            text-[20px]
+            border border-[#2F3336]
+            bg-[#E3E8ED]
+            mb-5
+            transition-colors duration-200 ease-in-out
+            focus:outline-none focus:bg-[#BCDBF2]
+            valid:bg-[#BCDBF2]
+          "
+        />
 
-        {value && <ClearButton onClick={onClickClear} />}
+        {/* {value && <ClearButton onClick={onClickClear} />} */}
       </div>
 
-      {errorText && <ErrorText text={errorText} className="mt-2" />}
+      {errorText && <ErrorText text={errorText} className='mb-4 mt-[-14px]'/>}
     </div>
   );
 };
