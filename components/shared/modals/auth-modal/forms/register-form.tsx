@@ -124,14 +124,15 @@ export const RegisterForm: React.FC<Props> = ({ onClose, onClickLogin }) => {
 
   return (
     <FormProvider {...form}>
-      <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(onSubmit)}>
+      <h2 className="font-bold underline mb-[40px]">Регистрация</h2>
+      <form className="request-form" onSubmit={form.handleSubmit(onSubmit)}>
         <FormInput name="email" label="E-Mail" required />
         <FormInput name="fullName" label="Полное имя" required />
         <FormInput name="phone" label="Телефон" required />
         <FormInput name="password" label="Пароль" type="password" required />
         <FormInput name="confirmPassword" label="Подтвердите пароль" type="password" required />
 
-        <Button loading={form.formState.isSubmitting} className="h-12 text-base" type="submit">
+        <Button loading={form.formState.isSubmitting} className="colored-button w-full rounded-none h-12" type="submit">
           Зарегистрироваться
         </Button>
       </form>

@@ -27,7 +27,16 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-[100]" />
 
         {/* модальное окно */}
-        <Dialog.Content className="fixed left-1/2 top-1/2 z-[100] w-[520px] -translate-x-1/2 -translate-y-1/2 bg-white p-10 shadow-lg focus:outline-none">
+        <Dialog.Content
+          className="
+            fixed left-1/2 top-1/2 z-[100] 
+            w-[520px] max-h-[90vh] 
+            -translate-x-1/2 -translate-y-1/2 
+            bg-white p-10 shadow-lg focus:outline-none 
+            overflow-y-auto custom-scroll
+          "
+        >
+          {/* кнопка закрытия */}
           <button
             onClick={onClose}
             aria-label="Close modal"
@@ -43,7 +52,7 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
           >
             &times;
           </button>
-          
+
           <Dialog.Title>
             <VisuallyHidden>
               {type === 'login' ? 'Вход в аккаунт' : 'Регистрация'}
