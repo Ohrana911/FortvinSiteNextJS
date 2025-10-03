@@ -264,6 +264,8 @@ type Product = {
   name: string;
   imageUrl?: string;
   retailPriceRubWithVAT?: number;
+  isOnSale: boolean;
+  saleDescription?: string;
 };
 
 const categories = [
@@ -374,6 +376,12 @@ export default function ProductsPage() {
             const isFav = favorites.includes(p.id);
             return (
               <div key={p.id} className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition relative">
+                {/* Бейдж со скидкой */}
+                {p.isOnSale && p.saleDescription && (
+                  <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1">
+                    {p.saleDescription}
+                  </span>
+                )}
                 <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-40 h-40 object-cover mb-4 rounded" />
                 <h2 className="text-lg font-semibold text-center">{p.name}</h2>
                 <p className="text-gray-600 mt-2">{p.retailPriceRubWithVAT ? `${p.retailPriceRubWithVAT} ₽` : 'Цена по запросу'}</p>

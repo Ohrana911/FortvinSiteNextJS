@@ -84,6 +84,7 @@ model Product {
   updatedAt DateTime @updatedAt
 
   isOnSale    Boolean  @default(false)
+  saleDescription  String?
 
   favorites  Favorite[]
 }
