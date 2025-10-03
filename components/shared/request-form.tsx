@@ -107,11 +107,19 @@ const RequestForm: React.FC = () => {
                             required
                             className="cursor-pointer accent-[var(--color-blue)] w-[24px] h-[24px]"
                             />
+                            
                             <label htmlFor="agreement" className="note mb-[20px]">
-                            Я даю <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Согласие на обработку данных</a> и соглашаюсь с <a className="text-[var(--color-blue)] underline" href="/privacy-policy">Политикой конфиденциальности</a>
+                            Я даю <a className="text-[var(--color-blue)] underline" 
+                              href="/Согласие на обработку пд Фортвин.pdf" 
+                              target="_blank" 
+                              rel="noopener noreferrer">Согласие на обработку данных</a> и соглашаюсь с 
+                            <a className="text-[var(--color-blue)] underline" href="/Политика конфиденциальности Фортвин.pdf" target="_blank" rel="noopener noreferrer"> Политикой конфиденциальности</a>
                             </label>
                         </div>
-                        <Button className="cursor-pointer" variant="request" size="request">Оставить заявку</Button>
+                        <Button className="cursor-pointer 
+                                      hover:bg-[var(--background)] hover:text-[var(--color-dark)] hover:border-black
+                                      border border-transparent" 
+                                      variant="request" size="request">Оставить заявку</Button>
                     </form>
                 </div>
             </div>

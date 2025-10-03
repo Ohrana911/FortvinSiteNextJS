@@ -74,7 +74,7 @@ export default function ServicesPage() {
                     <img src="/moshenie.jpg" alt="Мощение" className="service-image" />
                     <div className="desktop-button">
                         <a href="#request-form">
-                            <Button className="blue-hovercursor-pointer" variant="custom" size="custom">Заказать</Button>
+                            <Button className="blue-hover cursor-pointer" variant="custom" size="custom">Заказать</Button>
                         </a>
                     </div>
                 </div>
