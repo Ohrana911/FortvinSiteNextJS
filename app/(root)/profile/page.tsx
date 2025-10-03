@@ -45,6 +45,7 @@ export default async function ProfilePage() {
   where: { id: Number(session?.id) }, 
   select: {
     fullName: true,
+    phone: true,
     email: true,
     orders: {
       select: {
@@ -89,6 +90,10 @@ export default async function ProfilePage() {
                                 <p className="small-bold-text text-[var(--color-blue)]">Номер телефона</p>
                                 <h3>{profile.phone}</h3>
                             </div> */}
+                            <div className="blue-card gap-[5px]">
+                                <p className="small-bold-text text-[var(--color-blue)]">Phone</p>
+                                <h3>{user.phone}</h3>
+                            </div>
                             <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">Email</p>
                                 <h3>{user.email}</h3>
