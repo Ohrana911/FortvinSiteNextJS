@@ -36,7 +36,6 @@ export default async function ProfilePage() {
     fullName: true,
     phone: true,
     email: true,
-    phone: true,
     orders: {
       select: {
         id: true,
