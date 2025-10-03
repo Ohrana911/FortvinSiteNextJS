@@ -20,6 +20,8 @@ export const CheckoutItem: React.FC<Props> = ({
   className,
   quantityPerPallet,
   retailPriceRubWithVAT,
+  isOnSale,
+  saleDescription,
   disabled,
   onClickCountButton,
   onClickRemove,
@@ -41,6 +43,11 @@ export const CheckoutItem: React.FC<Props> = ({
       {/* <CartItemDetails.Price value={price} /> */}
 
       <div className="flex flex-col mt-2 text-sm text-gray-600 gap-1">
+        {isOnSale && saleDescription && (
+          <span className="text-xs font-semibold text-red-500 mt-1">
+            {saleDescription}
+          </span>
+        )}
         {quantityPerPallet && <span>Количество на поддон: {quantityPerPallet}</span>}
         {retailPriceRubWithVAT && <span>Цена за поддон: {retailPriceRubWithVAT} ₽</span>}
         <span>Итого за {quantity} шт: {price} ₽</span>
