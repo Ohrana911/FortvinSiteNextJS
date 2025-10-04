@@ -1,10 +1,11 @@
 'use client';
 
 import React, { useEffect, useState } from 'react';
-import { Sheet, SheetContent, SheetHeader, SheetTitle } from '../ui/sheet';
-import { Heart, Trash2, ShoppingCart } from 'lucide-react';
+import * as Dialog from '@radix-ui/react-dialog';
+import { Heart, Trash2, ShoppingCart, X } from 'lucide-react';
 import { Button } from '../ui/button';
 import { useCartStore } from '@/store/cart';
+import Link from "next/link";
 
 type FavoriteItem = {
   id: number;
@@ -45,97 +46,91 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
   const removeFavorite = async (id: number) => {
     try {
       await fetch(`/api/favorites/${id}`, { method: 'DELETE' });
-      setFavoriteItems(prev => prev.filter(item => item.id !== id));
+      setFavoriteItems((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
       console.error('Failed to remove favorite', err);
     }
   };
 
-  // const addToCart = async (productItemId: number) => {
-  //   try {
-  //     const res = await fetch('/api/cart', {
-  //       method: 'POST',
-  //       body: JSON.stringify({ productItemId }),
-  //       headers: { 'Content-Type': 'application/json' },
-  //     });
-
-  //     if (!res.ok) throw new Error('Ошибка при добавлении в корзину');
-
-  //     const updatedCart = await res.json();
-
-  //     // Обновляем Zustand
-  //     useCartStore.getState().setCart(updatedCart.items, updatedCart.totalAmount);
-
-  //   } catch (err) {
-  //     console.error('Failed to add to cart', err);
-  //   }
-  // };
-
   const addToCart = async (productItemId: number) => {
     try {
-      // вызываем zustand action, он сам сделает запрос и обновит store
       await useCartStore.getState().addCartItem({ productItemId });
-
-      // можно тост/уведомление
       console.log('Товар добавлен в корзину');
     } catch (err) {
       console.error('Ошибка при добавлении товара в корзину', err);
     }
   };
 
-
   return (
-    <Sheet open={open} onOpenChange={onClose}>
-      <SheetContent className="flex flex-col w-[400px] bg-white text-[var(--color-blue-dark)]">
-        <SheetHeader className="bg-[var(--color-blue)] text-white p-4">
-          <SheetTitle>Избранное</SheetTitle>
-        </SheetHeader>
+    <Dialog.Root open={open} onOpenChange={onClose}>
+      <Dialog.Portal>
+        <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
+        <Dialog.Content
+          className="
+            fixed left-1/2 top-1/2 z-50
+            w-[600px] h-[600px]
+            -translate-x-1/2 -translate-y-1/2
+            bg-white shadow-lg
+            flex flex-col
+          "
+        >
+          {/* Заголовок */}
+          <div className="flex justify-between items-center p-[20px] border-b">
+            <Dialog.Title>
+              <h2 className="underline font-semibold">Избранное</h2>
+            </Dialog.Title>
+            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
+              <X size={20} />
+            </button>
+          </div>
 
-        <div className="flex-1 overflow-auto p-4 flex flex-col gap-4">
-          {loading && <p>Загрузка...</p>}
-          {!loading && favoriteItems.length === 0 && <p>Нет товаров в избранном</p>}
-          {favoriteItems.map(item => (
-            <div
-              key={item.id}
-              className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] rounded hover:shadow"
-            >
-              <img
-                src={item.product.imageUrl ?? '/placeholder.png'}
-                alt={item.product.name}
-                className="w-20 h-20 object-cover rounded"
-              />
-              <div className="flex-1">
-                <h3 className="font-semibold">{item.product.name}</h3>
-                <p className="text-gray-600">
-                  {item.product.retailPriceRubWithVAT
-                    ? `${item.product.retailPriceRubWithVAT} ₽`
-                    : 'Цена по запросу'}
-                </p>
-              </div>
-              <div className="flex flex-col gap-1">
-                <Button
-                  onClick={() => addToCart(item.product.id)}
-                  className="bg-[var(--color-blue)] text-white hover:bg-[var(--color-blue-dark)] flex items-center gap-1 px-2 py-1"
-                >
-                  <ShoppingCart size={16} /> В корзину
-                </Button>
-                <Trash2
-                  className="cursor-pointer text-gray-400 hover:text-red-500 self-center mt-1"
-                  size={20}
-                  onClick={() => removeFavorite(item.id)}
-                />
-              </div>
-            </div>
-          ))}
-        </div>
-
-        <div className="p-4">
-          <Button className="w-full bg-[var(--color-blue)] text-white hover:bg-[var(--color-blue-dark)]" onClick={onClose}>
-            Закрыть
-          </Button>
-        </div>
-      </SheetContent>
-
-    </Sheet>
+          {/* Список товаров */}
+          <div className="flex-1 overflow-auto p-[20px] flex flex-col gap-[20px]">
+            {favoriteItems.length === 0 && <p>Нет товаров в избранном</p>}
+            {favoriteItems.map((item) => (
+              // <Link  href={`/product/${item.id}`}>
+                <div key={item.id} className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] hover:shadow border">
+                  <img
+                    src={item.product.imageUrl ?? '/placeholder.png'}
+                    alt={item.product.name}
+                    className="w-20 h-20 object-cover"
+                  />
+                  <div className='flex flex-col w-full h-[70px] justify-between'>
+                    <h4 className="font-semibold">{item.product.name}</h4>
+                    <div className="flex flex-row items-center justify-between w-full">
+                      <p className="text-gray-600">
+                        {item.product.retailPriceRubWithVAT
+                          ? `${item.product.retailPriceRubWithVAT} ₽`
+                          : 'Цена по запросу'}
+                      </p>
+                    
+                      <div className="flex flex-row gap-4">
+                        <Trash2
+                          className="cursor-pointer text-gray-400 hover:text-[var(--color-blue)] self-center mt-1"
+                          size={20}
+                          onClick={() => removeFavorite(item.id)}
+                        />
+                        <Button
+                          onClick={() => addToCart(item.product.id)}
+                          className="cursor-pointer 
+                                    bg-[var(--color-blue)] hover:bg-[var(--color-blue-dark)]
+                                    text-white hover:text-[var(--color-dark)] 
+                                    px-[20px] py-1 
+                                    rounded-none
+                                    border border-transparent 
+                                    hover:border-[var(--color-gray)]"
+                        >
+                          В корзину
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              /* </Link> */
+            ))}
+          </div>
+        </Dialog.Content>
+      </Dialog.Portal>
+    </Dialog.Root>
   );
 };

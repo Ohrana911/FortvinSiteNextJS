@@ -80,10 +80,6 @@ export default async function ProfilePage() {
                                 <h3>{user.phone ?? 'Телефон не указан'}</h3>
                             </div>
                             <div className="blue-card gap-[5px]">
-                                <p className="small-bold-text text-[var(--color-blue)]">Phone</p>
-                                <h3>{user.phone}</h3>
-                            </div>
-                            <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">Email</p>
                                 <h3>{user.email}</h3>
                             </div>
