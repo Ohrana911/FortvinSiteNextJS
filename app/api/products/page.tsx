@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
+import toast from 'react-hot-toast';
 
 type Product = {
   id: number;
@@ -81,7 +82,11 @@ export default function ProductsPage() {
       if (favorites.includes(productId)) {
         // удалить из избранного
         const res = await fetch(`/api/favorites/${productId}`, { method: 'DELETE' });
-        if (res.ok) setFavorites(favorites.filter((id) => id !== productId));
+        if (res.ok) {
+          setFavorites(favorites.filter((id) => id !== productId));
+        } else if (res.status === 401) {
+          toast.error('Чтобы удалить из избранного, нужно авторизоваться');
+        }
       } else {
         // добавить в избранное
         const res = await fetch('/api/favorites', {
@@ -89,7 +94,11 @@ export default function ProductsPage() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ productId }),
         });
-        if (res.ok) setFavorites([...favorites, productId]);
+        if (res.ok) {
+          setFavorites([...favorites, productId]);
+        } else if (res.status === 401) {
+          toast.error('Чтобы добавить в избранное, нужно авторизоваться');
+        }
       }
     } catch (err) {
       console.error('Error toggling favorite', err);
