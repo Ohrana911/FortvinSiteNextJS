@@ -372,7 +372,7 @@ export default function ProductsPage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {/* {products.map((p) => {
+          {products.map((p) => {
             const isFav = favorites.includes(p.id);
             return (
               <div key={p.id} className="border rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition relative">
@@ -396,7 +396,7 @@ export default function ProductsPage() {
                 </button>
               </div>
             );
-          })} */}
+          })}
           {products.map((p) => {
             const isFav = favorites.includes(p.id);
             return (
