@@ -120,6 +120,7 @@ import { SearchInput } from "./search-input";
 import { AuthModal } from "./modals/auth-modal";
 import { ProfileButton } from "./profile-button";
 import { FavoritesSidebar } from "./favorites-sidebar";
+import toast from "react-hot-toast";
 
 interface Props {
     className?: string;
@@ -153,6 +154,16 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         window.addEventListener("scroll", handleScroll);
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
+
+    const handleFavoritesClick = async () => {
+    const res = await fetch('/api/favorites');
+    if (res.status === 401) {
+        toast.error('Чтобы открыть избранное, войдите в аккаунт');
+        return;
+    }
+    setShowFavorites(true);
+    };
+
 
     return (
         <header className="fixed top-0 left-0 right-0 z-50">
@@ -201,7 +212,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
                         {/* Кнопка открытия избранного */}
                         <button
                             className="linear cursor-pointer"
-                            onClick={() => setShowFavorites(true)}
+                            onClick={handleFavoritesClick}
                         >
                             <Heart size={24} className="lucide lucide-heart text-black" suppressHydrationWarning/>
                         </button>
