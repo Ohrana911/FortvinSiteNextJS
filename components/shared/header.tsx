@@ -195,18 +195,18 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
                     {/* Иконки */}
                     <div className="flex items-center gap-3">
-                        <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
-                        <ProfileButton className="b-0 cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
-
                         {/* Кнопка открытия избранного */}
                         <button
                             className="linear cursor-pointer"
                             onClick={() => setShowFavorites(true)}
                         >
-                            <Heart size={24} className="lucide lucide-heart text-black" suppressHydrationWarning/>
+                            <Heart size={24} className="lucide lucide-heart text-black hover:text-[var(--color-blue)] transition duration-300" suppressHydrationWarning/>
                         </button>
 
                         {hasCart && <CartButton className="cursor-pointer" />}
+
+                        <AuthModal open={openAuthModal} onClose={() => setOpenAuthModal(false)} />
+                        <ProfileButton className="b-0 cursor-pointer" onClickSignIn={() => setOpenAuthModal(true)} />
                     </div>
                 </div>
             </div>

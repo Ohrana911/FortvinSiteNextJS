@@ -115,7 +115,7 @@ export default async function ProfilePage() {
 
                       <div className="flex flex-col gap-[5px]">
                         <p className="small-bold-text text-[var(--color-blue)]">Состав заявки</p>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-[960px]">
+                        <div className="grid grid-cols-2 md:grid-cols-2 gap-[20px] w-[980px]">
                           <div>
                             {orderItems.map((item, idx) => (
                               <Link key={idx} href={`/product/${item.productItem.product.id}`}>
