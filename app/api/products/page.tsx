@@ -9,6 +9,8 @@ type Product = {
   id: number;
   name: string;
   imageUrl?: string;
+  quantityPerPallet?: number;
+  
   retailPriceRubWithVAT?: number;
   isOnSale: boolean;
   saleDescription?: string;
@@ -143,19 +145,22 @@ export default function ProductsPage() {
           ))}
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[20px]">
           {products.map((p) => {
             const isFav = favorites.includes(p.id);
             return (
-              <div key={p.id} className="border p-4 flex flex-col items-center hover:shadow-md transition relative">
+              <div key={p.id} className="flex flex-col items-center cursor-pointer relative">
                 {p.isOnSale && p.saleDescription && (
-                  <span className="absolute top-2 left-2 bg-red-500 text-white text-xs font-bold px-2 py-1">
+                  <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
                     {p.saleDescription}
                   </span>
                 )}
-                <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-40 h-40 object-cover mb-4 rounded" />
-                <h2 className="text-lg font-semibold text-center">{p.name}</h2>
-                <p className="text-gray-600 mt-2">{p.retailPriceRubWithVAT ? `${p.retailPriceRubWithVAT} ₽` : 'Цена по запросу'}</p>
+                <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
+                <p>{p.name}</p>
+                <div className='flex flex-col gap-1 mb-[10px]'>
+                  <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
+                  <h3 className="text-bold">{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h3>
+                </div>
                 {/* <a href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                   Подробнее
                 </a> */}
@@ -166,7 +171,7 @@ export default function ProductsPage() {
                     className="cursor-pointer p-1 rounded-full transition-colors"
                     data-testid={`favorite-btn-${p.id}`}
                   >
-                    <Heart size={20} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
+                    <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
                   </button>
                   
                   {/* Add to Cart Button */}
@@ -246,11 +251,11 @@ export default function ProductsPage() {
         </div>
 
         <div className="flex justify-center items-center gap-4 mt-8">
-          <button disabled={page === 1} onClick={() => setPage(page - 1)} className="cursor-pointer px-3 py-1 border rounded disabled:opacity-50">
+          <button disabled={page === 1} onClick={() => setPage(page - 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
             Предыдущая
           </button>
           <span> {page} из {totalPages}</span>
-          <button disabled={page === totalPages} onClick={() => setPage(page + 1)} className="cursor-pointer px-3 py-1 border rounded disabled:opacity-50">
+          <button disabled={page === totalPages} onClick={() => setPage(page + 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
             Следующая
           </button>
         </div>

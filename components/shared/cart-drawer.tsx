@@ -105,9 +105,9 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
   return (
     <Sheet>
         <SheetTrigger asChild>{children}</SheetTrigger>
-        <SheetContent className="flex flex-col justify-between pb-0 bg-[#F4F1EE]">
+        <SheetContent className="flex flex-col justify-between pb-0 bg-[var(--background)]">
             <SheetHeader>
-                <SheetTitle>Корзина</SheetTitle>
+                <SheetTitle><h2 className="underline font-semibold">Корзина</h2></SheetTitle>
             </SheetHeader>
 
             <div className="overflow-auto flex-1">
@@ -133,7 +133,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                     }
                 </div>
             </div>
-            <SheetFooter className="bg-white p-8">
+            <SheetFooter className="bg-white bg-[var(--background)] p-8">
                 <div>
                     <div className="flex mb-4">
                         <span className="flex flex-1 text-lg text-neutral-500">
@@ -141,15 +141,16 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                             <div className="flex-1 border-b border-dashed border-b-neutral-200 relative -top-1 mx-2" />
                         </span>
 
-                        <span className="font-bold text-lg">{totalAmount} Рублей</span>
+                        <span className="font-bold text-lg">{totalAmount} ₽</span>
                     </div>
 
                     <Link href="/checkout">
                         <Button
                             onClick={() => setRedirecting(true)}
                             loading={redirecting}
+                            
                             type="submit"
-                            className="w-full h-12 text-base">
+                            className="w-full h-12 text-base colored-button rounded-none cursor-pointer">
                             Оформить заказ
                             <ArrowRight className="w-5 ml-2" />
                         </Button>

@@ -16,15 +16,17 @@ export const ProfileButton: React.FC<Props> = ({ className, onClickSignIn }) => 
   return (
     <div className={className}>
       {!session ? (
-        <Button onClick={onClickSignIn} variant="outline" className="flex items-center gap-1">
-          <User size={16} />
-          Войти
+        <Button onClick={onClickSignIn} variant="outline" className='cursor-pointer hover:text-[var(--color-blue)] transition duration-300'>
+          <User 
+            size={24}
+            strokeWidth={2} 
+            className="hover:text-[var(--color-blue)] transition duration-300" 
+          />
         </Button>
       ) : (
         <Link href="/profile">
-          <Button variant="secondary" className="flex items-center gap-2">
-            <CircleUser size={18} />
-            Профиль
+          <Button variant="outline" className='cursor-pointer text-[var(--color-blue)]'>
+            <CircleUser size={24} strokeWidth={2}/>
           </Button>
         </Link>
       )}
