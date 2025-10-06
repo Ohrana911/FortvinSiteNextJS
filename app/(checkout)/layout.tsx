@@ -11,15 +11,13 @@ import { Suspense } from 'react';
 
 export default function CheckoutLayout({ children }: { children: React.ReactNode }) {
   return (
-    <main className="min-h-screen bg-[#F4F1EE]">
-      <Container>
+      <div>
         <Suspense>
           <Header hasSearch={false} hasCart={false} className="border-b-gray-200" onOpenModal={function (): void {
             throw new Error('Function not implemented.');
           } } />
         </Suspense>
         {children}
-      </Container>
-    </main>
+      </div>
   );
 }

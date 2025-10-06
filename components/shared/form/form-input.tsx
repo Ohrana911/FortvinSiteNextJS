@@ -47,7 +47,6 @@ export const FormInput: React.FC<Props> = ({ className, name, label, required, .
             mb-5
             transition-colors duration-200 ease-in-out
             focus:outline-none focus:bg-[#BCDBF2]
-            valid:bg-[#BCDBF2]
           "
         />
 

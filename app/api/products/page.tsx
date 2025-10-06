@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
+import Link from 'next/link';
 
 type Product = {
   id: number;
@@ -140,18 +141,20 @@ export default function ProductsPage() {
           {products.map((p) => {
             const isFav = favorites.includes(p.id);
             return (
-              <div key={p.id} className="flex flex-col items-center cursor-pointer relative">
-                {p.isOnSale && p.saleDescription && (
-                  <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
-                    {p.saleDescription}
-                  </span>
-                )}
-                <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
-                <p>{p.name}</p>
-                <div className='flex flex-col gap-1 mb-[10px]'>
-                  <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
-                  <h3 className="text-bold">{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h3>
-                </div>
+              <div key={p.id} className="flex flex-col cursor-pointer relative">
+                <Link href={`/product/${p.id}`}>
+                  {p.isOnSale && p.saleDescription && (
+                    <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
+                      {p.saleDescription}
+                    </span>
+                  )}
+                  <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
+                  <p>{p.name}</p>
+                  <div className='flex flex-col gap-1 mb-[10px] mt-[10px] w-full'>
+                    <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
+                    <h2 className='font-semibold'>{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h2>
+                  </div>
+                </Link>
                 {/* <a href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                   Подробнее
                 </a> */}

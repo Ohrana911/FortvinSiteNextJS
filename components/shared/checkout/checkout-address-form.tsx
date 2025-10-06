@@ -16,7 +16,8 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
 
   return (
     <WhiteBlock title="3. Адрес доставки" className={className}>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-4">
+        <p className='text-[var(--color-gray)]'>Введите и выберите адрес доставки</p>
         <Controller
           control={control}
           name="address"
@@ -26,13 +27,6 @@ export const CheckoutAddressForm: React.FC<Props> = ({ className }) => {
               {fieldState.error?.message && <ErrorText text={fieldState.error.message} />}
             </>
           )}
-        />
-
-        <FormTextarea
-          name="comment"
-          className="text-base"
-          placeholder="Комментарий к заказу"
-          rows={5}
         />
       </div>
     </WhiteBlock>

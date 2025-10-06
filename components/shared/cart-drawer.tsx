@@ -110,7 +110,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                 <SheetTitle><h2 className="underline font-semibold">Корзина</h2></SheetTitle>
             </SheetHeader>
 
-            <div className="overflow-auto flex-1">
+            <div className="overflow-auto flex gap-[20px]">
                 <div className="mb-2">
                     {
                         items.map((item) => (

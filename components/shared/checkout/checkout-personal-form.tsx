@@ -10,10 +10,10 @@ export const CheckoutPersonalForm: React.FC<Props> = ({ className }) => {
   return (
     <WhiteBlock title="2. Персональные данные" className={className}>
       <div className="grid grid-cols-2 gap-5">
-        <FormInput name="firstName" className="text-base" placeholder="Имя" />
-        <FormInput name="lastName" className="text-base" placeholder="Фамилия" />
-        <FormInput name="email" className="text-base" placeholder="E-Mail" />
-        <FormInput name="phone" className="text-base" placeholder="Телефон" />
+        <FormInput name="firstName" label='Имя' className="text-base" placeholder="Ваше имя" />
+        <FormInput name="lastName" label='Фамилия' className="text-base" placeholder="Ваша фамилия" />
+        <FormInput name="email" label='Email' className="text-base" placeholder="example@mail.com" />
+        <FormInput name="phone" label='Номер телефона' className="text-base" placeholder="89999999999" />
       </div>
     </WhiteBlock>
   );

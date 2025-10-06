@@ -39,8 +39,15 @@ export const CartDrawerItem: React.FC<Props> = ({
       <CartItem.Image src={imageUrl} />
 
       <div className="flex-1">
-        <CartItem.Info name={name} />
-
+        <div className='flex flex-row gap-2'>
+          <CartItem.Info name={name} />
+          <Trash2Icon
+              onClick={onClickRemove}
+              className="text-gray-400 cursor-pointer hover:text-[var(--color-blue)]"
+              size={24}
+            />
+        </div>
+        
         <hr className="my-3" />
 
         {/* <div className="flex items-center justify-between">
@@ -57,6 +64,7 @@ export const CartDrawerItem: React.FC<Props> = ({
         </div> */}
 
         <div className="flex items-center justify-between">
+          
           <CountButton onClick={onClickCountButton} value={quantity} />
 
           <div className="flex flex-col items-end gap-1">
@@ -68,12 +76,6 @@ export const CartDrawerItem: React.FC<Props> = ({
               {quantityPerPallet} шт × {retailPriceRubWithVAT} ₽
               
             </span>
-
-            <Trash2Icon
-              onClick={onClickRemove}
-              className="text-gray-400 cursor-pointer hover:text-gray-600"
-              size={16}
-            />
           </div>
         </div>
 

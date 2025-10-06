@@ -77,8 +77,9 @@ export default function CheckoutPage() {
   };
 
   return (
-    <Container className="mt-10">
-      <Title text="Оформление заказа" className="font-extrabold mb-8 text-[36px]" />
+    <div className="container">
+      {/* <Title text="Оформление заказа" className="underline " /> */}
+      <h1 className="underline ">Оформление заказа</h1>
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
@@ -104,6 +105,6 @@ export default function CheckoutPage() {
           </div>
         </form>
       </FormProvider>
-    </Container>
+    </div>
   );
 }

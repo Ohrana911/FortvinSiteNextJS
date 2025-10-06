@@ -17,7 +17,8 @@ interface Props {
 
 export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, className }) => {
   const vatPrice = (totalAmount * VAT) / 100;
-  const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
+  //const totalPrice = totalAmount + DELIVERY_PRICE + vatPrice;
+  const totalPrice = totalAmount;
 
   return (
     <WhiteBlock className={cn('p-6 sticky top-4', className)}>
@@ -42,13 +43,13 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
       <CheckoutItemDetails
         title={
           <div className="flex items-center">
-            <Percent size={18} className="mr-2 text-gray-400" />
-            Налоги:
+            <Truck size={18} className="mr-2 text-gray-400" />
+            Способ оплаты:
           </div>
         }
-        value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${vatPrice} ₽`}
+        value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `По согласованию`}
       />
-      <CheckoutItemDetails
+      {/* <CheckoutItemDetails
         title={
           <div className="flex items-center">
             <Truck size={18} className="mr-2 text-gray-400" />
@@ -56,12 +57,12 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${DELIVERY_PRICE} ₽`}
-      />
+      /> */}
 
       <Button
         loading={loading}
         type="submit"
-        className="w-full h-14 rounded-2xl mt-6 text-base font-bold">
+        className="colored-button mt-[20px] rounded-none">
         Оставить заявку
         <ArrowRight className="w-5 ml-2" />
       </Button>
