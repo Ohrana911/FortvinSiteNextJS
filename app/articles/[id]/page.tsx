@@ -139,7 +139,7 @@ import Link from 'next/link';
 import { prisma } from '@/prisma/prisma-client';
 import articlesData from '../../../data/articles.json';
 import { Button } from '@/components/ui';
-import '../articles.css';
+// import '../articles.css';
 
 type Article = {
   id: string;
