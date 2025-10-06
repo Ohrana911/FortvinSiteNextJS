@@ -107,7 +107,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
         <SheetTrigger asChild>{children}</SheetTrigger>
         <SheetContent className="flex flex-col justify-between pb-0 bg-[var(--background)]">
             <SheetHeader>
-                <SheetTitle><h2 className="underline font-semibold">Корзина</h2></SheetTitle>
+                <SheetTitle className="underline font-semibold">Корзина</SheetTitle>
             </SheetHeader>
 
             <div className="overflow-auto flex-1">
