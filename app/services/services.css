@@ -1,7 +1,7 @@
-body {
-  background-color: #F4F5F7; /* фон на весь экран */
+/* body {
+  background-color: #F4F5F7;
   margin: 0;
-}
+} */
 
 .service-block {
   margin-bottom: 80px;
@@ -52,7 +52,7 @@ body {
 }
 
 .service-list li::before {
-  content: "△";
+  content: "\25B3";
   position: absolute;
   left: 0;
   top: 0;
