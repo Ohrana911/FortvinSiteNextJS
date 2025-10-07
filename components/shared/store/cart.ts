@@ -63,7 +63,7 @@ export const useCartStore = create<CartState>((set, get) => ({
       set((state) => ({
         loading: true,
         error: false,
-        items: state.items.map((item) => (item.id === id ? { ...item, disabled: true } : item)),
+        items: state.items.map((item) => (item.id === id ? { ...item } : item)),
       }));
       const data = await Api.cart.removeCartItem(id);
       set(getCartDetails(data));
@@ -73,7 +73,7 @@ export const useCartStore = create<CartState>((set, get) => ({
     } finally {
       set((state) => ({
         loading: false,
-        items: state.items.map((item) => ({ ...item, disabled: false })),
+        items: state.items.map((item) => ({ ...item })),
       }));
     }
   },

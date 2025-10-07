@@ -23,7 +23,6 @@ export type CartStateItem = {
   retailPriceRubWithVAT: number;// цена за кирпич
   isOnSale: boolean;
   saleDescription: string;
-  disabled?: boolean;
 };
 
 interface ReturnProps {
@@ -68,7 +67,6 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
       price: brickPrice * quantityPerPallet, // цена за поддон
       isOnSale: product.isOnSale ?? false,          // ✅ добавили
       saleDescription: product.saleDescription ?? '', // ✅ добавили
-      disabled: false,
     };
   }) as CartStateItem[];
 
