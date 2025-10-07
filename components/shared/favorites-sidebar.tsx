@@ -76,8 +76,8 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
         >
           {/* Заголовок */}
           <div className="flex justify-between items-center p-[20px] border-b">
-            <Dialog.Title>
-              <h2 className="underline font-semibold">Избранное</h2>
+            <Dialog.Title className="underline font-semibold">
+              Избранное
             </Dialog.Title>
             <button onClick={onClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
               <X size={20} />
