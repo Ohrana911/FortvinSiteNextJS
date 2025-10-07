@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-export default {
+module.exports = {
   content: [
     './pages/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -8,8 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        'color-blue': 'var(--color-blue)',
-        'color-light-blue': 'var(--color-light-blue)',
+        'color-blue': '#5482A4',
+        'color-light-blue': '#BCDBF2',
+        'color-dark': '#2F3336',
+        'color-gray': '#63696F',
+        'color-light-gray': '#E3E8ED',
       }
     },
   },
