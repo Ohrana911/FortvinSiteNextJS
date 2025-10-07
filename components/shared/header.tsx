@@ -9,6 +9,7 @@ import { AuthModal } from "./modals/auth-modal";
 import { ProfileButton } from "./profile-button";
 import { FavoritesSidebar } from "./favorites-sidebar";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 interface Props {
   className?: string;
@@ -65,15 +66,15 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
           <CityDropdown value={city} onChange={handleCityChange} />
           <nav className="flex gap-6">
-            <a href="/catalog" className="hover:underline">Акции и скидки</a>
-            <a href="/about_us" className="hover:underline">О нас</a>
-            <a href="/articles" className="hover:underline">Статьи</a>
-            <a href="/#carousel" className="hover:underline">Производители</a>
+            <Link href="/catalog" className="hover:underline">Акции и скидки</Link>
+            <Link href="/about_us" className="hover:underline">О нас</Link>
+            <Link href="/articles" className="hover:underline">Статьи</Link>
+            <Link href="/#carousel" className="hover:underline">Производители</Link>
           </nav>
           <div className="flex items-center gap-2">
-            <a href="tel:+79588582747" className="font-medium hover:underline">
+            <Link href="tel:+79588582747" className="font-medium hover:underline">
               +7 (958) 858-27-47
-            </a>
+            </Link>
           </div>
         </div>
       </div>
@@ -83,9 +84,9 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-2">
           {/* Лого */}
           <div className="flex items-center">
-            <a href="/">
+            <Link href="/">
               <img src="/logo-removebg.png" alt="Логотип" className="h-15" />
-            </a>
+            </Link>
           </div>
 
           {/* Поиск */}
@@ -95,9 +96,9 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
           {/* Навигация (desktop) */}
           <nav className="hidden sm:flex gap-6 text-gray-700 font-medium mx-8">
-            <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
-            <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
-            <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
+            <Link className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
           </nav>
 
           
@@ -132,9 +133,9 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="sm:hidden bg-white shadow-md border-t border-gray-200 flex flex-col items-center py-4 gap-3">
-            <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
-            <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
-            <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
+            <Link className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
           </div>
         )}
       </div>

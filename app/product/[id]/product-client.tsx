@@ -6,8 +6,9 @@ import { ProductImage } from '@/components/shared/product-image';
 import { Heart } from 'lucide-react';
 import Link from 'next/link';
 import { useCartStore } from '@/store/cart';
+import { Product } from '@prisma/client';
 
-export function ProductClient({ product }: { product: any }) {
+export function ProductClient({ product }: { product: Product }) {
   const { favorites, fetchFavorites, toggleFavorite } = useFavoritesStore();
   const isFav = favorites.includes(product.id);
 

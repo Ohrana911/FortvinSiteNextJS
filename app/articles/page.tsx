@@ -23,7 +23,7 @@ import { prisma } from "@/prisma/prisma-client";
 //             <nav className="breadcrumb">
 //                 <ol>
 //                     <li>
-//                         <a href="/" className="breadcrumb-link">Главная</a>
+//                         <Link href="/" className="breadcrumb-link">Главная</Link>
 //                     </li>
 //                     <li className="breadcrumb-separator">→</li>
 //                     <li className="breadcrumb-current">Статьи</li>
@@ -124,7 +124,7 @@ const ArticlesPage = async () => {
     <div className="container">
       <nav className="breadcrumb">
         <ol>
-          <li><a href="/" className="breadcrumb-link">Главная</a></li>
+          <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
           <li className="breadcrumb-current">Статьи</li>
         </ol>
