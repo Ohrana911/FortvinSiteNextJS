@@ -54,7 +54,7 @@ import { Header } from "@/components/shared/header";
 // }
 
 import { Geist, Geist_Mono } from "next/font/google";
-import "./globals.css";
+// import "./globals.css";
 // import { Header } from "@/components/shared/header";
 import Footer from "@/components/shared/footer";
 import { Providers } from "@/components/shared/providers";
