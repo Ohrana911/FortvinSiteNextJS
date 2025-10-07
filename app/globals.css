@@ -219,6 +219,10 @@ h2 {
     font-size: 22px;
 }
 
+h2.big {
+  font-size: 32px;
+}
+
 h3 {
   font-size: 18px;
   line-height: 18px;
@@ -444,6 +448,13 @@ button.light-hover:hover{
 .item-title {
   margin: 0;
   font-size: 22px;
+}
+
+/* Карточка товара ------------------------------------------------------------------------------*/
+.product_card{
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
 }
 
 /* REQUEST BLOCK --------------------------------------------------------------------------*/
