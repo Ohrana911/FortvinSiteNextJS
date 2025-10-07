@@ -29,96 +29,9 @@ export default function CatalogPage() {
         <div className="flex-1">
           <div className="flex flex-col gap-16">
             <Button>
-            <Link href={"/api/products"}>Перейти в Каталог</Link>
-            </Button>
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
-            <ProductsGroupList title={"Бетонные блоки"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 2,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 3,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            ]} categoryId={1} />
+            <Link href={"/api/products"}>Перейти в Каталог</Link> </Button>
           </div>
-          <div className="flex flex-col gap-16">
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
-            <ProductsGroupList title={"Кирпичи"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 2,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 3,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            ]} categoryId={1} />
           </div>
-          <div className="flex flex-col gap-16">
-            {/* <ProductCard id={0} name="Бетон блок" price={5550} imageUrl="https://expres-beton.by/doc/images/tovar/m350.png" /> */}
-            <ProductsGroupList title={"Плитка"} items={[
-              {
-              id: 1,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 2,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            {
-              id: 3,
-              name: 'Бетон блок',
-              imageUrl: 'https://expres-beton.by/doc/images/tovar/m350.png',
-              price: 5550,
-              items: [{price: 5550}],
-
-            },
-            ]} categoryId={1} />
-          </div>
-        </div>
-
         
       </div>
     </Container>
