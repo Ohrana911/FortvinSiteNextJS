@@ -65,7 +65,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
           <CityDropdown value={city} onChange={handleCityChange} />
           <nav className="flex gap-6">
-            <a href="/catalog" className="hover:underline">Акции и скидки</a>
+            <a href="/api/products" className="hover:underline">Акции и скидки</a>
             <a href="/about_us" className="hover:underline">О нас</a>
             <a href="/articles" className="hover:underline">Статьи</a>
             <a href="/#carousel" className="hover:underline">Производители</a>
@@ -95,7 +95,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
           {/* Навигация (desktop) */}
           <nav className="hidden sm:flex gap-6 text-gray-700 font-medium mx-8">
-            <a className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</a>
+            <a className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</a>
             <a className="hover:text-[var(--color-blue)]" href="/services">Услуги</a>
             <a className="hover:text-[var(--color-blue)]" href="#footer">Контакты</a>
           </nav>
