@@ -70,7 +70,7 @@ export default async function ProfilePage() {
                 <div className="gap-[40px] flex flex-col">
                     <div className="profile-block">
                         <p className="font-bold">Персональные данные</p>
-                        <div className="w-full flex flex-row gap-10">
+                        <div className="w-full flex sm:flex-row flex-col sm:gap-10 gap-2">
                             <div className="blue-card gap-[5px]">
                                 <p className="small-bold-text text-[var(--color-blue)]">ФИО</p>
                                 <h3>{user.fullName}</h3>
@@ -115,8 +115,7 @@ export default async function ProfilePage() {
 
                       <div className="flex flex-col gap-[5px]">
                         <p className="small-bold-text text-[var(--color-blue)]">Состав заявки</p>
-                        <div className="grid grid-cols-2 md:grid-cols-2 gap-[20px] w-[980px]">
-                          <div>
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-[20px] w-full">
                             {orderItems.map((item, idx) => (
                               <Link key={idx} href={`/product/${item.productItem.product.id}`}>
                                 <div className="flex flex-row gap-2 items-center bg-[var(--background)] border border-black p-[15px]">
@@ -161,7 +160,6 @@ export default async function ProfilePage() {
                         <p className="big-text">{order.totalAmount} ₽</p>
                       </div>
                     </div>
-                  </div>
                 );
               })}
             </div>
