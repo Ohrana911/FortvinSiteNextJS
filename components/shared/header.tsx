@@ -15,7 +15,7 @@ interface Props {
   className?: string;
   hasSearch?: boolean;
   hasCart?: boolean;
-  onOpenModal: () => void;
+  onOpenModal?: () => void;
 }
 
 export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, className, onOpenModal }) => {
