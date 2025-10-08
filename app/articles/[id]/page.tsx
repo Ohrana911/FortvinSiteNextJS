@@ -242,6 +242,8 @@ interface ArticlePageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamic = 'force-dynamic';
+
 export default async function ArticlePage({ params }: ArticlePageProps) {
   // Используем await для получения params
   const { id } = await params;
