@@ -1,6 +1,6 @@
 // import { Button } from '@/components/ui';
 // import articlesData from '../../../data/articles.json';
-// import '../articles.css';
+import '../articles.css';
 // import Link from 'next/link';
 // import React from 'react';
 
