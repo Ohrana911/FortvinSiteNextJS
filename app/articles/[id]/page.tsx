@@ -243,6 +243,8 @@ interface ArticlePageProps {
 }
 
 export const dynamic = 'force-dynamic';
+export const revalidate = 0; // полностью отключаем ISR
+
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   // Используем await для получения params
