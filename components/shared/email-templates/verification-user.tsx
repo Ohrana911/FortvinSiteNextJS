@@ -11,7 +11,7 @@ export function VerificationUserTemplate({ code }: Props){
     </p>
 
     <p>
-      <a href={`http://localhost:3000/api/auth/verify?code=${code}`}>Подтвердить регистрацию</a>
+      <a href={`https://https://fortvin-site-next-js.vercel.app/api/auth/verify?code=${code}`}>Подтвердить регистрацию</a>
     </p>
   </div>)
 }

@@ -132,7 +132,7 @@ export async function updateUserInfo(body: Prisma.UserUpdateInput) {
         password: body.password
           ? hashSync(body.password as string, 10)
           : findUser?.password,
-        phone: (body as any).phone ?? findUser?.phone,
+        phone: body.phone ?? findUser?.phone,
       },
     });
   } catch (err) {

@@ -28,3 +28,4 @@ export { InfoBlock } from './info-block';
 export { ProfileForm } from './profile-form';
 export { FavoritesSidebar } from './favorites-sidebar';
 // export { Stories } from './stories';
+// export { ModalManager } from './modal-manager';

@@ -123,7 +123,7 @@ export default function ProductsPage() {
     <div className="container">
       <nav id="products-top"  className="breadcrumb">
         <ol>
-          <li><a href="/" className="breadcrumb-link">Главная</a></li>
+          <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
           <li className="breadcrumb-current">Каталог</li>
         </ol>
@@ -164,9 +164,9 @@ export default function ProductsPage() {
                     <h2 className='font-semibold'>{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h2>
                   </div>
                 </Link>
-                {/* <a href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
+                {/* <Link href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
                   Подробнее
-                </a> */}
+                </Link> */}
                 <div className="flex items-center justify-end w-full mt-auto gap-2">
                   {/* Favorite Button */}
                   <button

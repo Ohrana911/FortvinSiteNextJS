@@ -2,16 +2,31 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-hot-toast';
 
+interface FavoriteItem {
+  id: number;
+  productId: number;
+}
+
 export function useFavorites() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [loading, setLoading] = useState(false);
 
   // Получаем список избранного при монтировании
+  // useEffect(() => {
+  //   fetch('/api/favorites')
+  //     .then(res => res.json())
+  //     .then((data) => {
+  //       const ids = data.map((fav: any) => fav.productId);
+  //       setFavorites(ids);
+  //     });
+  // }, []);
+
+    // Получаем список избранного при монтировании
   useEffect(() => {
     fetch('/api/favorites')
       .then(res => res.json())
-      .then((data) => {
-        const ids = data.map((fav: any) => fav.productId);
+      .then((data: FavoriteItem[]) => {
+        const ids = data.map(fav => fav.productId);
         setFavorites(ids);
       });
   }, []);
@@ -42,8 +57,9 @@ export function useFavorites() {
     try {
       // Нужно знать ID favorite, для простоты будем искать его у сервера по productId
       const favListRes = await fetch('/api/favorites');
-      const favList = await favListRes.json();
-      const fav = favList.find((f: any) => f.productId === productId);
+      // const favList = await favListRes.json();
+      const favList: FavoriteItem[] = await favListRes.json();
+      const fav = favList.find(f => f.productId === productId);
       if (!fav) throw new Error('Не найдено в избранном');
 
       await fetch(`/api/favorites/${fav.id}`, { method: 'DELETE' });

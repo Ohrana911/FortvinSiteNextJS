@@ -7,7 +7,7 @@ const Footer: React.FC = () => (
             <h1 className='underline text-[var(--background)]'>Связаться с нами</h1>
             <div className='flex flex-col md:flex-row justify-between w-full gap-5'>
                 <div className='flex flex-col gap-5 md:gap-10'>
-                    <h2 className='font-bold'>ООО "Фортвин"</h2>
+                    <h2 className='font-bold'>ООО &quot;Фортвин&quot;</h2>
                     <div className='flex flex-col gap-2'>
                         <p>ИНН: 4706088188 | ОГРН: 1254700006428</p>
                         <p>188645, Ленинградская область, г. Всеволожск, 

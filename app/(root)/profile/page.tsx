@@ -59,7 +59,7 @@ export default async function ProfilePage() {
       <nav className="breadcrumb">
         <ol>
             <li>
-              <a href="/" className="breadcrumb-link">Главная</a>
+              <Link href="/" className="breadcrumb-link">Главная</Link>
             </li>
             <li className="breadcrumb-separator">→</li>
             <li className="breadcrumb-current">Личный кабинет</li>

@@ -13,7 +13,7 @@ import { calcCartItemTotalPrice } from './calc-cart-item-total-price';
 // };
 
 export type CartStateItem = {
-  productItem: any;
+  productItem: number;
   id: number;
   quantity: number;             // количество поддонов
   name: string;
@@ -23,6 +23,7 @@ export type CartStateItem = {
   retailPriceRubWithVAT: number;// цена за кирпич
   isOnSale: boolean;
   saleDescription: string;
+  disabled: boolean;
 };
 
 interface ReturnProps {

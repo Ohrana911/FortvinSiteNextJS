@@ -1,7 +1,7 @@
 import { prisma } from '@/prisma/prisma-client';
 import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest): Promise<NextResponse> {
   try {
     const code = req.nextUrl.searchParams.get('code');
 
@@ -36,7 +36,11 @@ export async function GET(req: NextRequest) {
 
     return NextResponse.redirect(new URL('/?verified', req.url));
   } catch (error) {
-    console.error(error);
-    console.log('[VERIFY_GET] Server error', error);
+    console.error('[VERIFY_GET] Server error', error);
+    // Всегда возвращаем Response, даже при ошибке
+    return NextResponse.json(
+      { error: 'Внутренняя ошибка сервера' },
+      { status: 500 }
+    );
   }
 }
