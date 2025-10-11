@@ -31,7 +31,7 @@ export function ProductClient({ product }: { product: Product }) {
         <ol>
           <li><Link href="/">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
-          <li><Link href="/catalog">Каталог</Link></li>
+          <li><Link href="/api/products">Каталог</Link></li>
           <li className="breadcrumb-separator">→</li>
           <li className="breadcrumb-current">{product.name}</li>
         </ol>

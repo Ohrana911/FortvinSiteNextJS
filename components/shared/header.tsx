@@ -66,7 +66,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4">
           <CityDropdown value={city} onChange={handleCityChange} />
           <nav className="flex gap-6">
-            <Link href="/catalog" className="hover:underline">Акции и скидки</Link>
+            <Link href="/api/products" className="hover:underline">Акции и скидки</Link>
             <Link href="/about_us" className="hover:underline">О нас</Link>
             <Link href="/articles" className="hover:underline">Статьи</Link>
             <Link href="/#carousel" className="hover:underline">Производители</Link>
@@ -96,12 +96,10 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
 
           {/* Навигация (desktop) */}
           <nav className="hidden sm:flex gap-6 text-gray-700 font-medium mx-8">
-            <Link className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
             <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
           </nav>
-
-          
 
                     {/* Иконки */}
                     <div className="flex items-center gap-3">
@@ -133,7 +131,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="sm:hidden bg-white shadow-md border-t border-gray-200 flex flex-col items-center py-4 gap-3">
-            <Link className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
             <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
           </div>

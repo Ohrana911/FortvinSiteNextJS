@@ -47,8 +47,8 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       const query = category === 'ALL'
-        ? `/api/products/search?page=${page}&limit=6`
-        : `/api/products/search?page=${page}&limit=6&category=${category}`;
+        ? `/api/products/search?page=${page}&limit=8`
+        : `/api/products/search?page=${page}&limit=8&category=${category}`;
 
       const res = await fetch(query);
       const data = await res.json();
@@ -186,64 +186,6 @@ export default function ProductsPage() {
                                     border border-transparent 
                                     hover:border-[var(--color-gray)]"
                     onClick={() => addToCart(p.id)}
-                  >
-                    В корзину
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-          {products.map((p) => {
-            const isFav = favorites.includes(p.id);
-            return (
-              <div key={p.id} data-testid={`product-card-${p.id}`} className="bg-white border border-gray-200 rounded-lg shadow-sm p-4 flex flex-col items-center hover:shadow-md transition-shadow relative">
-                {/* Free Delivery Badge */}
-                {p.isOnSale && (
-                  <div className="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-2 py-1 rounded" data-testid="free-delivery-badge">
-                    Бесплатная доставка
-                  </div>
-                )}
-                
-                {/* Product Image */}
-                <div className="w-full h-40 mb-4 overflow-hidden rounded">
-                  <img 
-                    src={p.imageUrl ?? '/placeholder.png'} 
-                    alt={p.name} 
-                    className="w-full h-full object-cover"
-                    data-testid={`product-image-${p.id}`}
-                  />
-                </div>
-                
-                {/* Product Name */}
-                <h2 className="text-sm font-medium text-gray-900 text-center mb-2 leading-tight" data-testid={`product-name-${p.id}`}>
-                  {p.name}
-                </h2>
-                
-                {/* Specification
-                <p className="text-xs text-gray-500 mb-2" data-testid={`product-spec-${p.id}`}>
-                  {p.specification}
-                </p> */}
-                
-                {/* Price */}
-                <p className="text-lg font-bold text-gray-900 mb-4" data-testid={`product-price-${p.id}`}>
-                  {p.retailPriceRubWithVAT}
-                </p>
-                
-                {/* Action Buttons */}
-                <div className="flex items-center justify-between w-full mt-auto">
-                  {/* Favorite Button */}
-                  <button
-                    onClick={() => toggleFavorite(p.id)}
-                    className="p-1 rounded-full hover:bg-gray-100 transition-colors"
-                    data-testid={`favorite-btn-${p.id}`}
-                  >
-                    <Heart size={20} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
-                  </button>
-                  
-                  {/* Add to Cart Button */}
-                  <button 
-                    className="px-4 py-2 bg-blue-600 text-white text-sm font-medium rounded hover:bg-blue-700 transition-colors"
-                    data-testid={`add-to-cart-btn-${p.id}`}
                   >
                     В корзину
                   </button>

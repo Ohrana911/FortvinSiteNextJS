@@ -51,7 +51,7 @@ const RequestForm: React.FC = () => {
                 <div className="request-card">
                     <div className="request-left">
                         <p>Заполните форму, а наши менеджеры с радостью подскажут лучший вариант и помогут оформить заказ</p>
-                        <img src="/request.jpg" alt="Заявка" className="hidden sm:request-image" />
+                        <img src="/request.jpg" alt="Заявка" className="request-image hidden sm:block" />
                     </div>
 
                     <div className="request-right">
