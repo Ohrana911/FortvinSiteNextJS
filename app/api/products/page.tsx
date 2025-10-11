@@ -47,8 +47,8 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       const query = category === 'ALL'
-        ? `/api/products/search?page=${page}&limit=6`
-        : `/api/products/search?page=${page}&limit=6&category=${category}`;
+        ? `/api/products/search?page=${page}&limit=8`
+        : `/api/products/search?page=${page}&limit=8&category=${category}`;
 
       const res = await fetch(query);
       const data = await res.json();

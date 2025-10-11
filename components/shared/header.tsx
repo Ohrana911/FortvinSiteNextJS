@@ -131,7 +131,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
         {/* Мобильное меню */}
         {isMenuOpen && (
           <div className="sm:hidden bg-white shadow-md border-t border-gray-200 flex flex-col items-center py-4 gap-3">
-            <Link className="hover:text-[var(--color-blue)]" href="/catalog">Каталог</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
             <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
           </div>
