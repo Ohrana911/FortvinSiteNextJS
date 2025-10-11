@@ -1,5 +1,4 @@
 import React from 'react';
-// import './articles.css';
 import articlesData from '../../data/articles.json';
 import Link from 'next/link';
 import { prisma } from "@/prisma/prisma-client";
