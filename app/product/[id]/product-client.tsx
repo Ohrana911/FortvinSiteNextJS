@@ -50,8 +50,8 @@ export function ProductClient({ product }: { product: Product }) {
             <div className="mb-6 flex flex-col gap-1">
                 <div className="font-bold flex flex-row gap-[20px] items-center">
                     <h2 className='big'>
-                        {(product.quantityPerPallet && product.retailPriceRubWithVAT)
-                    ? (product.quantityPerPallet * product.retailPriceRubWithVAT).toLocaleString('ru-RU')
+                        {product.retailPriceRubWithVAT
+                    ? ((product.quantityPerPallet ?? 1) * product.retailPriceRubWithVAT).toLocaleString('ru-RU')
                     : '—'} ₽
                     </h2>
                     {product.isOnSale && (
@@ -63,7 +63,9 @@ export function ProductClient({ product }: { product: Product }) {
                 </div>
 
                 <div className="text-[var(--color-blue)]">
-                <p>{product.quantityPerPallet} шт × {product.retailPriceRubWithVAT} ₽/шт</p>
+                <p>{product.quantityPerPallet 
+                ? product.quantityPerPallet + " шт × " + product.retailPriceRubWithVAT + "₽/шт" 
+                : ('Цена за 1 куб.м')}</p>
                 </div>
             </div>
 
