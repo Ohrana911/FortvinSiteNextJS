@@ -61,6 +61,7 @@ export const getCartDetails = (data: CartDTO): ReturnProps => {
     return {
       id: item.id,
       quantity: item.quantity, // поддоны
+      productItem: item.productItem.id,
       name: product.name,
       imageUrl: product.imageUrl,
       retailPriceRubWithVAT: brickPrice,

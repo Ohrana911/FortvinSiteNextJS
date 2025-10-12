@@ -11,6 +11,15 @@ import { Product } from '@prisma/client';
 export function ProductClient({ product }: { product: Product }) {
   const { favorites, fetchFavorites, toggleFavorite } = useFavoritesStore();
   const isFav = favorites.includes(product.id);
+  const { addCartItem, isInCart } = useCartStore();
+  const inCart = isInCart(product.id);
+
+  const handleAddToCart = async () => {
+    console.log('inCart: ', inCart);
+    if (inCart) return;
+    await addCartItem({ productItemId: product.id });
+  };
+
 
     const addToCart = async (productItemId: number) => {
     try {
@@ -69,16 +78,18 @@ export function ProductClient({ product }: { product: Product }) {
             </div>
 
           <div className="flex items-center gap-4 mb-6">
-            <button 
-                    className={`text-white text-[20px] font-bold
-                                    px-[60px] py-[15px]
-                                    border
-                                    cursor-pointer bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)] text-[var(--color-dark)] border-[var(--color-gray)]
-                                `}
-                    onClick={() => addToCart(product.id)}
-                  >
-                    В корзину
+            <button
+              className={`text-white text-[20px] font-bold px-[60px] py-[15px] border cursor-pointer 
+                ${inCart
+                  ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                  : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                }`}
+              onClick={handleAddToCart}
+              disabled={inCart}
+            >
+              {inCart ? 'Уже в корзине' : 'В корзину'}
             </button>
+
             <button
               onClick={() => toggleFavorite(product.id)}
               className="cursor-pointer p-1 rounded-full transition-colors"
@@ -90,11 +101,11 @@ export function ProductClient({ product }: { product: Product }) {
             </button>
           </div>
 
-          <div className="py-6 flex flex-col gap-[20px]">
+          {/*<div className="py-6 flex flex-col gap-[20px]">
             <h2 className='font-bold underline'>Описание</h2>
             <p>Какое-то описание</p>
-            {/* <p>{product.description ?? '—'}</p> */}
-          </div>
+             <p>{product.description ?? '—'}</p> 
+          </div>*/}
 
           <div className="py-6 flex flex-col gap-[20px]">
             <h2 className='font-bold underline'>Характеристики</h2>
