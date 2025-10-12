@@ -20,16 +20,6 @@ export function ProductClient({ product }: { product: Product }) {
     await addCartItem({ productItemId: product.id });
   };
 
-
-    const addToCart = async (productItemId: number) => {
-    try {
-      await useCartStore.getState().addCartItem({ productItemId });
-      console.log('Товар добавлен в корзину');
-    } catch (err) {
-      console.error('Ошибка при добавлении товара в корзину', err);
-    }
-  };
-
   useEffect(() => {
     fetchFavorites();
   }, [fetchFavorites]);

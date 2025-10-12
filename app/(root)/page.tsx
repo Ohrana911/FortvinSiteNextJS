@@ -29,13 +29,18 @@ export default function Home() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [loadingFav, setLoadingFav] = useState(false);
 
-  const addToCart = async (productItemId: number) => {
-    try {
-      await useCartStore.getState().addCartItem({ productItemId });
-      console.log('Товар добавлен в корзину');
-    } catch (err) {
-      console.error('Ошибка при добавлении товара в корзину', err);
-    }
+  const { addCartItem, isInCart, fetchCartItems } = useCartStore();
+
+  useEffect(() => {
+      fetchCartItems();
+    }, [fetchCartItems]);
+
+  const handleAddToCart = async (productId: number) => {
+    const inCart = isInCart(productId);
+    console.log('inCart: ', inCart);
+
+    if (inCart) return;
+    await addCartItem({ productItemId: productId });
   };
 
   // Получаем продукты
@@ -156,6 +161,7 @@ export default function Home() {
               .slice(0, 4)               // берём первые 4
               .map((p) => {
                 const isFav = favorites.includes(p.id);
+                const inCart = isInCart(p.id);
                 return (
                   <div key={p.id} className="flex flex-col cursor-pointer relative">
                     <Link href={`/product/${p.id}`}>
@@ -164,7 +170,7 @@ export default function Home() {
                           {p.saleDescription}
                         </span>
                       )}
-                      <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-fit object-cover mb-4" />
+                      <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
                       <p>{p.name}</p>
                       <div className='flex flex-col gap-1 mb-[10px] mt-[10px] w-full'>
                         <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
@@ -179,16 +185,16 @@ export default function Home() {
                       >
                         <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
                       </button>
-                      <button 
-                        className="cursor-pointer 
-                                    bg-[var(--color-blue)] hover:bg-[var(--color-blue-dark)]
-                                    text-white hover:text-[var(--color-dark)] 
-                                    px-[20px] py-[8px]
-                                    border border-transparent 
-                                    hover:border-[var(--color-gray)]"
-                        onClick={() => addToCart(p.id)}
+                      <button
+                        className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
+                          ${inCart
+                            ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                            : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                          }`}
+                        onClick={() => handleAddToCart(p.id)}
+                        disabled={inCart}
                       >
-                        В корзину
+                        {inCart ? 'Уже в корзине' : 'В корзину'}
                       </button>
                     </div>
                   </div>
@@ -213,6 +219,7 @@ export default function Home() {
               .slice(0, 4)               // берём первые 4
               .map((p) => {
                 const isFav = favorites.includes(p.id);
+                const inCart = isInCart(p.id);
                 return (
                   <div key={p.id} className="flex flex-col cursor-pointer relative">
                     <Link href={`/product/${p.id}`}>
@@ -236,16 +243,16 @@ export default function Home() {
                       >
                         <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
                       </button>
-                      <button 
-                        className="cursor-pointer 
-                                    bg-[var(--color-blue)] hover:bg-[var(--color-blue-dark)]
-                                    text-white hover:text-[var(--color-dark)] 
-                                    px-[20px] py-[8px]
-                                    border border-transparent 
-                                    hover:border-[var(--color-gray)]"
-                        onClick={() => addToCart(p.id)}
+                      <button
+                        className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
+                          ${inCart
+                            ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                            : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                          }`}
+                        onClick={() => handleAddToCart(p.id)}
+                        disabled={inCart}
                       >
-                        В корзину
+                        {inCart ? 'Уже в корзине' : 'В корзину'}
                       </button>
                     </div>
                   </div>
