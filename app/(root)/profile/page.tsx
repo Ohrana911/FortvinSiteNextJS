@@ -109,7 +109,7 @@ export default async function ProfilePage() {
                           <h3>{order.address}</h3>
                         </div>
                         <div className="bg-[var(--color-light-blue)] pl-[20px] pr-[20px] pt-[8px] pb-[8px] w-auto">
-                          <h3>{new Date(order.createdAt).toLocaleDateString()}</h3>
+                          <h3>{new Date(order.createdAt).toLocaleDateString('ru-RU')}</h3>
                         </div>
                       </div>
 
