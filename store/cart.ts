@@ -21,6 +21,8 @@ export interface CartState {
 
   /* Запрос на удаление товара из корзины */
   removeCartItem: (id: number) => Promise<void>;
+
+  isInCart: (productItemId: number) => boolean;
 }
 
 export const useCartStore = create<CartState>((set, get) => ({
@@ -86,5 +88,9 @@ export const useCartStore = create<CartState>((set, get) => ({
     } finally {
       set({ loading: false });
     }
+  },
+
+  isInCart: (productItemId: number) => {
+    return get().items.some((item) => item.productItem === productItemId);
   },
 }));

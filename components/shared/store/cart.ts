@@ -90,4 +90,9 @@ export const useCartStore = create<CartState>((set, get) => ({
       set({ loading: false });
     }
   },
+
+  isInCart: (productItemId: number) => {
+    return get().items.some((item) => item.id === productItemId);
+  },
+
 }));

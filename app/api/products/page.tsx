@@ -34,13 +34,18 @@ export default function ProductsPage() {
   const [favorites, setFavorites] = useState<number[]>([]);
   const [loadingFav, setLoadingFav] = useState(false);
 
-  const addToCart = async (productItemId: number) => {
-    try {
-      await useCartStore.getState().addCartItem({ productItemId });
-      console.log('Товар добавлен в корзину');
-    } catch (err) {
-      console.error('Ошибка при добавлении товара в корзину', err);
-    }
+  const { addCartItem, isInCart, fetchCartItems } = useCartStore();
+
+  useEffect(() => {
+      fetchCartItems();
+    }, [fetchCartItems]);
+
+  const handleAddToCart = async (productId: number) => {
+    const inCart = isInCart(productId);
+    console.log('inCart: ', inCart);
+
+    if (inCart) return;
+    await addCartItem({ productItemId: productId });
   };
 
   // Получаем продукты
@@ -149,6 +154,7 @@ export default function ProductsPage() {
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
           {products.map((p) => {
             const isFav = favorites.includes(p.id);
+            const inCart = isInCart(p.id);
             return (
               <div key={p.id} className="flex flex-col cursor-pointer relative">
                 <Link href={`/product/${p.id}`}>
@@ -178,16 +184,16 @@ export default function ProductsPage() {
                   </button>
                   
                   {/* Add to Cart Button */}
-                  <button 
-                    className="cursor-pointer 
-                                    bg-[var(--color-blue)] hover:bg-[var(--color-blue-dark)]
-                                    text-white hover:text-[var(--color-dark)] 
-                                    px-[20px] py-[8px]
-                                    border border-transparent 
-                                    hover:border-[var(--color-gray)]"
-                    onClick={() => addToCart(p.id)}
+                  <button
+                    className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
+                      ${inCart
+                        ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                        : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                      }`}
+                    onClick={() => handleAddToCart(p.id)}
+                    disabled={inCart}
                   >
-                    В корзину
+                    {inCart ? 'Уже в корзине' : 'В корзину'}
                   </button>
                 </div>
               </div>
