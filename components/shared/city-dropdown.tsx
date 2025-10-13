@@ -28,6 +28,25 @@ export const CityDropdown: React.FC<CityDropdownProps> = ({ value, onChange }) =
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+    // 🔹 Новый метод — выбираем город, сохраняем cookie и оповещаем других
+  const handleSelect = async (city: string) => {
+    onChange(city);
+    setOpen(false);
+
+    try {
+      await fetch("/api/city", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city }),
+      });
+
+      // 🔹 Отправляем глобальное событие
+      window.dispatchEvent(new CustomEvent("cityChanged", { detail: city }));
+    } catch (err) {
+      console.error("Ошибка при установке города:", err);
+    }
+  };
+
   return (
     <div ref={ref} className="relative">
       {/* Заголовок без hover */}
@@ -60,10 +79,11 @@ export const CityDropdown: React.FC<CityDropdownProps> = ({ value, onChange }) =
               <div
                 key={city}
                 role="button"
-                onMouseDown={() => {
-                  onChange(city);
-                  setOpen(false);
-                }}
+                // onMouseDown={() => {
+                //   onChange(city);
+                //   setOpen(false);
+                // }}
+                onMouseDown={() => handleSelect(city)} // ✅ изменили здесь
                 className={`px-4 py-2 cursor-pointer transition-colors duration-200 ${
                   city === value
                     ? "bg-[var(--color-blue)] text-white font-medium"

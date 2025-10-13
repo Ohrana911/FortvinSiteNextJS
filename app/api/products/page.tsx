@@ -49,13 +49,29 @@ export default function ProductsPage() {
   };
 
   // Получаем продукты
+  // useEffect(() => {
+  //   const fetchProducts = async () => {
+  //     const query = category === 'ALL'
+  //       ? `/api/products/search?page=${page}&limit=8`
+  //       : `/api/products/search?page=${page}&limit=8&category=${category}`;
+
+  //     const res = await fetch(query);
+  //     const data = await res.json();
+
+  //     setProducts(data.data);
+  //     setTotalPages(data.totalPages);
+  //   };
+
+  //   fetchProducts();
+  // }, [page, category]);
+  // Получаем продукты
   useEffect(() => {
     const fetchProducts = async () => {
       const query = category === 'ALL'
         ? `/api/products/search?page=${page}&limit=8`
         : `/api/products/search?page=${page}&limit=8&category=${category}`;
 
-      const res = await fetch(query);
+      const res = await fetch(query, { cache: 'no-store' }); // ⬅️ чтобы не кэшировалось
       const data = await res.json();
 
       setProducts(data.data);
@@ -63,7 +79,18 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
+
+    // ✅ Новый код — слушаем событие "смена города"
+    const handleCityChange = () => {
+      // сбрасываем на первую страницу и обновляем товары
+      setPage(1);
+      fetchProducts();
+    };
+
+    window.addEventListener('cityChanged', handleCityChange);
+    return () => window.removeEventListener('cityChanged', handleCityChange);
   }, [page, category]);
+
 
   // Получаем избранное
   useEffect(() => {
