@@ -177,67 +177,91 @@ export default function ProductsPage() {
             </button>
           ))}
         </div>
+        {products.length === 0 ? (
+          <div className="col-span-full text-center text-gray-500 text-lg py-10">
+            В выбранной категории нет товаров 😔
+          </div>
+        ) : (
+          <>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
+              {products.map((p) => {
+                const isFav = favorites.includes(p.id);
+                const inCart = isInCart(p.id);
+                return (
+                  <div key={p.id} className="flex flex-col cursor-pointer relative">
+                    <Link href={`/product/${p.id}`}>
+                      {p.isOnSale && p.saleDescription && (
+                        <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
+                          {p.saleDescription}
+                        </span>
+                      )}
+                      <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
+                      <p>{p.name}</p>
+                      <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
+                        {p.quantityPerPallet == null ? (
+                          ''
+                        ) : (
+                          <p className="small-text">
+                            {p.retailPriceRubWithVAT
+                              ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`
+                              : ' '}
+                          </p>
+                        )}
+                        <h2 className="font-semibold">
+                          {(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽
+                          {p.quantityPerPallet == null ? '/куб.м' : ''}
+                        </h2>
+                      </div>
+                    </Link>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
-          {products.map((p) => {
-            const isFav = favorites.includes(p.id);
-            const inCart = isInCart(p.id);
-            return (
-              <div key={p.id} className="flex flex-col cursor-pointer relative">
-                <Link href={`/product/${p.id}`}>
-                  {p.isOnSale && p.saleDescription && (
-                    <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
-                      {p.saleDescription}
-                    </span>
-                  )}
-                  <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
-                  <p>{p.name}</p>
-                  <div className='flex flex-col gap-1 mb-[10px] mt-[10px] w-full'>
-                    { p.quantityPerPallet == null ? ''
-                    : <p className='small-text'> {p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '} </p> }
-                    <h2 className='font-semibold'>{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽{p.quantityPerPallet == null ? '/куб.м' : ''}</h2>
+                    <div className="flex items-center justify-end w-full mt-auto gap-2">
+                      <button
+                        onClick={() => toggleFavorite(p.id)}
+                        className="cursor-pointer p-1 rounded-full transition-colors"
+                      >
+                        <Heart
+                          size={24}
+                          className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'}
+                        />
+                      </button>
+
+                      <button
+                        className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
+                          ${
+                            inCart
+                              ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                              : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                          }`}
+                        onClick={() => handleAddToCart(p.id)}
+                        disabled={inCart}
+                      >
+                        {inCart ? 'Уже в корзине' : 'В корзину'}
+                      </button>
+                    </div>
                   </div>
-                </Link>
-                {/* <Link href={`/product/${p.id}`} className="mt-4 inline-block px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition">
-                  Подробнее
-                </Link> */}
-                <div className="flex items-center justify-end w-full mt-auto gap-2">
-                  {/* Favorite Button */}
-                  <button
-                    onClick={() => toggleFavorite(p.id)}
-                    className="cursor-pointer p-1 rounded-full transition-colors"
-                    data-testid={`favorite-btn-${p.id}`}
-                  >
-                    <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
-                  </button>
-                  
-                  {/* Add to Cart Button */}
-                  <button
-                    className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
-                      ${inCart
-                        ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
-                        : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
-                      }`}
-                    onClick={() => handleAddToCart(p.id)}
-                    disabled={inCart}
-                  >
-                    {inCart ? 'Уже в корзине' : 'В корзину'}
-                  </button>
-                </div>
-              </div>
-            );
-          })}
-        </div>
+                );
+              })}
+            </div>
 
-        <div className="flex justify-center items-center gap-4 mt-8">
-          <button disabled={page === 1} onClick={() => setPage(page - 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
-            Предыдущая
-          </button>
-          <span> {page} из {totalPages}</span>
-          <button disabled={page === totalPages} onClick={() => setPage(page + 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
-            Следующая
-          </button>
-        </div>
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
+              >
+                Предыдущая
+              </button>
+              <span>{page} из {totalPages}</span>
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
+              >
+                Следующая
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
