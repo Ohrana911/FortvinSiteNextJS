@@ -75,6 +75,11 @@ model Product {
   retailPriceRubWithVAT Float?
   city                  String?
 
+  description            String?
+  manufacturer           String?
+  strengthClass          String?
+  densityKgPerM3         String?
+
   category   Category @relation(fields: [categoryId], references: [id])
   categoryId Int
 
