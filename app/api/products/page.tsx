@@ -207,10 +207,18 @@ export default function ProductsPage() {
                               : ' '}
                           </p>
                         )}
-                        <h2 className="font-semibold">
+                        {/* <h2 className="font-semibold">
                           {(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽
                           {p.quantityPerPallet == null ? '/куб.м' : ''}
+                        </h2> */}
+                        <h2 className="font-semibold">
+                          {p.retailPriceRubWithVAT
+                            ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT)
+                                .toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽'
+                            : '—'}
+                          {p.quantityPerPallet == null ? '/куб.м' : ''}
                         </h2>
+
                       </div>
                     </Link>
 
