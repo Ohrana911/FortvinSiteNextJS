@@ -152,7 +152,12 @@ export default function ProductsPage() {
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
-          {products.map((p) => {
+          {products.length === 0 ? (
+            <div className="col-span-full text-center text-gray-500 text-lg py-10">
+              В выбранной категории нет товаров 😔
+            </div>
+          ) : (
+          products.map((p) => {
             const isFav = favorites.includes(p.id);
             const inCart = isInCart(p.id);
             return (
@@ -199,17 +204,30 @@ export default function ProductsPage() {
                 </div>
               </div>
             );
-          })}
+          })
+        )}
         </div>
 
         <div className="flex justify-center items-center gap-4 mt-8">
-          <button disabled={page === 1} onClick={() => setPage(page - 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
-            Предыдущая
-          </button>
-          <span> {page} из {totalPages}</span>
-          <button disabled={page === totalPages} onClick={() => setPage(page + 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">
-            Следующая
-          </button>
+          {page === 1 ? null : (
+            <div className="flex justify-center items-center gap-4 mt-8">
+              <button
+                disabled={page === 1}
+                onClick={() => setPage(page - 1)}
+                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
+              >
+                Предыдущая
+              </button>
+              <span>{page} из {totalPages}</span>
+              <button
+                disabled={page === totalPages}
+                onClick={() => setPage(page + 1)}
+                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
+              >
+                Следующая
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
