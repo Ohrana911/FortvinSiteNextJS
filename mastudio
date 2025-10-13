@@ -1,0 +1,262 @@
+[33mcommit ea58bef054c9da5b2604eb2f8e3df86c73908035[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 22:23:03 2025 +0300
+
+    Я все ставлю на эту сборку 2
+
+[33mcommit fd23ced588a42677f5fed5d530abe0c95244876a[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 22:20:31 2025 +0300
+
+    Я все ставлю на эту сборку
+
+[33mcommit 943fa8a75cb87896bc95ad766df570788e0375d3[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 21:52:14 2025 +0300
+
+    Эксперимент
+
+[33mcommit 3f1c9de6bf0a4e0de9c6d51653c718317edeaadb[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 19:35:20 2025 +0300
+
+    Убрал все css
+
+[33mcommit 5585a4ff858352f5f4b870fd9d3e618f32118156[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 19:31:00 2025 +0300
+
+    Убрал services.css
+
+[33mcommit a7d00a06a7f220327980daae9cc055c35cb51f85[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 19:24:54 2025 +0300
+
+    Css ошибки, пару убрал, посмотрим
+
+[33mcommit 30e46cbaee8a0bbfb3315de3b84624af20c37793[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 19:13:11 2025 +0300
+
+    БЕЗ TURBOPACK
+
+[33mcommit 0b47f82442a0001211f0f2229278201f24b55c82[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Tue Oct 7 19:03:26 2025 +0300
+
+    Изменения из коммита 7f092c8efa1741c79d8102e5a4b94618db44cdc9
+
+[33mcommit 7f092c8efa1741c79d8102e5a4b94618db44cdc9[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Tue Oct 7 16:02:11 2025 +0300
+
+    Карточка товара, главная, хедер, немного адаптивки
+
+[33mcommit a49dd9ec016d45e7535edcef9a5328fb794d681e[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Tue Oct 7 14:28:23 2025 +0300
+
+    Сохранение изменений перед переключением ветки
+
+[33mcommit fbce82acb3ce41f857dc7dab1bc22a0eb5d05025[m
+Merge: 67cf827 55b2d37
+Author: Evgeniya Mishchenko <120026155+ginssseng@users.noreply.github.com>
+Date:   Tue Oct 7 03:01:29 2025 +0300
+
+    Merge branch 'main' into ginssseng
+
+[33mcommit 67cf82743d140ca111099e7625aeaee08b360f23[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Tue Oct 7 02:59:33 2025 +0300
+
+    Checkout page
+
+[33mcommit 55b2d37b325bc61f5bced8691c65ec64cee38fdd[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Mon Oct 6 04:59:15 2025 +0300
+
+    Устранение ошибки для деплоя 3.0
+
+[33mcommit 76f3fb011a385deebf8182339ad14d6bd3a76b3f[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Mon Oct 6 04:36:03 2025 +0300
+
+    Устранение ошибки для деплоя 2.0
+
+[33mcommit d8e26e83517503f8a5aedd2b4d85a221e8fd1b99[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Mon Oct 6 04:23:26 2025 +0300
+
+    Устранение ошибки для деплоя
+
+[33mcommit dd8da1546b5ff032ea6043ae6b161f5d30ae1e07[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Mon Oct 6 03:57:49 2025 +0300
+
+    правки в send-email.ts
+
+[33mcommit d99554b4944165eb27e6b7a3e001387abca79b0b[m
+Merge: 45adbd1 bda2ab5
+Author: Evgeniya Mishchenko <120026155+ginssseng@users.noreply.github.com>
+Date:   Mon Oct 6 03:06:18 2025 +0300
+
+    Merge pull request #15 from Ohrana911/ginssseng
+    
+    Header and card
+
+[33mcommit bda2ab5ba232949dde08c7c5996c0847c980285b[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Mon Oct 6 02:40:34 2025 +0300
+
+    Header and card
+
+[33mcommit 45adbd162c5d2c929224c4008da32e9f65792ddd[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Sat Oct 4 16:41:02 2025 +0300
+
+    Запрет на открытие избранного не авторизованным юезрам
+
+[33mcommit 9dcb43e6d2f089aabb2e49b3b137ed31a623aae0[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Sat Oct 4 16:23:24 2025 +0300
+
+    Вроде все норм
+
+[33mcommit d7b1fb6f92ba97061175392975ccaa8fabffef20[m
+Merge: 5eb8662 a7e26ba
+Author: Evgeniya Mishchenko <120026155+ginssseng@users.noreply.github.com>
+Date:   Sat Oct 4 15:35:18 2025 +0300
+
+    Merge pull request #14 from Ohrana911/ginssseng
+    
+    Избранное
+
+[33mcommit 5eb8662bdec16129c30e8e3cb492516ca3331c26[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Sat Oct 4 15:05:10 2025 +0300
+
+    Fix merge conflicts
+
+[33mcommit 3cd923935cf08b31bbb10767c3b27f3836f4e84c[m
+Merge: be33e9a 0175bc3
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Sat Oct 4 15:02:56 2025 +0300
+
+    Merge branch 'main' of https://github.com/Ohrana911/FortvinSiteNextJS
+
+[33mcommit a7e26ba5841465f87ce6522b2f6feae5a899c1da[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Sat Oct 4 14:56:33 2025 +0300
+
+    Favorite page
+
+[33mcommit bfce671e034b5af1c797074adce59f8a8b23d3fe[m
+Merge: be33e9a 0175bc3
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Fri Oct 3 17:23:55 2025 +0300
+
+    Merge branch 'main' of https://github.com/Ohrana911/FortvinSiteNextJS into ginssseng
+
+[33mcommit be33e9af4d5b001105e0d551ad3a6354acbe7980[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Fri Oct 3 16:25:02 2025 +0300
+
+    commit
+
+[33mcommit 0175bc34dd64fea8d43ab59c0e3d761ef1bc5b1b[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Fri Oct 3 16:13:43 2025 +0300
+
+    Скидки
+
+[33mcommit ac97a5f3eb37506e6ab06e484625a7b490add1a9[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Fri Oct 3 12:45:40 2025 +0300
+
+    Register Form
+
+[33mcommit 7553176195f373d995fc0498212de2741433147a[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Fri Oct 3 12:04:27 2025 +0300
+
+    телефон в лк 2
+
+[33mcommit 22ccaea6759cb178c844a212a828fdec8a0622c5[m
+Merge: ff5817f 7bc2d5d
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Fri Oct 3 12:00:24 2025 +0300
+
+    Merge branch 'main' of https://github.com/Ohrana911/FortvinSiteNextJS
+
+[33mcommit ff5817f72f6641dc1bb8020b3820a181e4ab6be1[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Fri Oct 3 11:59:12 2025 +0300
+
+    телефон в лк
+
+[33mcommit 7bc2d5d6987fb332738ab4a5bdd88925c6295444[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Fri Oct 3 03:22:13 2025 +0300
+
+    Login Form
+
+[33mcommit 55b0382d2a9e43dbbb43d529a6306de71e46feb3[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Fri Oct 3 02:06:50 2025 +0300
+
+    Profile page
+
+[33mcommit 61aea9d2877ea17317299cd3888682d40b645310[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 14:49:15 2025 +0300
+
+    История нормально отображается
+
+[33mcommit eafc3c98746da74d4e122f490a749169e54ef833[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 14:08:34 2025 +0300
+
+    История
+
+[33mcommit 13e4b9b89b653cab2b8eeb268fbe0cde126c2516[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 09:09:38 2025 +0300
+
+    Header: забыл b-0 в ProfileButton
+
+[33mcommit ece0d521758630d8bb242f3ca136aa38546a55f4[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 09:06:30 2025 +0300
+
+    Header pogib
+
+[33mcommit 14b2d89b1921491d1d17ff2129f515231857a1ec[m
+Merge: f9f5f33 418312f
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 08:40:58 2025 +0300
+
+    Merge remote-tracking branch 'origin/main'
+
+[33mcommit f9f5f334177466806cea34ed00807450b5485986[m
+Author: Ohrana911 <edward.uramaev@gmail.com>
+Date:   Thu Oct 2 08:27:42 2025 +0300
+
+    Избранное, цены
+
+[33mcommit 418312fb079c102dd8d3175993b01d6984bc5d33[m
+Merge: bdc76f0 a85d180
+Author: Evgeniya Mishchenko <120026155+ginssseng@users.noreply.github.com>
+Date:   Thu Oct 2 06:42:22 2025 +0300
+
+    Merge pull request #13 from Ohrana911/ginssseng
+    
+    Page About us
+
+[33mcommit a85d18079c6e857f7cf8faa93c61dec06ca8ffe0[m
+Author: Evgeniya Mishchenko <evgeniyalike@yandex.ru>
+Date:   Thu Oct 2 06:37:16 2025 +0300
+
+    Page About us
+
+[33mcommit 23c5e3fe8ee7e31e1d9ac18d05a71203ce6ee3e2[m
+Author: Evgeniya Mishchenko

@@ -92,14 +92,75 @@ export async function createOrder(data: CheckoutFormValues) {
       },
     });
 
-    // Отправляем письмо-подтверждение без оплаты
+    function formatItems(items: Prisma.JsonValue): string {
+      if (!Array.isArray(items)) return 'Нет товаров';
+
+      return items
+        .map((rawItem) => {
+          if (typeof rawItem !== 'object' || rawItem === null) return 'Неизвестный товар';
+
+          const item = rawItem as {
+            quantity?: number;
+            productItem?: {
+              product?: {
+                name?: string;
+                retailPriceRubWithVAT?: number;
+              };
+            };
+          };
+
+          const name = item.productItem?.product?.name ?? 'Без названия';
+          const price = item.productItem?.product?.retailPriceRubWithVAT ?? 0;
+          const quantity = item.quantity ?? 1;
+
+          return `• ${name} — ${quantity} шт × ${price} ₽`;
+        })
+        .join('\n');
+    }
+
     await sendEmail(
       data.email,
-      'Заказ #' + order.id,
-      `Спасибо за заказ!
-       Ваш заказ #${order.id} успешно оформлен.
-       Сумма: ${order.totalAmount} ₽`
+        `🧱 Заказ №${order.id} успешно оформлен`,
+        `
+      Здравствуйте, ${order.fullName}!
+
+      Спасибо за ваш заказ в нашем магазине ❤️
+      📦 Заказ №${order.id}
+      🏠 Адрес доставки: ${order.address}
+      📞 Телефон: ${order.phone}
+      💰 Сумма заказа: ${order.totalAmount} ₽
+      📦 Товары:
+      ${formatItems(order.items)}
+
+      Наш менеджер свяжется с вами для уточнения деталей заказа.
+      Хорошего дня!
+        `
     );
+
+    await sendEmail(
+      process.env.ADMIN_EMAIL || 'edward.uramaev@gmail.com',
+        `🛒 Новый заказ #${order.id}`,
+        `
+      📢 Новый заказ на сайте 
+      🧾 Номер заказа: ${order.id}
+
+      👤 Имя: ${order.fullName}
+      📧 Почта: ${order.email}
+      📞 Телефон: ${order.phone}
+      🏠 Адрес: ${order.address}
+      💬 Комментарий: ${order.comment ?? '—'}
+
+      💰 Сумма заказа: ${order.totalAmount} ₽
+
+      📦 Товары 
+      ${formatItems(order.items)}
+
+      🧾 ID корзины (token): ${order.token}
+
+      Проверьте заказ в панели администратора
+      `
+    );
+
 
     return order;
   } catch (err) {
