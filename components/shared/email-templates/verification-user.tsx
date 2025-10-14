@@ -13,7 +13,7 @@ export function VerificationUserTemplate({ code }: Props){
     <p>Перейдите по ссылке, чтобы подтвердить регистрацию</p>
 
     <p>
-      <a href={`https://https://fortvin/api/auth/verify?code=${code}`}>Подтвердить регистрацию</a>
+      <a href={`https://https://fortvin.ru/api/auth/verify?code=${code}`}>Подтвердить регистрацию</a>
     </p>
   </div>)
 }
