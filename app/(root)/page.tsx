@@ -127,7 +127,7 @@ export default function Home() {
               <p>Мы не просто поставляем строительные материалы — мы воплощаем мечты о идеальном доме в реальность.</p>
           </div>
           <div className="flex flex-col sm:w-[480px] w-full gap-[40px]">
-            <div className="flex justify-between w-full">
+            <div className="flex justify-between w-full sm:flex-row flex-col sm:gap-0 gap-[20px]">
               <div className="flex flex-col">
                 <h1>20+</h1>
                 <p>лет опыта работы</p>
@@ -148,14 +148,14 @@ export default function Home() {
       </div>
 
       <div>
-        <div className="flex justify-between w-full items-end">
+        <div className="flex justify-between w-full sm:items-end items-start sm:gap-0 gap-[20px] sm:flex-row flex-col">
           <h1 className="underline">Акции и скидки</h1>
           <Link href="/api/products">
               <button className="small-button mb-[40px]">Перейти в раздел</button>
           </Link>
         </div>
         <div className="service-blocks">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
             {products
               .filter(p => p.isOnSale)  // оставляем только товары со скидкой
               .slice(0, 4)               // берём первые 4
@@ -207,14 +207,14 @@ export default function Home() {
       <Carousel className="full-width" />
 
       <div>
-        <div className="flex justify-between w-full items-end">
+        <div className="flex justify-between w-full items-end sm:gap-0 gap-[20px] sm:flex-row flex-col">
           <h1 className="underline">Каталог</h1>
           <Link href="/api/products">
               <button className="small-button mb-[40px]">Перейти в раздел</button>
           </Link>
         </div>
         <div className="service-blocks">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
+          <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
             {products
               .slice(0, 4)               // берём первые 4
               .map((p) => {

@@ -4,7 +4,7 @@ import React from 'react';
 const Footer: React.FC = () => (
     <footer id='footer'>
         <div className='footer-top bg-[var(--color-gray)] flex flex-col justify-start gap-5 md:gap-15'>
-            <h1 className='underline text-[var(--background)]'>Связаться с нами</h1>
+            <h1 className='mb-[20px] text-[var(--background)]'>Связаться с нами</h1>
             <div className='flex flex-col md:flex-row justify-between w-full gap-5'>
                 <div className='flex flex-col gap-5 md:gap-10'>
                     <h2 className='font-bold'>ООО &quot;Фортвин&quot;</h2>
