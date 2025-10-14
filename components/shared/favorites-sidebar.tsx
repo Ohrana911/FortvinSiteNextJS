@@ -68,7 +68,8 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
         <Dialog.Content
           className="
             fixed left-1/2 top-1/2 z-50
-            w-[50%] h-[80%]
+            sm:w-[50%] h-[80%]
+            w-[80%]
             -translate-x-1/2 -translate-y-1/2
             bg-white shadow-lg
             flex flex-col
