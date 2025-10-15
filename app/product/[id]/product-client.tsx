@@ -26,7 +26,7 @@ export function ProductClient({ product }: { product: Product }) {
 
   return (
     <div className="container">
-      <nav className="breadcrumb mb-6">
+      <nav className="breadcrumb mb-6 hidden sm:block">
         <ol>
           <li><Link href="/">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
@@ -55,7 +55,7 @@ export function ProductClient({ product }: { product: Product }) {
                     : '—'} ₽
                     </h2>
                     {product.isOnSale && (
-                    <div className="w-fit h-fit px-2 py-1 text-sm font-semibold text-white bg-[var(--color-sale)]">
+                    <div className="w-fit h-fit px-2 py-1 sm:text-sm text-xs font-semibold text-white bg-[var(--color-sale)]">
                         + {product.saleDescription}
                     </div>
                     )}

@@ -207,7 +207,7 @@ export default function Home() {
       <Carousel className="full-width" />
 
       <div>
-        <div className="flex justify-between w-full items-end sm:gap-0 gap-[20px] sm:flex-row flex-col">
+        <div className="flex justify-between w-full items-start sm:gap-0 gap-[20px] sm:flex-row flex-col">
           <h1 className="underline">Каталог</h1>
           <Link href="/api/products">
               <button className="small-button mb-[40px]">Перейти в раздел</button>

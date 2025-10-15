@@ -657,6 +657,9 @@ button.light-hover:hover{
   h1{
     font-size: 40px;
   }
+  h2.big{
+    font-size: 26px;
+  }
   h2{
     font-size: 20px;
   }
@@ -684,5 +687,9 @@ button.light-hover:hover{
     gap: 2.5rem;
     display: flex;
     flex-direction: column;
+  }
+  .product_card{
+    flex-direction: column;
+    gap: 20px;
   }
 }
