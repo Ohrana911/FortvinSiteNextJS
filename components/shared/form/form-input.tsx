@@ -41,7 +41,8 @@ export const FormInput: React.FC<Props> = ({ className, name, label, required, .
           className="
             w-full
             px-3 py-3
-            text-[20px]
+            sm:text-[20px]
+            text-[16px]
             border border-[#2F3336]
             bg-[var(--color-light-gray)]
             mb-5

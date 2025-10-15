@@ -6,5 +6,5 @@ interface Props {
 }
 
 export const CartItemDetailsImage: React.FC<Props> = ({ src, className }) => {
-  return <img className={cn('w-[60px] h-[60px]', className)} src={src} />;
+  return <img className={cn('sm:w-[60px] sm:h-[60px] w-[80px] h-[80px]', className)} src={src} />;
 };

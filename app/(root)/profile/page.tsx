@@ -124,7 +124,7 @@ export default async function ProfilePage() {
                                     <img
                                       src={item.productItem.product.imageUrl}
                                       alt={item.productItem.product.name}
-                                      className="w-[96px] h-[96px] object-cover rounded"
+                                      className="sm:w-[96px] sm:h-[96px] w-[64px] h-[64px] object-cover rounded"
                                     />
                                   )}
                                   </div>
@@ -135,7 +135,7 @@ export default async function ProfilePage() {
                                         <p>В поддоне: {item.productItem.product.quantityPerPallet} шт, РРЦ: {item.productItem.product.retailPriceRubWithVAT} ₽</p>
                                       </div>
                                   </div> */}
-                                  <div className="flex flex-col h-[96px] justify-between pb-2 pt-2 w-full">
+                                  <div className="flex sm:flex-col flex-row sm:gap-0 gap-2 h-[96px] justify-between pb-2 pt-2 w-full">
                                     <h6 className="text-sm font-medium text-gray-800 mb-2 leading-tight">
                                       {item.productItem.product.name}
                                     </h6>

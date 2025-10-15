@@ -635,20 +635,20 @@ button.light-hover:hover{
 @media (max-width: 992px) {
   main {
     margin-top: 76px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .footer-top {
     padding-top: 40px;
     padding-bottom: 60px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   .footer-bottom {
     padding-top: 15px;
     padding-bottom: 15px;
-    padding-left: 45px;
-    padding-right: 45px;
+    padding-left: 20px;
+    padding-right: 20px;
   }
   h1.underline {
     font-size: 36px;
@@ -656,6 +656,15 @@ button.light-hover:hover{
   }
   h1{
     font-size: 40px;
+  }
+  h2{
+    font-size: 20px;
+  }
+  h4{
+    font-size: 14px;
+  }
+  h5{
+    font-size: 16px;
   }
   .service-blocks {
     display: flex;

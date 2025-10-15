@@ -30,9 +30,10 @@ export const AuthModal: React.FC<Props> = ({ open, onClose }) => {
         <Dialog.Content
           className="
             fixed left-1/2 top-1/2 z-[100] 
-            w-[520px] max-h-[90vh] 
+            sm:w-[520px] max-h-[90vh]
+            w-[90%] 
             -translate-x-1/2 -translate-y-1/2 
-            bg-white p-10 shadow-lg focus:outline-none 
+            bg-white sm:p-10 p-6 shadow-lg focus:outline-none 
             overflow-y-auto custom-scroll
           "
         >

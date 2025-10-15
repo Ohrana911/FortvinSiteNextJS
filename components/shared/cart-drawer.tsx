@@ -32,6 +32,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
 
     const [redirecting, setRedirecting] = React.useState(false);
 
+    const [open, setOpen] = React.useState(false);
+
     // const onClickCountButton = (id: number, quantity: number, type: 'plus' | 'minus') => {
     //     console.log(id, quantity, type);
     //     const newQuantity = type === 'plus' ? quantity + 1 : quantity - 1;
@@ -103,8 +105,8 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
     }, []);
 
   return (
-    <Sheet>
-        <SheetTrigger asChild>{children}</SheetTrigger>
+    <Sheet open={open} onOpenChange={setOpen}>
+        <SheetTrigger asChild onClick={() => setOpen(true)}>{children}</SheetTrigger>
         <SheetContent className="flex flex-col justify-between pb-0 bg-[var(--background)]">
             <SheetHeader>
                 <SheetTitle className="underline font-semibold">Корзина</SheetTitle>
@@ -144,7 +146,7 @@ export const CartDrawer: React.FC<React.PropsWithChildren<Props>> = ({ children,
                         <span className="font-bold text-lg">{totalAmount} ₽</span>
                     </div>
 
-                    <Link href="/checkout">
+                    <Link href="/checkout" onClick={() => setOpen(false)}>
                         <Button
                             onClick={() => setRedirecting(true)}
                             loading={redirecting}
