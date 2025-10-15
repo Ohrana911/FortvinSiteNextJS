@@ -83,7 +83,7 @@ export default function CheckoutPage() {
 
       <FormProvider {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)}>
-          <div className="flex gap-10">
+          <div className="flex gap-10 sm:flex-row flex-col">
             {/* Левая часть */}
             <div className="flex flex-col gap-10 flex-1 mb-20">
               <CheckoutCart
@@ -99,7 +99,7 @@ export default function CheckoutPage() {
             </div>
 
             {/* Правая часть */}
-            <div className="w-[450px]">
+            <div className="sm:w-[450px] w-full flex-shrink-0">
               <CheckoutSidebar totalAmount={totalAmount} loading={loading || submitting} />
             </div>
           </div>

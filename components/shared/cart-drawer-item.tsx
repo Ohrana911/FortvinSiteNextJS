@@ -43,7 +43,7 @@ export const CartDrawerItem: React.FC<Props> = ({
           <CartItem.Info name={name} />
           <Trash2Icon
               onClick={onClickRemove}
-              className="text-gray-400 cursor-pointer hover:text-[var(--color-blue)]"
+              className="text-gray-400 cursor-pointer hover:text-[var(--color-blue)] sm:block hidden"
               size={24}
             />
         </div>
@@ -63,11 +63,21 @@ export const CartDrawerItem: React.FC<Props> = ({
           </div>
         </div> */}
 
-        <div className="flex items-center justify-between">
-          
-          <CountButton onClick={onClickCountButton} value={quantity} />
+        <div className="flex sm:flex-row flex-col items-center justify-between">
 
-          <div className="flex flex-col items-end gap-1">
+          <CountButton onClick={onClickCountButton} value={quantity} className='hidden sm:flex'/>
+
+          <div className='flex flex-row justify-between w-full items-center mb-2 sm:mb-0 sm:hidden block'>
+            <CountButton onClick={onClickCountButton} value={quantity} />
+
+            <Trash2Icon
+                onClick={onClickRemove}
+                className="text-gray-400 cursor-pointer hover:text-[var(--color-blue)]"
+                size={16}
+              />
+          </div>
+
+          <div className="flex flex-col w-full items-end gap-1">
             {/* Цена за поддон */}
             <CartItem.Price value={price * quantity} />
 

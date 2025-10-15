@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from 'react';
 import * as Dialog from '@radix-ui/react-dialog';
 import { Heart, Trash2, ShoppingCart, X } from 'lucide-react';
-import { Button } from '../ui/button';
 import { useCartStore } from '@/store/cart';
 import Link from "next/link";
 
@@ -14,6 +13,7 @@ type FavoriteItem = {
     name: string;
     imageUrl?: string;
     retailPriceRubWithVAT?: number;
+    quantityPerPallet?: number;
   };
 };
 
@@ -25,6 +25,7 @@ interface Props {
 export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
   const [favoriteItems, setFavoriteItems] = useState<FavoriteItem[]>([]);
   const [loading, setLoading] = useState(false);
+  const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
   const fetchFavorites = async () => {
     setLoading(true);
@@ -52,24 +53,32 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
     }
   };
 
-  const addToCart = async (productItemId: number) => {
-    try {
-      await useCartStore.getState().addCartItem({ productItemId });
-      console.log('Товар добавлен в корзину');
-    } catch (err) {
-      console.error('Ошибка при добавлении товара в корзину', err);
-    }
+  useEffect(() => {
+      fetchCartItems();
+    }, [fetchCartItems]);
+
+  const handleAddToCart = async (productId: number) => {
+    const inCart = isInCart(productId);
+    console.log('inCart: ', inCart);
+
+    if (inCart) return;
+    await addCartItem({ productItemId: productId });
+  };
+
+  const handleClose = () => {
+    onClose();           // закрываем модальное окно
+    window.location.reload(); // обновляем страницу
   };
 
   return (
-    <Dialog.Root open={open} onOpenChange={onClose}>
+    <Dialog.Root open={open} onOpenChange={handleClose}>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/50 z-50" />
         <Dialog.Content
           className="
             fixed left-1/2 top-1/2 z-50
             sm:w-[50%] h-[80%]
-            w-[80%]
+            w-[90%]
             -translate-x-1/2 -translate-y-1/2
             bg-white shadow-lg
             flex flex-col
@@ -80,7 +89,7 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
             <Dialog.Title className="underline font-semibold">
               Избранное
             </Dialog.Title>
-            <button onClick={onClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
+            <button onClick={handleClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
               <X size={20} />
             </button>
           </div>
@@ -88,47 +97,51 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
           {/* Список товаров */}
           <div className="flex-1 overflow-auto p-[20px] flex flex-col gap-[20px]">
             {favoriteItems.length === 0 && <p>Нет товаров в избранном</p>}
-            {favoriteItems.map((item) => (
-              // <Link  href={`/product/${item.id}`}>
-                <div key={item.id} className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] hover:shadow border">
-                  <img
-                    src={item.product.imageUrl ?? '/placeholder.png'}
-                    alt={item.product.name}
-                    className="w-20 h-20 object-cover"
-                  />
-                  <div className='flex flex-col w-full h-[70px] justify-between'>
-                    <h4 className="font-semibold">{item.product.name}</h4>
-                    <div className="flex flex-row items-center justify-between w-full">
-                      <p className="text-gray-600">
+            {favoriteItems.map((item) => {
+              const inCart = isInCart(item.product.id); // объявляем переменную внутри функции
+              return (
+                <div key={item.product.id} className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] hover:shadow border">
+                  <Link href={`/product/${item.product.id}`}>
+                    <img
+                      src={item.product.imageUrl ?? '/placeholder.png'}
+                      alt={item.product.name}
+                      className="sm:w-20 sm:h-20 w-20 h-20 object-cover"
+                    />
+                  </Link>
+                  <div className='flex flex-col w-full sm:h-[70px] h-[100px] justify-between'>
+                    <Link href={`/product/${item.product.id}`}>
+                      <h4 className="font-semibold">{item.product.name}</h4>
+                    </Link>
+                    <div className="flex sm:flex-row flex-col sm:items-center justify-between w-full gap-2">
+                      <span className="text-gray-600 sm:text-[16px] text-[12px]">
                         {item.product.retailPriceRubWithVAT
-                          ? `${item.product.retailPriceRubWithVAT} ₽`
+                          ? `${item.product.quantityPerPallet} шт. х ${item.product.retailPriceRubWithVAT} ₽/шт.`
                           : 'Цена по запросу'}
-                      </p>
-                    
-                      <div className="flex flex-row gap-4">
+                      </span>
+                      <div className="flex flex-row items-end sm:items-center gap-4">
                         <Trash2
                           className="cursor-pointer text-gray-400 hover:text-[var(--color-blue)] self-center mt-1"
                           size={20}
                           onClick={() => removeFavorite(item.id)}
                         />
-                        <Button
-                          onClick={() => addToCart(item.product.id)}
-                          className="cursor-pointer 
-                                    bg-[var(--color-blue)] hover:bg-[var(--color-blue-dark)]
-                                    text-white hover:text-[var(--color-dark)] 
-                                    px-[20px] py-1 
-                                    rounded-none
-                                    border border-transparent 
-                                    hover:border-[var(--color-gray)]"
+                        <button
+                          className={`text-white sm:text-[16px] text-[12px] sm:font-bold sm:px-[20px] px-[10px] sm:py-[10px] py-[8px] border cursor-pointer 
+                            ${
+                              inCart
+                                ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
+                                : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                            }`}
+                          onClick={() => handleAddToCart(item.id)}
+                          disabled={inCart}
                         >
-                          В корзину
-                        </Button>
+                          {inCart ? 'Уже в корзине' : 'В корзину'}
+                        </button>
                       </div>
                     </div>
                   </div>
                 </div>
-              /* </Link> */
-            ))}
+              );
+            })}
           </div>
         </Dialog.Content>
       </Dialog.Portal>

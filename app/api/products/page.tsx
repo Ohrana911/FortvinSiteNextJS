@@ -68,8 +68,8 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       const query = category === 'ALL'
-        ? `/api/products/search?page=${page}&limit=8`
-        : `/api/products/search?page=${page}&limit=8&category=${category}`;
+        ? `/api/products/search?page=${page}&limit=12`
+        : `/api/products/search?page=${page}&limit=12&category=${category}`;
 
       const res = await fetch(query, { cache: 'no-store' }); // ⬅️ чтобы не кэшировалось
       const data = await res.json();
@@ -183,7 +183,7 @@ export default function ProductsPage() {
           </div>
         ) : (
           <>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
+            <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
               {products.map((p) => {
                 const isFav = favorites.includes(p.id);
                 const inCart = isInCart(p.id);

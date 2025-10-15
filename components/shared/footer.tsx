@@ -5,7 +5,7 @@ const Footer: React.FC = () => (
     <footer id='footer'>
         <div className='footer-top bg-[var(--color-gray)] flex flex-col justify-start gap-5 md:gap-15'>
             <h1 className='mb-[20px] text-[var(--background)]'>Связаться с нами</h1>
-            <div className='flex flex-col md:flex-row justify-between w-full gap-5'>
+            <div className='flex flex-col md:flex-row justify-between w-full sm:gap-5 gap-10'>
                 <div className='flex flex-col gap-5 md:gap-10'>
                     <h2 className='font-bold'>ООО &quot;Фортвин&quot;</h2>
                     <div className='flex flex-col gap-2'>
@@ -22,14 +22,14 @@ const Footer: React.FC = () => (
         </div>
         <div className='footer-bottom bg-[var(--color-dark)] flex flex-col justify-start gap-0'>
             <a 
-                className='text-[var(--color-light-blue)] text-sm underline' 
+                className='text-[var(--color-light-blue)] sm:text-sm text-xs underline' 
                 href="/Политика конфиденциальности Фортвин.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer">
                     Политика обработки персональных данных
             </a>
             <a 
-                className='text-[var(--color-light-blue)] text-sm underline' 
+                className='text-[var(--color-light-blue)] sm:text-sm text-xs underline' 
                 href="/Согласие на обработку пд Фортвин.pdf" 
                 target="_blank" 
                 rel="noopener noreferrer">

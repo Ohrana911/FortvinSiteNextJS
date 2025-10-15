@@ -35,7 +35,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         title={
           <div className="flex items-center">
             <Package size={18} className="mr-2 text-gray-400" />
-            Стоимость корзины:
+            <h5>Стоимость корзины:</h5>
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `${totalAmount} ₽`}
@@ -44,7 +44,7 @@ export const CheckoutSidebar: React.FC<Props> = ({ totalAmount, loading, classNa
         title={
           <div className="flex items-center">
             <Truck size={18} className="mr-2 text-gray-400" />
-            Способ оплаты:
+            <h5>Способ оплаты:</h5>
           </div>
         }
         value={loading ? <Skeleton className="h-6 w-16 rounded-[6px]" /> : `По согласованию`}

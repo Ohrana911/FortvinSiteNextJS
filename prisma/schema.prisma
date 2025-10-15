@@ -3,8 +3,157 @@ generator client {
 }
 
 datasource db {
-  provider  = "postgresql"
-  url       = env("POSTGRES_URL") // uses connection pooling
+  provider = "postgresql"
+  url      = env("POSTGRES_URL")
+}
+
+model User {
+  id               Int                @id @default(autoincrement())
+  fullName         String
+  email            String             @unique
+  password         String
+  role             UserRole           @default(USER)
+  verified         DateTime?
+  provider         String?
+  providerId       String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+  phone            String?
+  cart             Cart?
+  favorites        Favorite[]
+  orders           Order[]
+  posts            Post[]
+  verificationCode VerificationCode[]
+}
+
+model Category {
+  id        Int          @id @default(autoincrement())
+  name      CategoryName @unique
+  createdAt DateTime     @default(now())
+  updatedAt DateTime     @updatedAt
+  products  Product[]
+}
+
+model Product {
+  id                    Int           @id @default(autoincrement())
+  name                  String
+  imageUrl              String?
+  color                 String
+  frostResistance       String?
+  waterAbsorption       String?
+  size                  String?
+  weightKg              Float?
+  quantityPerPallet     Int?
+  palletsPerTruck       Int?
+  totalPerTruck         Int?
+  retailPriceRubWithVAT Float?
+  city                  String?
+  categoryId            Int
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  isOnSale              Boolean       @default(false)
+  saleDescription       String?
+  densityKgPerM3        String?
+  description           String?
+  manufacturer          String?
+  strengthClass         String?
+  favorites             Favorite[]
+  category              Category      @relation(fields: [categoryId], references: [id])
+  items                 ProductItem[]
+}
+
+model ProductItem {
+  id        Int        @id @default(autoincrement())
+  price     Int
+  productId Int
+  cartItems CartItem[]
+  product   Product    @relation(fields: [productId], references: [id])
+}
+
+model Cart {
+  id          Int        @id @default(autoincrement())
+  userId      Int?       @unique
+  token       String
+  totalAmount Int        @default(0)
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  user        User?      @relation(fields: [userId], references: [id])
+  items       CartItem[]
+}
+
+model CartItem {
+  id            Int         @id @default(autoincrement())
+  cartId        Int
+  productItemId Int
+  quantity      Int         @default(1)
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  cart          Cart        @relation(fields: [cartId], references: [id])
+  productItem   ProductItem @relation(fields: [productItemId], references: [id])
+}
+
+model Order {
+  id          Int         @id @default(autoincrement())
+  userId      Int?
+  token       String
+  totalAmount Int
+  status      OrderStatus
+  paymentId   String?
+  items       Json
+  fullName    String
+  email       String
+  phone       String
+  address     String
+  comment     String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  user        User?       @relation(fields: [userId], references: [id])
+}
+
+model VerificationCode {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  code      String
+  createdAt DateTime @default(now())
+  user      User     @relation(fields: [userId], references: [id])
+
+  @@unique([userId, code])
+}
+
+model Story {
+  id              Int         @id @default(autoincrement())
+  previewImageUrl String
+  createdAt       DateTime    @default(now())
+  items           StoryItem[]
+}
+
+model StoryItem {
+  id        Int      @id @default(autoincrement())
+  storyId   Int
+  sourceUrl String
+  createdAt DateTime @default(now())
+  story     Story    @relation(fields: [storyId], references: [id])
+}
+
+model Post {
+  id          Int      @id @default(autoincrement())
+  date        String
+  title       String
+  description String
+  content     String
+  createdAt   DateTime @default(now())
+  authorId    Int
+  author      User     @relation(fields: [authorId], references: [id])
+}
+
+model Favorite {
+  id        Int     @id @default(autoincrement())
+  userId    Int
+  productId Int
+  product   Product @relation(fields: [productId], references: [id])
+  user      User    @relation(fields: [userId], references: [id])
+
+  @@unique([userId, productId])
 }
 
 enum OrderStatus {
@@ -19,197 +168,8 @@ enum UserRole {
 }
 
 enum CategoryName {
-  SALES
   GAZOBETONNYE_BLOKI
   OBLITSOVOCHNYY_KIRPICH
   TROTUARNAYA_PLITKA
-}
-
-model User {
-  id Int @id @default(autoincrement())
-
-  fullName String
-  email    String    @unique
-  password String
-  role     UserRole  @default(USER)
-  verified DateTime?
-
-  phone String?
-
-  provider   String?
-  providerId String?
-
-  cart             Cart?
-  orders           Order[]
-  verificationCode VerificationCode[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  posts Post[]
-  favorites  Favorite[] // связь
-}
-
-model Category {
-  id       Int       @id @default(autoincrement())
-  name     CategoryName @unique
-  products Product[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Product {
-  id Int @id @default(autoincrement())
-
-  name                  String
-  imageUrl              String?
-  color                 String
-  frostResistance       String?
-  waterAbsorption       String?
-  size                  String?
-  weightKg              Float?
-  quantityPerPallet     Int?
-  palletsPerTruck       Int?
-  totalPerTruck         Int?
-  retailPriceRubWithVAT Float?
-  city                  String?
-
-  description            String?
-  manufacturer           String?
-  strengthClass          String?
-  densityKgPerM3         String?
-
-  category   Category @relation(fields: [categoryId], references: [id])
-  categoryId Int
-
-  items ProductItem[]
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-
-  isOnSale    Boolean  @default(false)
-  saleDescription  String?
-
-  favorites  Favorite[]
-}
-
-model ProductItem {
-  id Int @id @default(autoincrement())
-
-  price Int
-  cartItems CartItem[]
-
-  product   Product @relation(fields: [productId], references: [id])
-  productId Int
-}
-
-model Cart {
-  id Int @id @default(autoincrement())
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?  @unique
-
-  items CartItem[]
-
-  token String
-
-  totalAmount Int @default(0)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model CartItem {
-  id Int @id @default(autoincrement())
-
-  cart   Cart @relation(fields: [cartId], references: [id])
-  cartId Int
-
-  productItem   ProductItem @relation(fields: [productItemId], references: [id])
-  productItemId Int
-
-  quantity Int @default(1)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model Order {
-  id Int @id @default(autoincrement())
-
-  user   User? @relation(fields: [userId], references: [id])
-  userId Int?
-
-  token String
-
-  totalAmount Int
-  status      OrderStatus
-  paymentId   String?
-
-  items Json
-
-  fullName String
-  email    String
-  phone    String
-  address  String
-  comment  String?
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-}
-
-model VerificationCode {
-  id Int @id @default(autoincrement())
-
-  user   User @relation(fields: [userId], references: [id])
-  userId Int  
-
-  code String
-
-  createdAt DateTime @default(now())
-
-  @@unique([userId, code])
-}
-
-model Story {
-  id              Int    @id @default(autoincrement())
-  previewImageUrl String
-
-  items StoryItem[]
-
-  createdAt DateTime @default(now())
-}
-
-model StoryItem {
-  id Int @id @default(autoincrement())
-
-  storyId Int
-  story   Story @relation(fields: [storyId], references: [id])
-
-  sourceUrl String
-
-  createdAt DateTime @default(now())
-}
-
-model Post {
-  id          Int      @id @default(autoincrement())
-  date        String
-  title       String
-  description String
-  content     String
-  createdAt   DateTime @default(now())
-  
-  author   User   @relation(fields: [authorId], references: [id])
-  authorId Int
-}
-
-model Favorite {
-  id        Int      @id @default(autoincrement())
-  userId    Int
-  productId Int
-  user      User     @relation(fields: [userId], references: [id])
-  product   Product  @relation(fields: [productId], references: [id])
-
-  @@unique([userId, productId])
+  SALES
 }
