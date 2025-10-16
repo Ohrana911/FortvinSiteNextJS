@@ -134,6 +134,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
             <Link className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
             <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/articles">Статьи</Link>
           </div>
         )}
       </div>
