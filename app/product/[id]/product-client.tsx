@@ -95,7 +95,6 @@ export function ProductClient({ product }: { product: Product }) {
 
           <div className="py-6 flex flex-col gap-[20px]">
             <h2 className='font-bold underline'>Описание</h2>
-{/* {             <p>{product.description ?? '—'}</p> } */}
              <p>{product.description ?? '—'}</p> 
           </div>
 
