@@ -60,8 +60,6 @@ model Product {
   favorites             Favorite[]
   category              Category      @relation(fields: [categoryId], references: [id])
   items                 ProductItem[]
-
-  novoePole String?
 }
 
 model ProductItem {
