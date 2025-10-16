@@ -92,6 +92,7 @@ export function ProductClient({ product }: { product: Product }) {
               />
             </button>
           </div>
+          
 
           <div className="py-6 flex flex-col gap-[20px]">
             <h2 className='font-bold underline'>Описание</h2>
