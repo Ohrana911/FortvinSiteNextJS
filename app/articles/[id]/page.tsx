@@ -284,8 +284,8 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
           <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
           <li><Link href="/articles" className="breadcrumb-link">Статьи</Link></li>
-          <li className="breadcrumb-separator">→</li>
-          <li className="breadcrumb-current">{article.title}</li>
+          <li className="breadcrumb-separator hidden sm:block">→</li>
+          <li className="breadcrumb-current hidden sm:block">{article.title}</li>
         </ol>
       </nav>
 
@@ -300,7 +300,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         ))}
       </div>
 
-      <div className="w-[30%]">
+      <div className="sm:w-[30%] w-full">
         <div className="desktop-button">
           <Link href="/articles">
             <Button className="cursor-pointer" variant="custom" size="custom">
