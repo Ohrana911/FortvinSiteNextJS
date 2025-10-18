@@ -692,4 +692,7 @@ button.light-hover:hover{
     flex-direction: column;
     gap: 20px;
   }
+  .article-item{
+    width: 100%;
+  }
 }

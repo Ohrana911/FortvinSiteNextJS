@@ -43,7 +43,7 @@ export function ProductClient({ product }: { product: Product }) {
                 <h2 className="font-bold big text-[var(--color-dark)] mb-2">{product.name}</h2>
 
                 <div className="text-gray-600 mb-4">
-                    <p><strong>Производитель:</strong> {product.manufacturer}</p>
+                    <p><strong>Производитель:</strong> {product.manufacturer ?? product.name}</p>
                 </div>
             </div>
 
@@ -96,7 +96,6 @@ export function ProductClient({ product }: { product: Product }) {
 
           <div className="py-6 flex flex-col gap-[20px]">
             <h2 className='font-bold underline'>Описание</h2>
-            <p>Какое-то описание</p>
              <p>{product.description ?? '—'}</p> 
           </div>
 
