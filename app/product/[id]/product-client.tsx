@@ -108,6 +108,10 @@ export function ProductClient({ product }: { product: Product }) {
               {product.size && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Размер:</div> {product.size}</li>)}
               {product.weightKg && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес:</div> {product.weightKg}</li>)}
               {product.retailPriceRubWithVAT && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Цена (₽ с НДС):</div> {product.retailPriceRubWithVAT}</li>)}
+              {product.strengthClass && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Плотность:</div> {product.strengthClass}</li>)}
+              {product.quantityPerPalletKvM && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (куб.м):</div> {product.quantityPerPalletKvM}</li>)}
+              {product.weightOnePalletKg && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес одного поддона (кг):</div> {product.weightOnePalletKg}</li>)}
+              {product.heightMm && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Высота (мм):</div> {product.heightMm}</li>)}
               {/* {product.city && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city}</li>)} */}
               {product.quantityPerPallet && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet}</li>)}
               
