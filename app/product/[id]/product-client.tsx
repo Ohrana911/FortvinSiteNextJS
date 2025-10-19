@@ -103,13 +103,18 @@ export function ProductClient({ product }: { product: Product }) {
             <h2 className='font-bold underline'>Характеристики</h2>
             <ul className="space-y-2 text-gray-700">
               <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Цвет:</div> {product.color}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Морозостойкость:</div> {product.frostResistance ?? '—'}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Водопоглащение:</div> {product.waterAbsorption ?? '—'}</li>             
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Размер:</div> {product.size ?? '—'}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес:</div> {product.weightKg ?? '—'}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Цена (₽ с НДС):</div> {product.retailPriceRubWithVAT ?? '—'}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city ?? '—'}</li>
-              <li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet ?? '—'}</li>
+              {product.frostResistance && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Морозостойкость:</div> {product.frostResistance}</li>)}
+              {product.waterAbsorption && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Водопоглащение:</div> {product.waterAbsorption}</li>)}
+              {product.size && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Размер:</div> {product.size}</li>)}
+              {product.weightKg && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес:</div> {product.weightKg}</li>)}
+              {product.retailPriceRubWithVAT && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Цена (₽ с НДС):</div> {product.retailPriceRubWithVAT}</li>)}
+              {product.strengthClass && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Плотность:</div> {product.strengthClass}</li>)}
+              {product.quantityPerPalletKvM && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (куб.м):</div> {product.quantityPerPalletKvM}</li>)}
+              {product.weightOnePalletKg && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес одного поддона (кг):</div> {product.weightOnePalletKg}</li>)}
+              {product.heightMm && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Высота (мм):</div> {product.heightMm}</li>)}
+              {/* {product.city && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city}</li>)} */}
+              {product.quantityPerPallet && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet}</li>)}
+              
             </ul>
           </div>
         </div>
