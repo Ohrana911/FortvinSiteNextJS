@@ -95,6 +95,10 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
             <Link href="/">
               <img src="/logo-removebg.png" alt="Логотип" className="h-15" />
             </Link>
+            <div className="flex flex-col gap-1">
+              <h3 className="font-semibold text-[#676664]">Фортвин</h3>
+              <strong className="text-[8px] text-[#676664]">Стройте вместе с нами</strong>
+            </div>
           </div>
 
           {/* Поиск */}
