@@ -25,8 +25,16 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
   const [showFavorites, setShowFavorites] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  useEffect(() => {
+    const savedCity = localStorage.getItem("selectedCity");
+    if (savedCity) {
+      setCity(savedCity);
+    }
+  }, []);
+
   const handleCityChange = async (selectedCity: string) => {
     setCity(selectedCity);
+    localStorage.setItem("selectedCity", selectedCity); // сохраняем
     await fetch("/api/city", {
       method: "POST",
       headers: { "Content-Type": "application/json" },

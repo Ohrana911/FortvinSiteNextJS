@@ -58,7 +58,18 @@ export default function Home() {
     };
 
     fetchProducts();
+
+    // ✅ Новый код — слушаем событие "смена города"
+    const handleCityChange = () => {
+      // сбрасываем на первую страницу и обновляем товары
+      setPage(1);
+      fetchProducts();
+    };
+
+    window.addEventListener('cityChanged', handleCityChange);
+    return () => window.removeEventListener('cityChanged', handleCityChange);
   }, [page, category]);
+
 
   // Получаем избранное
   useEffect(() => {
