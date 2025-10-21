@@ -77,6 +77,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
             <Link href="/api/products" className="hover:underline">Акции и скидки</Link>
             <Link href="/about_us" className="hover:underline">О нас</Link>
             <Link href="/articles" className="hover:underline">Статьи</Link>
+            <Link href="/price_lists" className="hover:underline">Прайс-листы</Link>
             <Link href="/#carousel" className="hover:underline">Производители</Link>
           </nav>
           <div className="flex items-center gap-2">
@@ -91,15 +92,15 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
       <div className="bg-gray-100 transition-all duration-500 ease-in-out">
         <div className="max-w-7xl mx-auto flex justify-between items-center px-4 py-2">
           {/* Лого */}
-          <div className="flex items-center">
-            <Link href="/">
+          <Link href="/">
+            <div className="flex items-center">
               <img src="/logo-removebg.png" alt="Логотип" className="h-15" />
-            </Link>
-            <div className="flex flex-col gap-1">
-              <h3 className="font-semibold text-[#676664]">Фортвин</h3>
-              <strong className="text-[8px] text-[#676664]">Стройте вместе с нами</strong>
+              <div className="flex flex-col gap-1">
+                <h3 className="font-semibold text-[#676664]">Фортвин</h3>
+                <strong className="text-[8px] text-[#676664]">Стройте вместе с нами</strong>
+              </div>
             </div>
-          </div>
+          </Link>
 
           {/* Поиск */}
           <div className="hidden sm:flex flex-1 mx-8">
@@ -146,6 +147,7 @@ export const Header: React.FC<Props> = ({ hasSearch = true, hasCart = true, clas
             <Link className="hover:text-[var(--color-blue)]" href="/api/products">Каталог</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/services">Услуги</Link>
             <Link className="hover:text-[var(--color-blue)]" href="#footer">Контакты</Link>
+            <Link className="hover:text-[var(--color-blue)]" href="/price_lists">Прайс-листы</Link>
             <Link className="hover:text-[var(--color-blue)]" href="/articles">Статьи</Link>
           </div>
         )}
