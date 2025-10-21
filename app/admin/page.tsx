@@ -15,6 +15,11 @@ export default function AdminDashboard() {
             📦 Просмотреть заказы пользователей
           </Link>
         </li>
+        <li>
+          <Link href="/admin/import_products" className="text-blue-600 underline">
+            📦 Импортировать товары
+          </Link>
+        </li>
       </ul>
     </div>
   );
