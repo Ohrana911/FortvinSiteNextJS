@@ -216,7 +216,7 @@ export default function ProductsPage() {
                             ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT)
                                 .toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽'
                             : '—'}
-                          {p.quantityPerPallet == null ? '/куб.м' : ''}
+                          {p.quantityPerPallet == null ? '/куб.м' : '/поддон'}
                         </h2>
 
                       </div>
