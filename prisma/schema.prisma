@@ -60,6 +60,7 @@ model Product {
   quantityPerPalletKvM  String?
   weightOnePalletKg     String?
   heightMm              Int?
+  form                  String?
   favorites             Favorite[]
   category              Category      @relation(fields: [categoryId], references: [id])
   items                 ProductItem[]
