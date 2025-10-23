@@ -5,59 +5,42 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(req: NextRequest) {
   const searchParams = req.nextUrl.searchParams;
 
-  const query = searchParams.get('query') || '';       // строка поиска
-  const category = searchParams.get('category') || ''; // выбранная категория
+  const query = searchParams.get('query') || '';       
+  const category = searchParams.get('category') || ''; 
   const page = searchParams.get('page');
   const limit = searchParams.get('limit');
 
   const city = req.cookies.get('city')?.value || 'Санкт-Петербург';
 
-  // Типизированный where
-  // const where: Prisma.ProductWhereInput = {
-  //   name: {
-  //     contains: query,
-  //     mode: 'insensitive',
-  //   },
-  // };
+  // Массивы для фильтров
+  const heightParam = searchParams.getAll('height'); // ["40","60"]
+  const shapeParam = searchParams.getAll('shape');   // ["квадрат","прямоугольник"]
 
   const where: Prisma.ProductWhereInput = {
-    name: {
-      contains: query,
-      mode: 'insensitive',
-    },
-    city: city, // фильтруем по городу
+    name: { contains: query, mode: 'insensitive' },
+    city,
+    heightMm: heightParam.length ? { in: heightParam.map(Number) } : undefined,
+    form: shapeParam.length ? { in: shapeParam } : undefined,
   };
 
-  // Фильтр по категории
   if (category && category !== 'ALL') {
     if (category === 'SALES') {
-      where.isOnSale = true; // фильтр по акции
+      where.isOnSale = true;
     } else if (Object.values(CategoryName).includes(category as CategoryName)) {
-      // Приведение строки к enum CategoryName только если оно валидное
       where.category = { name: category as CategoryName };
     }
   }
 
-  // Если page/limit нет → автоподсказки (5 штук)
   if (!page || !limit) {
-    const suggestions = await prisma.product.findMany({
-      where,
-      take: 5,
-    });
+    const suggestions = await prisma.product.findMany({ where, take: 5 });
     return NextResponse.json(suggestions);
   }
 
-  // Пагинация
   const pageNum = Number(page);
   const limitNum = Number(limit);
   const skip = (pageNum - 1) * limitNum;
 
-  const products = await prisma.product.findMany({
-    where,
-    skip,
-    take: limitNum,
-  });
-
+  const products = await prisma.product.findMany({ where, skip, take: limitNum });
   const total = await prisma.product.count({ where });
 
   return NextResponse.json({
