@@ -52,8 +52,7 @@ export function ProductClient({ product }: { product: Product }) {
                     <h2 className='big'>
                         {product.retailPriceRubWithVAT
                     ? ((product.quantityPerPallet ?? 1) * product.retailPriceRubWithVAT).toLocaleString('ru-RU')
-                    : '—'} ₽
-                    {product.quantityPerPallet == null ? '/куб.м' : '/поддон'}
+                    : '—'} ₽/поддон
                     </h2>
                     {product.isOnSale && (
                     <div className="w-fit h-fit px-2 py-1 sm:text-sm text-xs font-semibold text-white bg-[var(--color-sale)]">
@@ -64,9 +63,9 @@ export function ProductClient({ product }: { product: Product }) {
                 </div>
 
                 <div className="text-[var(--color-blue)]">
-                <p>{product.quantityPerPallet 
-                ? product.quantityPerPallet + " шт × " + product.retailPriceRubWithVAT + "₽/шт" 
-                : ('Цена за 1 куб.м')}</p>
+                <p>{product.form 
+                ?  (' ')
+                : product.quantityPerPallet + " шт × " + product.retailPriceRubWithVAT + "₽/шт"}</p>
                 </div>
             </div>
 
@@ -114,7 +113,7 @@ export function ProductClient({ product }: { product: Product }) {
               {product.weightOnePalletKg && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Вес одного поддона (кг):</div> {product.weightOnePalletKg}</li>)}
               {product.heightMm && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Высота (мм):</div> {product.heightMm}</li>)}
               {/* {product.city && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city}</li>)} */}
-              {product.quantityPerPallet && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet}</li>)}
+              {product.form === null && product.quantityPerPallet && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet}</li>)}
               {product.form && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Форма:</div> {product.form}</li>)}
               
             </ul>

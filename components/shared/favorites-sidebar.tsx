@@ -13,7 +13,9 @@ type FavoriteItem = {
     name: string;
     imageUrl?: string;
     retailPriceRubWithVAT?: number;
+    form?: string;
     quantityPerPallet?: number;
+    quantityPerPalletKvM?: number;
   };
 };
 
@@ -114,9 +116,9 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
                     </Link>
                     <div className="flex sm:flex-row flex-col sm:items-center justify-between w-full gap-2">
                       <span className="text-gray-600 sm:text-[16px] text-[12px]">
-                        {item.product.retailPriceRubWithVAT
+                        {item.product.form === null
                           ? `${item.product.quantityPerPallet} шт. х ${item.product.retailPriceRubWithVAT} ₽/шт.`
-                          : 'Цена по запросу'}
+                          : `Поддон: ${item.product.quantityPerPalletKvM} кв.м.`}
                       </span>
                       <div className="flex flex-row items-end sm:items-center gap-4">
                         <Trash2
