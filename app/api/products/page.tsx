@@ -34,8 +34,19 @@ const thicknessOptions = [
 ];
 
 const shapeOptions = [
-  { value: 'квадрат', label: 'Квадрат' },
-  { value: 'прямоугольник', label: 'Прямоугольник' },
+  { value: 'КВАДРАТ', label: 'Квадрат' },
+  { value: 'ПРЯМОУГОЛЬНИК', label: 'Прямоугольник' },
+  { value: 'КЛАССИКО', label: 'Классико' },
+  { value: 'ОРИГАМИ', label: 'Оригами' },
+  { value: 'ТРЕУГОЛЬНИК', label: 'Треугольник' },
+  { value: 'СОТЫ', label: 'Соты' },
+  { value: 'СТАРЫЙ ГОРОД', label: 'Старый город' },
+  { value: 'АНТИК', label: 'Антик' },
+  { value: 'Газонная решётка', label: 'Газонная решётка' },
+  { value: 'ВОЛНА', label: 'Волна' },
+  { value: 'АНТАРА', label: 'Антара' },
+  { value: 'ПАРКЕТ', label: 'Паркет' },
+  { value: 'ТРИЛИСТНИК', label: 'Трилистник' }
 ];
 
 const categories = [
