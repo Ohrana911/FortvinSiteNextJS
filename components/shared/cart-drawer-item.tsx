@@ -22,6 +22,7 @@ export const CartDrawerItem: React.FC<Props> = ({
   quantity,
   quantityPerPallet,
   retailPriceRubWithVAT,
+  form,
   disabled,
   onClickCountButton,
   onClickRemove,
@@ -83,8 +84,8 @@ export const CartDrawerItem: React.FC<Props> = ({
 
             {/* Подсказка: кирпичи и цена за штуку */}
             <span className="text-xs text-gray-500">
-              {quantityPerPallet} шт × {retailPriceRubWithVAT} ₽
-              
+              за поддон
+              {/* {`${quantityPerPallet} шт x ${retailPriceRubWithVAT} ₽/шт`} */}
             </span>
           </div>
         </div>

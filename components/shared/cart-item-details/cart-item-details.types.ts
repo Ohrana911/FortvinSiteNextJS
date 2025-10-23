@@ -4,6 +4,7 @@ export interface CartItemProps {
   name: string;
   price: number;
   quantity: number;
+  form?: string;
   disabled?: boolean;
 
     // новые поля

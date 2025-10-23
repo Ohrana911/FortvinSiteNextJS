@@ -24,6 +24,7 @@ type Product = {
   saleDescription?: string;
   heightMm?: number;
   tileShape?: string;
+  form?: string;
 };
 
 const thicknessOptions = [
@@ -249,9 +250,9 @@ export default function ProductsPage() {
                           ''
                         ) : (
                           <p className="small-text">
-                            {p.retailPriceRubWithVAT
-                              ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`
-                              : ' '}
+                            {p.form
+                              ? ' '
+                              : `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`}
                           </p>
                         )}
                         {/* <h2 className="font-semibold">
@@ -263,7 +264,7 @@ export default function ProductsPage() {
                             ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT)
                                 .toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽'
                             : '—'}
-                          {p.quantityPerPallet == null ? '/куб.м' : '/поддон'}
+                          {'/поддон'}
                         </h2>
 
                       </div>
