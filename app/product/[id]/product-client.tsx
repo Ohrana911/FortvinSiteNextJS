@@ -115,6 +115,7 @@ export function ProductClient({ product }: { product: Product }) {
               {product.heightMm && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Высота (мм):</div> {product.heightMm}</li>)}
               {/* {product.city && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city}</li>)} */}
               {product.quantityPerPallet && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Количество в поддоне (шт):</div> {product.quantityPerPallet}</li>)}
+              {product.form && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Форма:</div> {product.form}</li>)}
               
             </ul>
           </div>
