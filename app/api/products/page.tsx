@@ -157,15 +157,15 @@ export default function ProductsPage() {
 
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="w-auto justify-between">
+                <Button variant="outline" className="w-auto justify-between cursor-pointer">
                   {height.length > 0
                     ? height.map((h) => thicknessOptions.find((o) => o.value === h)?.label).join(", ")
                     : "..."}
-                  <ChevronDown className="h-4 w-4 opacity-50" />
+                  <ChevronDown className="h-4 w-4 opacity-50 cursor-pointer" />
                 </Button>
               </DropdownMenuTrigger>
 
-              <DropdownMenuContent className="w-auto">
+              <DropdownMenuContent className="w-auto cursor-pointer">
                 {thicknessOptions.map((opt) => (
                   <DropdownMenuCheckboxItem
                     key={opt.value}
