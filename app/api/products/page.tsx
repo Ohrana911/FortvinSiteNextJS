@@ -11,11 +11,24 @@ type Product = {
   name: string;
   imageUrl?: string;
   quantityPerPallet?: number;
-  
   retailPriceRubWithVAT?: number;
   isOnSale: boolean;
   saleDescription?: string;
+  heightMm?: number;
+  tileShape?: string;
 };
+
+const thicknessOptions = [
+  { value: '40', label: '40 мм' },
+  { value: '60', label: '60 мм' },
+  { value: '80', label: '80 мм' },
+  { value: '100', label: '100 мм' },
+];
+
+const shapeOptions = [
+  { value: 'квадрат', label: 'Квадрат' },
+  { value: 'прямоугольник', label: 'Прямоугольник' },
+];
 
 const categories = [
   { key: 'ALL', label: 'Все товары' },
@@ -30,48 +43,32 @@ export default function ProductsPage() {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [category, setCategory] = useState('ALL');
+  const [height, setHeight] = useState<string[]>([]);
+  const [shape, setShape] = useState<string[]>([]);
 
   const [favorites, setFavorites] = useState<number[]>([]);
   const [loadingFav, setLoadingFav] = useState(false);
 
   const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
-  useEffect(() => {
-      fetchCartItems();
-    }, [fetchCartItems]);
+  useEffect(() => { fetchCartItems(); }, [fetchCartItems]);
 
   const handleAddToCart = async (productId: number) => {
-    const inCart = isInCart(productId);
-    console.log('inCart: ', inCart);
-
-    if (inCart) return;
+    if (isInCart(productId)) return;
     await addCartItem({ productItemId: productId });
   };
 
-  // Получаем продукты
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     const query = category === 'ALL'
-  //       ? `/api/products/search?page=${page}&limit=8`
-  //       : `/api/products/search?page=${page}&limit=8&category=${category}`;
-
-  //     const res = await fetch(query);
-  //     const data = await res.json();
-
-  //     setProducts(data.data);
-  //     setTotalPages(data.totalPages);
-  //   };
-
-  //   fetchProducts();
-  // }, [page, category]);
-  // Получаем продукты
+  // Fetch products с учетом фильтров
   useEffect(() => {
     const fetchProducts = async () => {
-      const query = category === 'ALL'
-        ? `/api/products/search?page=${page}&limit=12`
-        : `/api/products/search?page=${page}&limit=12&category=${category}`;
+      const params = new URLSearchParams();
+      params.append('page', String(page));
+      params.append('limit', '12');
+      if (category !== 'ALL') params.append('category', category);
+      height.forEach((h) => params.append('height', h));
+      shape.forEach((s) => params.append('shape', s));
 
-      const res = await fetch(query, { cache: 'no-store' }); // ⬅️ чтобы не кэшировалось
+      const res = await fetch(`/api/products/search?${params.toString()}`, { cache: 'no-store' });
       const data = await res.json();
 
       setProducts(data.data);
@@ -79,20 +76,12 @@ export default function ProductsPage() {
     };
 
     fetchProducts();
-
-    // ✅ Новый код — слушаем событие "смена города"
-    const handleCityChange = () => {
-      // сбрасываем на первую страницу и обновляем товары
-      setPage(1);
-      fetchProducts();
-    };
-
+    const handleCityChange = () => { setPage(1); fetchProducts(); };
     window.addEventListener('cityChanged', handleCityChange);
     return () => window.removeEventListener('cityChanged', handleCityChange);
-  }, [page, category]);
+  }, [page, category, height, shape]);
 
-
-  // Получаем избранное
+  // Избранное
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
@@ -101,59 +90,36 @@ export default function ProductsPage() {
           const data = await res.json();
           setFavorites(data.map((f: { productId: number }) => f.productId));
         }
-      } catch (err) {
-        console.error('Error fetching favorites', err);
-      }
+      } catch (err) { console.error(err); }
     };
-
     fetchFavorites();
   }, []);
 
   const toggleFavorite = async (productId: number) => {
     if (loadingFav) return;
-
     setLoadingFav(true);
     try {
       if (favorites.includes(productId)) {
-        // удалить из избранного
         const res = await fetch(`/api/favorites/${productId}`, { method: 'DELETE' });
-        if (res.ok) {
-          setFavorites(favorites.filter((id) => id !== productId));
-        } else if (res.status === 401) {
-          toast.error('Чтобы удалить из избранного, нужно авторизоваться');
-        }
+        if (res.ok) setFavorites(favorites.filter((id) => id !== productId));
+        else if (res.status === 401) toast.error('Авторизуйтесь чтобы удалить');
       } else {
-        // добавить в избранное
-        const res = await fetch('/api/favorites', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ productId }),
-        });
-        if (res.ok) {
-          setFavorites([...favorites, productId]);
-        } else if (res.status === 401) {
-          toast.error('Чтобы добавить в избранное, нужно авторизоваться');
-        }
+        const res = await fetch('/api/favorites', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ productId }) });
+        if (res.ok) setFavorites([...favorites, productId]);
+        else if (res.status === 401) toast.error('Авторизуйтесь чтобы добавить');
       }
-    } catch (err) {
-      console.error('Error toggling favorite', err);
-    } finally {
-      setLoadingFav(false);
-    }
+    } catch (err) { console.error(err); }
+    finally { setLoadingFav(false); }
   };
 
-  // Скролл к якорю после обновления продуктов
   useEffect(() => {
     const anchor = document.getElementById('products-top');
-    if (anchor) {
-      anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  }, [products]); // <-- скролл срабатывает после загрузки продуктов
-
+    if (anchor) anchor.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [products]);
 
   return (
     <div className="container">
-      <nav id="products-top"  className="breadcrumb">
+      <nav id="products-top" className="breadcrumb">
         <ol>
           <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
           <li className="breadcrumb-separator">→</li>
@@ -169,14 +135,59 @@ export default function ProductsPage() {
             <button
               key={c.key}
               onClick={() => { setCategory(c.key); setPage(1); }}
-              className={`special px-4 py-2 border-1 border-[var(--color-gray)] transition cursor-pointer ${
-                category === c.key ? 'bg-[var(--color-blue)] text-white' : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'
-              }`}
+              className={`special px-4 py-2 border-1 border-[var(--color-gray)] transition cursor-pointer ${category === c.key ? 'bg-[var(--color-blue)] text-white' : 'bg-[var(--color-light-gray)] hover:bg-[var(--color-light-blue)]'}`}
             >
               {c.label}
             </button>
           ))}
         </div>
+
+        {/* ✅ Чекбоксы для фильтров */}
+        <div className="mb-6 flex gap-6 flex-wrap">
+          <div>
+            <p className="font-medium mb-2">Толщина:</p>
+            {thicknessOptions.map((opt) => (
+              <label key={opt.value} className="flex items-center gap-1 mr-2 mb-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  value={opt.value}
+                  checked={height.includes(opt.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (height.includes(val)) setHeight(height.filter((h) => h !== val));
+                    else setHeight([...height, val]);
+                    setPage(1);
+                  }}
+                  className="cursor-pointer"
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+
+          <div>
+            <p className="font-medium mb-2">Форма плитки:</p>
+            {shapeOptions.map((opt) => (
+              <label key={opt.value} className="flex items-center gap-1 mr-2 mb-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  value={opt.value}
+                  checked={shape.includes(opt.value)}
+                  onChange={(e) => {
+                    const val = e.target.value;
+                    if (shape.includes(val)) setShape(shape.filter((s) => s !== val));
+                    else setShape([...shape, val]);
+                    setPage(1);
+                  }}
+                  className="cursor-pointer"
+                />
+                {opt.label}
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Products Grid */}
         {products.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 text-lg py-10">
             В выбранной категории нет товаров 😔
@@ -191,9 +202,7 @@ export default function ProductsPage() {
                   <div key={p.id} className="flex flex-col cursor-pointer relative">
                     <Link href={`/product/${p.id}`}>
                       {p.isOnSale && p.saleDescription && (
-                        <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
-                          {p.saleDescription}
-                        </span>
+                        <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">{p.saleDescription}</span>
                       )}
                       <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
                       <p>{p.name}</p>
@@ -221,28 +230,11 @@ export default function ProductsPage() {
 
                       </div>
                     </Link>
-
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
-                      <button
-                        onClick={() => toggleFavorite(p.id)}
-                        className="cursor-pointer p-1 rounded-full transition-colors"
-                      >
-                        <Heart
-                          size={24}
-                          className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'}
-                        />
+                      <button onClick={() => toggleFavorite(p.id)} className="cursor-pointer p-1 rounded-full transition-colors">
+                        <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
                       </button>
-
-                      <button
-                        className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
-                          ${
-                            inCart
-                              ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
-                              : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
-                          }`}
-                        onClick={() => handleAddToCart(p.id)}
-                        disabled={inCart}
-                      >
+                      <button className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer ${inCart ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed' : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'}`} onClick={() => handleAddToCart(p.id)} disabled={inCart}>
                         {inCart ? 'Уже в корзине' : 'В корзину'}
                       </button>
                     </div>
@@ -252,21 +244,9 @@ export default function ProductsPage() {
             </div>
 
             <div className="flex justify-center items-center gap-4 mt-8">
-              <button
-                disabled={page === 1}
-                onClick={() => setPage(page - 1)}
-                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
-              >
-                Предыдущая
-              </button>
+              <button disabled={page === 1} onClick={() => setPage(page - 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">Предыдущая</button>
               <span>{page} из {totalPages}</span>
-              <button
-                disabled={page === totalPages}
-                onClick={() => setPage(page + 1)}
-                className="cursor-pointer px-3 py-1 border disabled:opacity-50"
-              >
-                Следующая
-              </button>
+              <button disabled={page === totalPages} onClick={() => setPage(page + 1)} className="cursor-pointer px-3 py-1 border disabled:opacity-50">Следующая</button>
             </div>
           </>
         )}

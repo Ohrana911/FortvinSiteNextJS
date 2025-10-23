@@ -119,6 +119,7 @@ type CsvRow = {
   quantityPerPalletKvM?: string
   weightOnePalletKg?: string
   heightMm?: string
+  form?: string
 }
 
 export async function POST(req: Request) {
@@ -162,6 +163,7 @@ export async function POST(req: Request) {
         quantityPerPalletKvM: row.quantityPerPalletKvM || null,
         weightOnePalletKg: row.weightOnePalletKg || null,
         heightMm: row.heightMm ? parseInt(row.heightMm) : null,
+        form: row.form || null,
       }))
 
     // Добавляем продукты (без дублей)
