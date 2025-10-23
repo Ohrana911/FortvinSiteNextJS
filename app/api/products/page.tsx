@@ -207,8 +207,27 @@ export default function ProductsPage() {
                       <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
                       <p>{p.name}</p>
                       <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
-                        {p.quantityPerPallet == null ? '' : <p className="small-text">{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>}
-                        <h2 className="font-semibold">{p.retailPriceRubWithVAT ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽' : '—'}{p.quantityPerPallet == null ? '/куб.м' : ''}</h2>
+                        {p.quantityPerPallet == null ? (
+                          ''
+                        ) : (
+                          <p className="small-text">
+                            {p.retailPriceRubWithVAT
+                              ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`
+                              : ' '}
+                          </p>
+                        )}
+                        {/* <h2 className="font-semibold">
+                          {(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽
+                          {p.quantityPerPallet == null ? '/куб.м' : ''}
+                        </h2> */}
+                        <h2 className="font-semibold">
+                          {p.retailPriceRubWithVAT
+                            ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT)
+                                .toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽'
+                            : '—'}
+                          {p.quantityPerPallet == null ? '/куб.м' : '/поддон'}
+                        </h2>
+
                       </div>
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">

@@ -53,6 +53,7 @@ export function ProductClient({ product }: { product: Product }) {
                         {product.retailPriceRubWithVAT
                     ? ((product.quantityPerPallet ?? 1) * product.retailPriceRubWithVAT).toLocaleString('ru-RU')
                     : '—'} ₽
+                    {product.quantityPerPallet == null ? '/куб.м' : '/поддон'}
                     </h2>
                     {product.isOnSale && (
                     <div className="w-fit h-fit px-2 py-1 sm:text-sm text-xs font-semibold text-white bg-[var(--color-sale)]">
