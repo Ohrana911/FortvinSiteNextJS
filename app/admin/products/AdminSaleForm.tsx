@@ -1,25 +1,41 @@
 'use client'
 import { useState } from 'react'
 
-export default function AdminSaleForm({ product, onBack }: { product: any, onBack: () => void }) {
-  const [isOnSale, setIsOnSale] = useState(product.isOnSale)
-  const [saleDescription, setSaleDescription] = useState(product.saleDescription || '')
-  const [status, setStatus] = useState('')
+interface Product {
+  id: number
+  name: string
+  isOnSale: boolean
+  saleDescription?: string
+}
+
+interface AdminSaleFormProps {
+  product: Product
+  onBack: () => void
+}
+
+export default function AdminSaleForm({ product, onBack }: AdminSaleFormProps) {
+  const [isOnSale, setIsOnSale] = useState<boolean>(product.isOnSale)
+  const [saleDescription, setSaleDescription] = useState<string>(product.saleDescription || '')
+  const [status, setStatus] = useState<string>('')
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setStatus('Сохраняем...')
 
-    const res = await fetch(`/api/admin/products/${product.id}/sale`, {
-      method: 'PATCH',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ isOnSale, saleDescription })
-    })
+    try {
+      const res = await fetch(`/api/admin/products/${product.id}/sale`, {
+        method: 'PATCH',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ isOnSale, saleDescription })
+      })
 
-    if (res.ok) {
-      setStatus('✅ Изменения сохранены')
-    } else {
-      setStatus('❌ Ошибка при сохранении')
+      if (res.ok) {
+        setStatus('✅ Изменения сохранены')
+      } else {
+        setStatus('❌ Ошибка при сохранении')
+      }
+    } catch (error) {
+      setStatus('❌ Ошибка соединения с сервером')
     }
   }
 
@@ -79,7 +95,16 @@ export default function AdminSaleForm({ product, onBack }: { product: any, onBac
         </button>
       </form>
 
-      {status && <p style={{ marginTop: '15px', color: status.startsWith('✅') ? 'green' : 'red' }}>{status}</p>}
+      {status && (
+        <p
+          style={{
+            marginTop: '15px',
+            color: status.startsWith('✅') ? 'green' : 'red',
+          }}
+        >
+          {status}
+        </p>
+      )}
     </div>
   )
 }
