@@ -20,6 +20,11 @@ export default function AdminDashboard() {
             📦 Импортировать товары
           </Link>
         </li>
+        <li>
+          <Link href="/admin/products" className="text-blue-600 underline">
+            📦 Редактировать скидку товаров
+          </Link>
+        </li>
       </ul>
     </div>
   );
