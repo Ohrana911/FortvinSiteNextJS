@@ -40,8 +40,8 @@ export const CheckoutItem: React.FC<Props> = ({
         <div className="flex flex-col w-full">
           <CartItemDetails.Info name={name} />
           <div className="flex sm:flex-row flex-col mt-2 text-sm text-gray-600 gap-4">
-            {quantityPerPallet && <span>Количество на поддон: <br /> {quantityPerPallet}</span>}
-            {retailPriceRubWithVAT && <span>Цена за поддон:<br /> {retailPriceRubWithVAT} ₽</span>}
+            {/* {quantityPerPallet && <span>Количество на поддон: <br /> {quantityPerPallet}</span>} */}
+            {retailPriceRubWithVAT && <span>Цена за ед.:<br /> {retailPriceRubWithVAT} ₽</span>}
           </div>
         </div>
       </div>

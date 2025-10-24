@@ -5,6 +5,14 @@ import { Heart } from 'lucide-react';
 import { useCartStore } from '@/store/cart';
 import Link from 'next/link';
 import toast from 'react-hot-toast';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuCheckboxItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Button } from '@/components/ui/button';
+import { ChevronDown } from 'lucide-react';
 
 type Product = {
   id: number;
@@ -16,6 +24,7 @@ type Product = {
   saleDescription?: string;
   heightMm?: number;
   tileShape?: string;
+  form?: string;
 };
 
 const thicknessOptions = [
@@ -26,8 +35,19 @@ const thicknessOptions = [
 ];
 
 const shapeOptions = [
-  { value: 'квадрат', label: 'Квадрат' },
-  { value: 'прямоугольник', label: 'Прямоугольник' },
+  { value: 'КВАДРАТ', label: 'Квадрат' },
+  { value: 'ПРЯМОУГОЛЬНИК', label: 'Прямоугольник' },
+  { value: 'КЛАССИКО', label: 'Классико' },
+  { value: 'ОРИГАМИ', label: 'Оригами' },
+  { value: 'ТРЕУГОЛЬНИК', label: 'Треугольник' },
+  { value: 'СОТЫ', label: 'Соты' },
+  { value: 'СТАРЫЙ ГОРОД', label: 'Старый город' },
+  { value: 'АНТИК', label: 'Антик' },
+  { value: 'Газонная решётка', label: 'Газонная решётка' },
+  { value: 'ВОЛНА', label: 'Волна' },
+  { value: 'АНТАРА', label: 'Антара' },
+  { value: 'ПАРКЕТ', label: 'Паркет' },
+  { value: 'ТРИЛИСТНИК', label: 'Трилистник' }
 ];
 
 const categories = [
@@ -143,50 +163,69 @@ export default function ProductsPage() {
         </div>
 
         {/* ✅ Чекбоксы для фильтров */}
-        <div className="mb-6 flex gap-6 flex-wrap">
-          <div>
-            <p className="font-medium mb-2">Толщина:</p>
-            {thicknessOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-1 mr-2 mb-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  value={opt.value}
-                  checked={height.includes(opt.value)}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (height.includes(val)) setHeight(height.filter((h) => h !== val));
-                    else setHeight([...height, val]);
-                    setPage(1);
-                  }}
-                  className="cursor-pointer"
-                />
-                {opt.label}
-              </label>
-            ))}
+        <div className='flex sm:flex-row flex-col sm:gap-4 gap-2'>
+          <div className="mb-6 flex flex-row items-center gap-2">
+            <p className="font-medium">Толщина:</p>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-auto justify-between cursor-pointer">
+                  {height.length > 0
+                    ? height.map((h) => thicknessOptions.find((o) => o.value === h)?.label).join(", ")
+                    : "..."}
+                  <ChevronDown className="h-4 w-4 opacity-50 cursor-pointer" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-auto cursor-pointer">
+                {thicknessOptions.map((opt) => (
+                  <DropdownMenuCheckboxItem
+                    key={opt.value}
+                    checked={height.includes(opt.value)}
+                    onCheckedChange={(checked) => {
+                      if (checked) setHeight([...height, opt.value]);
+                      else setHeight(height.filter((h) => h !== opt.value));
+                      setPage(1);
+                    }}
+                  >
+                    {opt.label}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
 
-          <div>
-            <p className="font-medium mb-2">Форма плитки:</p>
-            {shapeOptions.map((opt) => (
-              <label key={opt.value} className="flex items-center gap-1 mr-2 mb-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  value={opt.value}
-                  checked={shape.includes(opt.value)}
-                  onChange={(e) => {
-                    const val = e.target.value;
-                    if (shape.includes(val)) setShape(shape.filter((s) => s !== val));
-                    else setShape([...shape, val]);
-                    setPage(1);
-                  }}
-                  className="cursor-pointer"
-                />
-                {opt.label}
-              </label>
-            ))}
+          <div className="mb-6 flex flex-row items-center gap-2">
+            <p className="font-medium">Форма плитки:</p>
+
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="outline" className="w-auto justify-between cursor-pointer">
+                  {shape.length > 0
+                    ? shape.map((s) => shapeOptions.find((o) => o.value === s)?.label).join(", ")
+                    : "..."}
+                  <ChevronDown className="h-4 w-4 opacity-50 cursor-pointer" />
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent className="w-auto cursor-pointer">
+                {shapeOptions.map((opt) => (
+                  <DropdownMenuCheckboxItem
+                    key={opt.value}
+                    checked={shape.includes(opt.value)}
+                    onCheckedChange={(checked) => {
+                      if (checked) setShape([...shape, opt.value]);
+                      else setShape(shape.filter((s) => s !== opt.value));
+                      setPage(1);
+                    }}
+                  >
+                    {opt.label}
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
-
         {/* Products Grid */}
         {products.length === 0 ? (
           <div className="col-span-full text-center text-gray-500 text-lg py-10">
@@ -207,8 +246,27 @@ export default function ProductsPage() {
                       <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
                       <p>{p.name}</p>
                       <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
-                        {p.quantityPerPallet == null ? '' : <p className="small-text">{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>}
-                        <h2 className="font-semibold">{p.retailPriceRubWithVAT ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT).toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽' : '—'}{p.quantityPerPallet == null ? '/куб.м' : ''}</h2>
+                        {p.quantityPerPallet == null ? (
+                          ''
+                        ) : (
+                          <p className="small-text">
+                            {p.form
+                              ? ' '
+                              : `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`}
+                          </p>
+                        )}
+                        {/* <h2 className="font-semibold">
+                          {(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽
+                          {p.quantityPerPallet == null ? '/куб.м' : ''}
+                        </h2> */}
+                        <h2 className="font-semibold">
+                          {p.retailPriceRubWithVAT
+                            ? (((p.quantityPerPallet ?? 1) * p.retailPriceRubWithVAT)
+                                .toLocaleString('ru-RU', { minimumFractionDigits: 0, maximumFractionDigits: 1 })) + ' ₽'
+                            : '—'}
+                          {'/поддон'}
+                        </h2>
+
                       </div>
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
