@@ -214,75 +214,16 @@ export async function registerUser(body: Prisma.UserCreateInput) {
       if (!user.verified) {
         throw new Error('Почта не подтверждена');
       }
-
       throw new Error('Пользователь уже существует');
     }
 
-    // const createdUser = await prisma.user.create({
-    //   data: {
-    //     fullName: body.fullName,
-    //     email: body.email,
-    //     password: hashSync(body.password, 10),
-    //     phone: body.phone,
-    //   },
-    // });
-
-    // const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-
-    // await prisma.verificationCode.create({
-    //   data: {
-    //     code,
-    //     userId: createdUser.id,
-    //   },
-    // });
-
-  //   const code = Math.floor(100000 + Math.random() * 900000).toString();
-
-
-  //   const createdUser = await prisma.user.create({
-  //     data: {
-  //       fullName: body.fullName,
-  //       email: body.email,
-  //       password: hashSync(body.password, 10),
-  //       phone: body.phone,
-  //     },
-  //   });
-
-  //   try {
-  //     const verification = await prisma.verificationCode.create({
-  //       data: {
-  //         userId: createdUser.id,
-  //         code,
-  //       },
-  //     });
-  //     console.log('Verification code created in DB:', verification);
-  //   } catch (err) {
-  //     console.error('Error creating verification code:', err);
-  //   }
-
-  //   await sendEmail(
-  //     createdUser.email,
-  //     '📝 Подтверждение регистрации',
-  //     VerificationUserTemplate({
-  //       code,
-  //     }),
-  //   );
-
-  //   console.log('Verification code created:', code);
-  // } catch (err) {
-  //   console.log('Error [CREATE_USER]', err);
-  //   throw err;
-  // }
-
-  // Создаём пользователя
+    // Создаём пользователя
     const createdUser = await prisma.user.create({
       data: {
         fullName: body.fullName,
         email: body.email,
         password: hashSync(body.password, 10),
         phone: body.phone,
-        // создаём первый код верификации сразу через relation
         verificationCode: {
           create: {
             code: Math.floor(100000 + Math.random() * 900000).toString(),
@@ -305,7 +246,12 @@ export async function registerUser(body: Prisma.UserCreateInput) {
 
     console.log('User and verification code created:', createdUser);
 
-    return createdUser;
+    // ВОЗВРАЩАЕМ объект с информацией для редиректа
+    return { 
+      success: true, 
+      userId: createdUser.id,
+      message: 'Код подтверждения отправлен на вашу почту'
+    };
   } catch (err) {
     console.error('Error [CREATE_USER]', err);
     throw err;
