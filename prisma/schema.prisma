@@ -43,7 +43,7 @@ model Product {
   waterAbsorption       String?
   size                  String?
   weightKg              Float?
-  quantityPerPallet     Int?
+  quantityPerPallet     Float?
   palletsPerTruck       Int?
   totalPerTruck         Int?
   retailPriceRubWithVAT Float?

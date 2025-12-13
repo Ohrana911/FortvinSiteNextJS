@@ -16,13 +16,30 @@ export default function AdminDashboard() {
           </Link>
         </li>
         <li>
-          <Link href="/admin/import_products" className="text-blue-600 underline">
+          <Link
+            href="/admin/import_products"
+            className="text-blue-600 underline"
+          >
             📦 Импортировать товары
           </Link>
         </li>
         <li>
           <Link href="/admin/products" className="text-blue-600 underline">
             📦 Редактировать скидку товаров
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/admin/update-product"
+            className="text-blue-600 underline"
+          >
+            📦 Обновить запись о товаре
+          </Link>
+        </li>
+
+        <li>
+          <Link href="/api/export-data" className="text-blue-600 underline">
+            📦 Скачать файл с данными из бд (JSON)
           </Link>
         </li>
       </ul>
