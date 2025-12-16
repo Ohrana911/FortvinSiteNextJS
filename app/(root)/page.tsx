@@ -2,19 +2,21 @@
 
 import React from "react";
 import Link from "next/link";
-import { Heart } from 'lucide-react';
+import { Heart } from "lucide-react";
 import Carousel from "@/components/ui/carousel";
-import RequestForm from "@/components/shared/request-form"
+import RequestForm from "@/components/shared/request-form";
 import { Button } from "@/components/ui";
-import { useEffect, useState } from 'react';
-import { useCartStore } from '@/store/cart';
+import { useEffect, useState } from "react";
+import { useCartStore } from "@/store/cart";
 
 type Product = {
   id: number;
   name: string;
   imageUrl?: string;
   quantityPerPallet?: number;
-  
+  form?: string;
+  strengthClass?: string;
+
   retailPriceRubWithVAT?: number;
   isOnSale: boolean;
   saleDescription?: string;
@@ -24,7 +26,7 @@ export default function Home() {
   const [products, setProducts] = useState<Product[]>([]);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [category, setCategory] = useState('ALL');
+  const [category, setCategory] = useState("ALL");
 
   const [favorites, setFavorites] = useState<number[]>([]);
   const [loadingFav, setLoadingFav] = useState(false);
@@ -32,12 +34,12 @@ export default function Home() {
   const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
   useEffect(() => {
-      fetchCartItems();
-    }, [fetchCartItems]);
+    fetchCartItems();
+  }, [fetchCartItems]);
 
   const handleAddToCart = async (productId: number) => {
     const inCart = isInCart(productId);
-    console.log('inCart: ', inCart);
+    console.log("inCart: ", inCart);
 
     if (inCart) return;
     await addCartItem({ productItemId: productId });
@@ -46,9 +48,10 @@ export default function Home() {
   // Получаем продукты
   useEffect(() => {
     const fetchProducts = async () => {
-      const query = category === 'ALL'
-        ? `/api/products/search?page=${page}&limit=6`
-        : `/api/products/search?page=${page}&limit=6&category=${category}`;
+      const query =
+        category === "ALL"
+          ? `/api/products/search?page=${page}&limit=6`
+          : `/api/products/search?page=${page}&limit=6&category=${category}`;
 
       const res = await fetch(query);
       const data = await res.json();
@@ -66,22 +69,21 @@ export default function Home() {
       fetchProducts();
     };
 
-    window.addEventListener('cityChanged', handleCityChange);
-    return () => window.removeEventListener('cityChanged', handleCityChange);
+    window.addEventListener("cityChanged", handleCityChange);
+    return () => window.removeEventListener("cityChanged", handleCityChange);
   }, [page, category]);
-
 
   // Получаем избранное
   useEffect(() => {
     const fetchFavorites = async () => {
       try {
-        const res = await fetch('/api/favorites');
+        const res = await fetch("/api/favorites");
         if (res.ok) {
           const data = await res.json();
           setFavorites(data.map((f: { productId: number }) => f.productId));
         }
       } catch (err) {
-        console.error('Error fetching favorites', err);
+        console.error("Error fetching favorites", err);
       }
     };
 
@@ -95,19 +97,21 @@ export default function Home() {
     try {
       if (favorites.includes(productId)) {
         // удалить из избранного
-        const res = await fetch(`/api/favorites/${productId}`, { method: 'DELETE' });
+        const res = await fetch(`/api/favorites/${productId}`, {
+          method: "DELETE",
+        });
         if (res.ok) setFavorites(favorites.filter((id) => id !== productId));
       } else {
         // добавить в избранное
-        const res = await fetch('/api/favorites', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+        const res = await fetch("/api/favorites", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ productId }),
         });
         if (res.ok) setFavorites([...favorites, productId]);
       }
     } catch (err) {
-      console.error('Error toggling favorite', err);
+      console.error("Error toggling favorite", err);
     } finally {
       setLoadingFav(false);
     }
@@ -121,9 +125,15 @@ export default function Home() {
             <div className="pr-[10px] pl-[10px] pt-[5px] pb-[5px] bg-[var(--color-blue)] text-[var(--background)] w-fit">
               <h3 className="font-bold">Фортвин</h3>
             </div>
-            <h1 className="leading-[90%] text-[var(--background)]">Ваш надежный поставщик<br/>строительных материалов</h1>
+            <h1 className="leading-[90%] text-[var(--background)]">
+              Ваш надежный поставщик
+              <br />
+              строительных материалов
+            </h1>
           </div>
-          <h3 className="text-[var(--background)]">Работаем напрямую с производителями с 2003 года</h3>
+          <h3 className="text-[var(--background)]">
+            Работаем напрямую с производителями с 2003 года
+          </h3>
           <Link href="/api/products">
             <button className="home-button">Перейти в каталог</button>
           </Link>
@@ -134,8 +144,14 @@ export default function Home() {
         <h1 className="underline">О нас</h1>
         <div className="flex justify-between flex-col sm:flex-row w-full sm:gap-[120px] gap-[40px] items-center">
           <div className="request-left w-full">
-              <p>Специализируемся на поставках высококачественных строительных материалов для частного и коммерческого строительства.</p>
-              <p>Мы не просто поставляем строительные материалы — мы воплощаем мечты о идеальном доме в реальность.</p>
+            <p>
+              Специализируемся на поставках высококачественных строительных
+              материалов для частного и коммерческого строительства.
+            </p>
+            <p>
+              Мы не просто поставляем строительные материалы — мы воплощаем
+              мечты о идеальном доме в реальность.
+            </p>
           </div>
           <div className="flex flex-col sm:w-[480px] w-full gap-[40px]">
             <div className="flex justify-between w-full sm:flex-row flex-col sm:gap-0 gap-[20px]">
@@ -149,10 +165,15 @@ export default function Home() {
               </div>
             </div>
             <Link href="/about_us">
-              <Button className="cursor-pointer 
+              <Button
+                className="cursor-pointer 
               hover:bg-[var(--background)] hover:text-[var(--color-dark)] hover:border-black
-              border border-transparent" 
-              variant="request" size="request">Подробнее о компании</Button>
+              border border-transparent"
+                variant="request"
+                size="request"
+              >
+                Подробнее о компании
+              </Button>
             </Link>
           </div>
         </div>
@@ -162,30 +183,55 @@ export default function Home() {
         <div className="flex justify-between w-full sm:items-end items-start sm:gap-0 gap-[20px] sm:flex-row flex-col">
           <h1 className="underline">Акции и скидки</h1>
           <Link href="/api/products">
-              <button className="small-button mb-[40px]">Перейти в раздел</button>
+            <button className="small-button mb-[40px]">Перейти в раздел</button>
           </Link>
         </div>
         <div className="service-blocks">
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
             {products
-              .filter(p => p.isOnSale)  // оставляем только товары со скидкой
-              .slice(0, 4)               // берём первые 4
+              .filter((p) => p.isOnSale) // оставляем только товары со скидкой
+              .slice(0, 4) // берём первые 4
               .map((p) => {
                 const isFav = favorites.includes(p.id);
                 const inCart = isInCart(p.id);
                 return (
-                  <div key={p.id} className="flex flex-col cursor-pointer relative">
+                  <div
+                    key={p.id}
+                    className="flex flex-col cursor-pointer relative"
+                  >
                     <Link href={`/product/${p.id}`}>
                       {p.isOnSale && p.saleDescription && (
                         <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
                           {p.saleDescription}
                         </span>
                       )}
-                      <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
+                      <img
+                        src={p.imageUrl ?? "/placeholder.png"}
+                        alt={p.name}
+                        className="w-full h-[280px] object-cover mb-4"
+                      />
                       <p>{p.name}</p>
-                      <div className='flex flex-col gap-1 mb-[10px] mt-[10px] w-full'>
-                        <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
-                        <h2 className='font-semibold'>{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h2>
+                      <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
+                        <p className="small-text">
+                          {p.retailPriceRubWithVAT
+                            ? (
+                                (p.quantityPerPallet ?? 1) *
+                                p.retailPriceRubWithVAT
+                              ).toLocaleString("ru-RU", {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 1,
+                              }) + " ₽"
+                            : "—"}
+                          {"/поддон"}
+                        </p>
+                        <h2 className="font-semibold">
+                          {p.retailPriceRubWithVAT} ₽
+                          {p.form != null
+                            ? "/кв.м"
+                            : p.strengthClass != null
+                              ? "/куб.м"
+                              : "/шт"}
+                        </h2>
                       </div>
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
@@ -194,23 +240,31 @@ export default function Home() {
                         className="cursor-pointer p-1 rounded-full transition-colors"
                         data-testid={`favorite-btn-${p.id}`}
                       >
-                        <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
+                        <Heart
+                          size={24}
+                          className={
+                            isFav
+                              ? "text-[var(--color-blue)] fill-current"
+                              : "text-gray-400"
+                          }
+                        />
                       </button>
                       <button
                         className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
-                          ${inCart
-                            ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
-                            : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                          ${
+                            inCart
+                              ? "bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed"
+                              : "bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]"
                           }`}
                         onClick={() => handleAddToCart(p.id)}
                         disabled={inCart}
                       >
-                        {inCart ? 'Уже в корзине' : 'В корзину'}
+                        {inCart ? "Уже в корзине" : "В корзину"}
                       </button>
                     </div>
                   </div>
                 );
-            })}
+              })}
           </div>
         </div>
       </div>
@@ -221,29 +275,44 @@ export default function Home() {
         <div className="flex justify-between w-full items-start sm:gap-0 gap-[20px] sm:flex-row flex-col">
           <h1 className="underline">Каталог</h1>
           <Link href="/api/products">
-              <button className="small-button mb-[40px]">Перейти в раздел</button>
+            <button className="small-button mb-[40px]">Перейти в раздел</button>
           </Link>
         </div>
         <div className="service-blocks">
           <div className="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-4 gap-[20px]">
             {products
-              .slice(0, 4)               // берём первые 4
+              .slice(0, 4) // берём первые 4
               .map((p) => {
                 const isFav = favorites.includes(p.id);
                 const inCart = isInCart(p.id);
                 return (
-                  <div key={p.id} className="flex flex-col cursor-pointer relative">
+                  <div
+                    key={p.id}
+                    className="flex flex-col cursor-pointer relative"
+                  >
                     <Link href={`/product/${p.id}`}>
                       {p.isOnSale && p.saleDescription && (
                         <span className="absolute top-2 left-2 bg-[var(--color-sale)] text-white text-xs font-bold px-2 py-1">
                           {p.saleDescription}
                         </span>
                       )}
-                      <img src={p.imageUrl ?? '/placeholder.png'} alt={p.name} className="w-full h-[280px] object-cover mb-4" />
+                      <img
+                        src={p.imageUrl ?? "/placeholder.png"}
+                        alt={p.name}
+                        className="w-full h-[280px] object-cover mb-4"
+                      />
                       <p>{p.name}</p>
-                      <div className='flex flex-col gap-1 mb-[10px] mt-[10px] w-full'>
-                        <p className='small-text'>{p.retailPriceRubWithVAT ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт` : ' '}</p>
-                        <h2 className='font-semibold'>{(p.quantityPerPallet ?? 1) * (p.retailPriceRubWithVAT ?? 1)} ₽</h2>
+                      <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
+                        <p className="small-text">
+                          {p.retailPriceRubWithVAT
+                            ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`
+                            : " "}
+                        </p>
+                        <h2 className="font-semibold">
+                          {(p.quantityPerPallet ?? 1) *
+                            (p.retailPriceRubWithVAT ?? 1)}{" "}
+                          ₽
+                        </h2>
                       </div>
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
@@ -252,23 +321,31 @@ export default function Home() {
                         className="cursor-pointer p-1 rounded-full transition-colors"
                         data-testid={`favorite-btn-${p.id}`}
                       >
-                        <Heart size={24} className={isFav ? 'text-[var(--color-blue)] fill-current' : 'text-gray-400'} />
+                        <Heart
+                          size={24}
+                          className={
+                            isFav
+                              ? "text-[var(--color-blue)] fill-current"
+                              : "text-gray-400"
+                          }
+                        />
                       </button>
                       <button
                         className={`text-white text-[16px] font-bold px-[20px] py-[10px] border cursor-pointer 
-                          ${inCart
-                            ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
-                            : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                          ${
+                            inCart
+                              ? "bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed"
+                              : "bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]"
                           }`}
                         onClick={() => handleAddToCart(p.id)}
                         disabled={inCart}
                       >
-                        {inCart ? 'Уже в корзине' : 'В корзину'}
+                        {inCart ? "Уже в корзине" : "В корзину"}
                       </button>
                     </div>
                   </div>
                 );
-            })}
+              })}
           </div>
         </div>
       </div>
@@ -310,5 +387,5 @@ export default function Home() {
 
       <RequestForm />
     </div>
-  )
+  );
 }
