@@ -1,33 +1,89 @@
-import { NextRequest, NextResponse } from 'next/server';
-import { prisma } from '@/prisma/prisma-client';
-import { getUserSession } from '@/lib/get-user-session';
+// import { NextRequest, NextResponse } from "next/server";
+// import { prisma } from "@/prisma/prisma-client";
+// import { getUserSession } from "@/lib/get-user-session";
+
+// export async function DELETE(
+//   req: NextRequest,
+//   context: { params: Promise<{ id: string }> },
+// ): Promise<NextResponse<{ success?: boolean; message?: string }>> {
+//   try {
+//     const { id } = await context.params; // вытаскиваем id из промиса
+//     const numericId = Number(id);
+
+//     const currentUser = await getUserSession();
+//     if (!currentUser) {
+//       return NextResponse.json({ message: "Не авторизован" }, { status: 401 });
+//     }
+
+//     const favorite = await prisma.favorite.findUnique({
+//       where: { id: numericId },
+//     });
+
+//     if (!favorite || favorite.userId !== Number(currentUser.id)) {
+//       return NextResponse.json(
+//         { message: "Не найдено или нет доступа" },
+//         { status: 404 },
+//       );
+//     }
+
+//     await prisma.favorite.delete({ where: { id: numericId } });
+
+//     return NextResponse.json({ success: true });
+//   } catch (err) {
+//     console.error("[FAVORITES_DELETE]", err);
+//     return NextResponse.json({ message: "Ошибка сервера" }, { status: 500 });
+//   }
+// }
+
+import { NextRequest, NextResponse } from "next/server";
+import { prisma } from "@/prisma/prisma-client";
+import { getUserSession } from "@/lib/get-user-session";
 
 export async function DELETE(
   req: NextRequest,
-  context: { params: Promise<{ id: string }> }
+  context: { params: Promise<{ id: string }> },
 ): Promise<NextResponse<{ success?: boolean; message?: string }>> {
   try {
-    const { id } = await context.params; // вытаскиваем id из промиса
+    const { id } = await context.params;
     const numericId = Number(id);
 
     const currentUser = await getUserSession();
     if (!currentUser) {
-      return NextResponse.json({ message: 'Не авторизован' }, { status: 401 });
+      return NextResponse.json({ message: "Не авторизован" }, { status: 401 });
     }
 
-    const favorite = await prisma.favorite.findUnique({
-      where: { id: numericId },
+    // Пробуем сначала как favorite.id
+    let favorite = await prisma.favorite.findFirst({
+      where: {
+        id: numericId,
+        userId: Number(currentUser.id),
+      },
     });
 
-    if (!favorite || favorite.userId !== Number(currentUser.id)) {
-      return NextResponse.json({ message: 'Не найдено или нет доступа' }, { status: 404 });
+    // Если не нашли, пробуем как productId
+    if (!favorite) {
+      favorite = await prisma.favorite.findFirst({
+        where: {
+          productId: numericId,
+          userId: Number(currentUser.id),
+        },
+      });
     }
 
-    await prisma.favorite.delete({ where: { id: numericId } });
+    if (!favorite) {
+      return NextResponse.json(
+        { message: "Не найдено или нет доступа" },
+        { status: 404 },
+      );
+    }
+
+    await prisma.favorite.delete({
+      where: { id: favorite.id },
+    });
 
     return NextResponse.json({ success: true });
   } catch (err) {
-    console.error('[FAVORITES_DELETE]', err);
-    return NextResponse.json({ message: 'Ошибка сервера' }, { status: 500 });
+    console.error("[FAVORITES_DELETE]", err);
+    return NextResponse.json({ message: "Ошибка сервера" }, { status: 500 });
   }
 }

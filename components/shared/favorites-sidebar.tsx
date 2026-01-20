@@ -30,8 +30,6 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
   const [loading, setLoading] = useState(false);
   const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
-  const [loadedImages, setLoadedImages] = useState<Record<number, string>>({});
-
   const fetchFavorites = async () => {
     setLoading(true);
     try {
@@ -49,10 +47,23 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
     if (open) fetchFavorites();
   }, [open]);
 
-  const removeFavorite = async (id: number) => {
+  // ✅ ИСПРАВЛЕНО: удаляем по productId
+  const removeFavorite = async (productId: number) => {
     try {
-      await fetch(`/api/favorites/${id}`, { method: "DELETE" });
-      setFavoriteItems((prev) => prev.filter((item) => item.id !== id));
+      // await fetch(`/api/favorites/product/${productId}`, {
+      //   method: "DELETE",
+      // });
+      // Используйте существующий endpoint с параметром:
+      await fetch("/api/favorites", {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ productId }),
+      });
+      setFavoriteItems((prev) =>
+        prev.filter((item) => item.product.id !== productId),
+      );
     } catch (err) {
       console.error("Failed to remove favorite", err);
     }
@@ -62,6 +73,7 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
     fetchCartItems();
   }, [fetchCartItems]);
 
+  // ✅ ИСПРАВЛЕНО: передаем productId в корзину
   const handleAddToCart = async (productId: number) => {
     const inCart = isInCart(productId);
     console.log("inCart: ", inCart);
@@ -71,8 +83,8 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
   };
 
   const handleClose = () => {
-    onClose(); // закрываем модальное окно
-    window.location.reload(); // обновляем страницу
+    onClose();
+    window.location.reload();
   };
 
   return (
@@ -106,7 +118,7 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
           <div className="flex-1 overflow-auto p-[20px] flex flex-col gap-[20px]">
             {favoriteItems.length === 0 && <p>Нет товаров в избранном</p>}
             {favoriteItems.map((item) => {
-              const inCart = isInCart(item.product.id); // объявляем переменную внутри функции
+              const inCart = isInCart(item.product.id);
               return (
                 <div
                   key={item.product.id}
@@ -140,11 +152,13 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
                         </span>
                       )}
                       <div className="flex flex-row items-end sm:items-center gap-4">
+                        {/* ✅ ИСПРАВЛЕНО: передаем item.product.id */}
                         <Trash2
                           className="cursor-pointer text-gray-400 hover:text-[var(--color-blue)] self-center mt-1"
                           size={20}
-                          onClick={() => removeFavorite(item.id)}
+                          onClick={() => removeFavorite(item.product.id)}
                         />
+                        {/* ✅ ИСПРАВЛЕНО: передаем item.product.id */}
                         <button
                           className={`text-white sm:text-[16px] text-[12px] sm:font-bold sm:px-[20px] px-[10px] sm:py-[10px] py-[8px] border cursor-pointer 
                             ${
@@ -152,7 +166,7 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
                                 ? "bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed"
                                 : "bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]"
                             }`}
-                          onClick={() => handleAddToCart(item.id)}
+                          onClick={() => handleAddToCart(item.product.id)}
                           disabled={inCart}
                         >
                           {inCart ? "Уже в корзине" : "В корзину"}
