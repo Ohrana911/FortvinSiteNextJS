@@ -25,7 +25,7 @@ import Script from "next/script";
 //   children: React.ReactNode;
 // }>) {
 //   const [isOpen, setIsOpen] = useState(false);
-  
+
 //   useEffect(() => {
 //     if (isOpen) {
 //       document.body.style.overflow = "hidden";
@@ -37,7 +37,7 @@ import Script from "next/script";
 //       document.body.style.overflow = "auto";
 //     };
 //   }, [isOpen]);
-  
+
 //   return (
 //     <html lang="en">
 //       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
@@ -71,6 +71,13 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+export const metadata = {
+  title: {
+    default: "Фортвин - строительные материалы",
+    template: "%s | Фортвин",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -78,8 +85,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
         {/* ✅ Подключаем Яндекс.Метрику */}
         <Script
           id="yandex-metrika"
@@ -116,7 +124,7 @@ export default function RootLayout({
         <Providers>
           <ModalManager>
             <Header />
-              <main>{children}</main>
+            <main>{children}</main>
             <Footer />
           </ModalManager>
         </Providers>

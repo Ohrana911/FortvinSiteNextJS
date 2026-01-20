@@ -42,7 +42,7 @@ export function ProductClient({ product }: { product: Product }) {
 
       <div className="product_card">
         <ProductImage
-          imageUrl={product.imageUrl ?? "/placeholder.png"}
+          imageUrl={product.imageUrl ?? "/placeholder.jpg"}
           size={20}
         />
         <div className="flex-1">
@@ -60,35 +60,47 @@ export function ProductClient({ product }: { product: Product }) {
           </div>
 
           <div className="mb-6 flex flex-col gap-1">
-            <div className="font-bold flex flex-row gap-[20px] items-center">
-              <h2 className="big">
-                {product.retailPriceRubWithVAT} ₽
-                {product.form != null
-                  ? "/кв.м"
-                  : product.strengthClass != null
-                    ? "/куб.м"
-                    : "/шт"}
-              </h2>
-              {product.isOnSale && (
-                <div className="w-fit h-fit px-2 py-1 sm:text-sm text-xs font-semibold text-white bg-[var(--color-sale)]">
-                  + {product.saleDescription}
-                </div>
-              )}
-              <p className="small-text"></p>
-            </div>
+            {product.retailPriceRubWithVAT !== 0 && (
+              <div className="font-bold flex flex-row gap-[20px] items-center">
+                <h2 className="big">
+                  {product.retailPriceRubWithVAT} ₽
+                  {product.form != null
+                    ? "/кв.м"
+                    : product.strengthClass != null
+                      ? "/куб.м"
+                      : "/шт"}
+                </h2>
+                {product.isOnSale && (
+                  <div className="w-fit h-fit px-2 py-1 sm:text-sm text-xs font-semibold text-white bg-[var(--color-sale)]">
+                    + {product.saleDescription}
+                  </div>
+                )}
+                <p className="small-text"></p>
+              </div>
+            )}
 
-            <div className="text-[var(--color-blue)]">
-              {product.retailPriceRubWithVAT
-                ? (
-                    (product.quantityPerPallet ?? 1) *
-                    product.retailPriceRubWithVAT
-                  ).toLocaleString("ru-RU", {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 1,
-                  }) + " ₽"
-                : "—"}
-              {"/поддон"}
-            </div>
+            {product.retailPriceRubWithVAT === 0 && (
+              <div className="font-bold flex flex-row gap-[20px] items-center">
+                <h2 className="big text-[var(--color-gray)]">
+                  Цена по запросу
+                </h2>
+              </div>
+            )}
+
+            {product.retailPriceRubWithVAT !== 0 && (
+              <div className="text-[var(--color-blue)]">
+                {product.retailPriceRubWithVAT
+                  ? (
+                      (product.quantityPerPallet ?? 1) *
+                      product.retailPriceRubWithVAT
+                    ).toLocaleString("ru-RU", {
+                      minimumFractionDigits: 0,
+                      maximumFractionDigits: 1,
+                    }) + " ₽"
+                  : "—"}
+                {"/поддон"}
+              </div>
+            )}
           </div>
 
           <div className="flex items-center gap-4 mb-6">
@@ -160,7 +172,7 @@ export function ProductClient({ product }: { product: Product }) {
                   {product.weightKg}
                 </li>
               )}
-              {product.retailPriceRubWithVAT && (
+              {product.retailPriceRubWithVAT !== 0 && (
                 <li className="flex flex-row gap-2">
                   <div className="text-[var(--color-blue)]">
                     Цена (₽ с НДС):
@@ -174,12 +186,12 @@ export function ProductClient({ product }: { product: Product }) {
                   {product.strengthClass}
                 </li>
               )}
-              {product.quantityPerPalletKvM && (
+              {product.strengthClass && (
                 <li className="flex flex-row gap-2">
                   <div className="text-[var(--color-blue)]">
                     Количество в поддоне (куб.м):
                   </div>{" "}
-                  {product.quantityPerPalletKvM}
+                  {product.quantityPerPallet}
                 </li>
               )}
               {product.weightOnePalletKg && (
@@ -197,10 +209,20 @@ export function ProductClient({ product }: { product: Product }) {
                 </li>
               )}
               {/* {product.city && (<li className='flex flex-row gap-2' ><div className='text-[var(--color-blue)]'>Город:</div> {product.city}</li>)} */}
-              {product.form === null && product.quantityPerPallet && (
+              {product.form === null &&
+                product.strengthClass === null &&
+                product.quantityPerPallet && (
+                  <li className="flex flex-row gap-2">
+                    <div className="text-[var(--color-blue)]">
+                      Количество в поддоне (шт):
+                    </div>{" "}
+                    {product.quantityPerPallet}
+                  </li>
+                )}
+              {product.form && product.quantityPerPallet && (
                 <li className="flex flex-row gap-2">
                   <div className="text-[var(--color-blue)]">
-                    Количество в поддоне (шт):
+                    Количество в поддоне (кв.м):
                   </div>{" "}
                   {product.quantityPerPallet}
                 </li>

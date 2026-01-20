@@ -1,9 +1,9 @@
-'use client';
+"use client";
 
-import React, { useEffect, useState } from 'react';
-import * as Dialog from '@radix-ui/react-dialog';
-import { Heart, Trash2, ShoppingCart, X } from 'lucide-react';
-import { useCartStore } from '@/store/cart';
+import React, { useEffect, useState } from "react";
+import * as Dialog from "@radix-ui/react-dialog";
+import { Heart, Trash2, ShoppingCart, X } from "lucide-react";
+import { useCartStore } from "@/store/cart";
 import Link from "next/link";
 
 type FavoriteItem = {
@@ -13,6 +13,7 @@ type FavoriteItem = {
     name: string;
     imageUrl?: string;
     retailPriceRubWithVAT?: number;
+    strengthClass?: string;
     form?: string;
     quantityPerPallet?: number;
     quantityPerPalletKvM?: number;
@@ -29,14 +30,16 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
   const [loading, setLoading] = useState(false);
   const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
+  const [loadedImages, setLoadedImages] = useState<Record<number, string>>({});
+
   const fetchFavorites = async () => {
     setLoading(true);
     try {
-      const res = await fetch('/api/favorites');
+      const res = await fetch("/api/favorites");
       const data = await res.json();
       setFavoriteItems(data);
     } catch (err) {
-      console.error('Failed to fetch favorites', err);
+      console.error("Failed to fetch favorites", err);
     } finally {
       setLoading(false);
     }
@@ -48,27 +51,27 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
 
   const removeFavorite = async (id: number) => {
     try {
-      await fetch(`/api/favorites/${id}`, { method: 'DELETE' });
+      await fetch(`/api/favorites/${id}`, { method: "DELETE" });
       setFavoriteItems((prev) => prev.filter((item) => item.id !== id));
     } catch (err) {
-      console.error('Failed to remove favorite', err);
+      console.error("Failed to remove favorite", err);
     }
   };
 
   useEffect(() => {
-      fetchCartItems();
-    }, [fetchCartItems]);
+    fetchCartItems();
+  }, [fetchCartItems]);
 
   const handleAddToCart = async (productId: number) => {
     const inCart = isInCart(productId);
-    console.log('inCart: ', inCart);
+    console.log("inCart: ", inCart);
 
     if (inCart) return;
     await addCartItem({ productItemId: productId });
   };
 
   const handleClose = () => {
-    onClose();           // закрываем модальное окно
+    onClose(); // закрываем модальное окно
     window.location.reload(); // обновляем страницу
   };
 
@@ -91,7 +94,10 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
             <Dialog.Title className="underline font-semibold">
               Избранное
             </Dialog.Title>
-            <button onClick={handleClose} className="text-gray-500 hover:text-gray-700 cursor-pointer">
+            <button
+              onClick={handleClose}
+              className="text-gray-500 hover:text-gray-700 cursor-pointer"
+            >
               <X size={20} />
             </button>
           </div>
@@ -102,24 +108,37 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
             {favoriteItems.map((item) => {
               const inCart = isInCart(item.product.id); // объявляем переменную внутри функции
               return (
-                <div key={item.product.id} className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] hover:shadow border">
+                <div
+                  key={item.product.id}
+                  className="flex gap-4 items-center p-2 bg-[var(--color-gray-lightest)] hover:shadow border"
+                >
                   <Link href={`/product/${item.product.id}`}>
                     <img
-                      src={item.product.imageUrl ?? '/placeholder.png'}
+                      src={item.product.imageUrl ?? "/placeholder.jpg"}
                       alt={item.product.name}
                       className="sm:w-20 sm:h-20 w-20 h-20 object-cover"
                     />
                   </Link>
-                  <div className='flex flex-col w-full sm:h-[70px] h-[100px] justify-between'>
+                  <div className="flex flex-col w-full sm:h-[70px] h-[100px] justify-between">
                     <Link href={`/product/${item.product.id}`}>
                       <h4 className="font-semibold">{item.product.name}</h4>
                     </Link>
                     <div className="flex sm:flex-row flex-col sm:items-center justify-between w-full gap-2">
-                      <span className="text-gray-600 sm:text-[16px] text-[12px]">
-                        {item.product.form === null
-                          ? `${item.product.quantityPerPallet} шт. х ${item.product.retailPriceRubWithVAT} ₽/шт.`
-                          : `Поддон: ${item.product.quantityPerPalletKvM} кв.м.`}
-                      </span>
+                      {item.product.retailPriceRubWithVAT !== 0 && (
+                        <span className="text-gray-600 sm:text-[16px] text-[12px]">
+                          {item.product.quantityPerPallet}
+                          {item.product.form != null
+                            ? ` кв.м. х ${item.product.retailPriceRubWithVAT} ₽/кв.м.`
+                            : item.product.strengthClass != null
+                              ? ` куб.м. х ${item.product.retailPriceRubWithVAT} ₽/куб.м.`
+                              : ` шт. х ${item.product.retailPriceRubWithVAT} ₽/шт.`}
+                        </span>
+                      )}
+                      {item.product.retailPriceRubWithVAT === 0 && (
+                        <span className="text-gray-600 sm:text-[16px] text-[12px]">
+                          Цена по запросу
+                        </span>
+                      )}
                       <div className="flex flex-row items-end sm:items-center gap-4">
                         <Trash2
                           className="cursor-pointer text-gray-400 hover:text-[var(--color-blue)] self-center mt-1"
@@ -130,13 +149,13 @@ export const FavoritesSidebar: React.FC<Props> = ({ open, onClose }) => {
                           className={`text-white sm:text-[16px] text-[12px] sm:font-bold sm:px-[20px] px-[10px] sm:py-[10px] py-[8px] border cursor-pointer 
                             ${
                               inCart
-                                ? 'bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed'
-                                : 'bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]'
+                                ? "bg-[var(--color-gray)] text-[var(--color-dark)] cursor-not-allowed"
+                                : "bg-[var(--color-blue)] hover:text-[var(--color-dark)] hover:bg-[var(--color-blue-dark)] hover:border-[var(--color-gray)]"
                             }`}
                           onClick={() => handleAddToCart(item.id)}
                           disabled={inCart}
                         >
-                          {inCart ? 'Уже в корзине' : 'В корзину'}
+                          {inCart ? "Уже в корзине" : "В корзину"}
                         </button>
                       </div>
                     </div>

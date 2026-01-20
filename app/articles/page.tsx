@@ -1,6 +1,6 @@
-import React from 'react';
-import articlesData from '../../data/articles.json';
-import Link from 'next/link';
+import React from "react";
+import articlesData from "../../data/articles.json";
+import Link from "next/link";
 import { prisma } from "@/prisma/prisma-client";
 
 // type Article = {
@@ -44,7 +44,7 @@ import { prisma } from "@/prisma/prisma-client";
 //                                 <div className="article-footer">
 //                                     <Link href={`/articles/${article.id}`}>
 //                                         <button className="colored-button">Читать далее</button>
-//                                     </Link>                                
+//                                     </Link>
 //                                 </div>
 //                             </div>
 //                         ))
@@ -91,6 +91,9 @@ import { prisma } from "@/prisma/prisma-client";
 
 // export default ArticlesPage;
 
+export const metadata = {
+  title: "Статьи",
+};
 
 // Объединённый тип для статических и динамических статей
 type Article = {
@@ -104,16 +107,16 @@ type Article = {
 const ArticlesPage = async () => {
   // Посты из базы
   const dbPosts = await prisma.post.findMany({
-    orderBy: { createdAt: "desc" }
+    orderBy: { createdAt: "desc" },
   });
 
   // Преобразуем dbPosts в формат Article
-  const dynamicArticles: Article[] = dbPosts.map(post => ({
+  const dynamicArticles: Article[] = dbPosts.map((post) => ({
     id: post.id.toString(),
     date: post.date,
     title: post.title,
     description: post.description,
-    content: post.content
+    content: post.content,
   }));
 
   // Объединяем статические и динамические статьи
@@ -123,21 +126,27 @@ const ArticlesPage = async () => {
     <div className="container">
       <nav className="breadcrumb">
         <ol>
-          <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
+          <li>
+            <Link href="/" className="breadcrumb-link">
+              Главная
+            </Link>
+          </li>
           <li className="breadcrumb-separator">→</li>
           <li className="breadcrumb-current">Статьи</li>
         </ol>
       </nav>
 
-      <h1 className='underline'>Статьи</h1>
+      <h1 className="underline">Статьи</h1>
 
       <div className="articles-list">
         {allArticles.length === 0 ? (
           <h2>Пока статей нет. Следите за обновлениями!</h2>
         ) : (
-          allArticles.map(article => (
+          allArticles.map((article) => (
             <div className="article-item" key={article.id}>
-              <p style={{ fontSize: '14px', color: 'var(--color-blue)' }}>{article.date}</p>
+              <p style={{ fontSize: "14px", color: "var(--color-blue)" }}>
+                {article.date}
+              </p>
               <div className="article-content">
                 <h2 className="article-title">{article.title}</h2>
                 <p className="article-description">{article.description}</p>

@@ -222,11 +222,11 @@
 //     </div>
 //   );
 // }
-import React from 'react';
-import Link from 'next/link';
-import { prisma } from '@/prisma/prisma-client';
-import articlesData from '../../../data/articles.json';
-import { Button } from '@/components/ui';
+import React from "react";
+import Link from "next/link";
+import { prisma } from "@/prisma/prisma-client";
+import articlesData from "../../../data/articles.json";
+import { Button } from "@/components/ui";
 
 type Article = {
   id: string;
@@ -241,16 +241,47 @@ interface ArticlePageProps {
   params: Promise<{ id: string }>;
 }
 
-export const dynamic = 'force-dynamic';
+export const dynamic = "force-dynamic";
 export const revalidate = 0; // полностью отключаем ISR
 
+// ⭐ Генерация заголовка вкладки браузера
+export async function generateMetadata({ params }: ArticlePageProps) {
+  const { id } = await params;
+
+  // сначала ищем в базе
+  const post = await prisma.post.findFirst({
+    where: { id: Number(id) },
+    select: { title: true },
+  });
+
+  // если нашли — берем из БД
+  if (post) {
+    return {
+      title: `${post.title}`,
+    };
+  }
+
+  // иначе ищем в JSON
+  const articleFallback = articlesData.find((a) => a.id === id);
+
+  if (articleFallback) {
+    return {
+      title: `${articleFallback.title}`,
+    };
+  }
+
+  // если не нашли
+  return {
+    title: "Статья не найдена",
+  };
+}
 
 export default async function ArticlePage({ params }: ArticlePageProps) {
   // Используем await для получения params
   const { id } = await params;
 
   const dbPosts = await prisma.post.findMany();
-  const dynamicArticles: Article[] = dbPosts.map(post => ({
+  const dynamicArticles: Article[] = dbPosts.map((post) => ({
     id: String(post.id),
     date: post.date,
     title: post.title,
@@ -258,10 +289,10 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     content: post.content,
   }));
 
-  let article: Article | undefined = dynamicArticles.find(a => a.id === id);
+  let article: Article | undefined = dynamicArticles.find((a) => a.id === id);
 
   if (!article) {
-    article = articlesData.find(a => a.id === id);
+    article = articlesData.find((a) => a.id === id);
   }
 
   if (!article) {
@@ -281,22 +312,36 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
     <div className="container">
       <nav className="breadcrumb">
         <ol>
-          <li><Link href="/" className="breadcrumb-link">Главная</Link></li>
+          <li>
+            <Link href="/" className="breadcrumb-link">
+              Главная
+            </Link>
+          </li>
           <li className="breadcrumb-separator">→</li>
-          <li><Link href="/articles" className="breadcrumb-link">Статьи</Link></li>
+          <li>
+            <Link href="/articles" className="breadcrumb-link">
+              Статьи
+            </Link>
+          </li>
           <li className="breadcrumb-separator hidden sm:block">→</li>
-          <li className="breadcrumb-current hidden sm:block">{article.title}</li>
+          <li className="breadcrumb-current hidden sm:block">
+            {article.title}
+          </li>
         </ol>
       </nav>
 
       <div className="article-content">
-        <p style={{ fontSize: '14px', color: 'var(--color-blue)' }}>{article.date}</p>
+        <p style={{ fontSize: "14px", color: "var(--color-blue)" }}>
+          {article.date}
+        </p>
         <h1 className="article-title">{article.title}</h1>
       </div>
 
       <div className="article-content">
-        {article.content.split('\n').map((line, idx) => (
-          <p className="article-content" key={idx}>{line}</p>
+        {article.content.split("\n").map((line, idx) => (
+          <p className="article-content" key={idx}>
+            {line}
+          </p>
         ))}
       </div>
 

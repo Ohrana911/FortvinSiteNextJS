@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 interface Props {
   src: string;
@@ -6,5 +6,17 @@ interface Props {
 }
 
 export const CartItemDetailsImage: React.FC<Props> = ({ src, className }) => {
-  return <img className={cn('sm:w-[60px] sm:h-[60px] w-[80px] h-[80px]', className)} src={src} />;
+  return (
+    <img
+      className={cn("sm:w-[60px] sm:h-[60px] w-[80px] h-[80px]", className)}
+      src={src ?? "/placeholder.jpg"}
+      onError={(e: React.SyntheticEvent<HTMLImageElement>) => {
+        const target = e.target as HTMLImageElement;
+
+        if (!target.src.includes("/placeholder.jpg")) {
+          target.src = "/placeholder.jpg";
+        }
+      }}
+    />
+  );
 };

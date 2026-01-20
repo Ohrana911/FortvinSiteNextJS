@@ -1,12 +1,16 @@
-import React from 'react';
-import { WhiteBlock } from '../white-block';
-import { CheckoutItem } from '../checkout-item';
-import { CheckoutItemSkeleton } from '../checkout-item-skeleton';
-import { CartStateItem } from '@/lib/get-cart-details';
+import React from "react";
+import { WhiteBlock } from "../white-block";
+import { CheckoutItem } from "../checkout-item";
+import { CheckoutItemSkeleton } from "../checkout-item-skeleton";
+import { CartStateItem } from "@/lib/get-cart-details";
 
 interface Props {
   items: CartStateItem[];
-  onClickCountButton: (id: number, quantity: number, type: 'plus' | 'minus') => void;
+  onClickCountButton: (
+    id: number,
+    quantity: number,
+    type: "plus" | "minus",
+  ) => void;
   removeCartItem: (id: number) => void;
   loading?: boolean;
   className?: string;
@@ -21,9 +25,11 @@ export const CheckoutCart: React.FC<Props> = ({
 }) => {
   return (
     <WhiteBlock title="1. Корзина" className={className}>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-[60px]">
         {loading
-          ? [...Array(4)].map((_, index) => <CheckoutItemSkeleton key={index} />)
+          ? [...Array(4)].map((_, index) => (
+              <CheckoutItemSkeleton key={index} />
+            ))
           : items.map((item) => (
               <CheckoutItem
                 key={item.id}
@@ -37,7 +43,9 @@ export const CheckoutCart: React.FC<Props> = ({
                 isOnSale={item.isOnSale}
                 saleDescription={item.saleDescription}
                 disabled={item.disabled}
-                onClickCountButton={(type) => onClickCountButton(item.id, item.quantity, type)}
+                onClickCountButton={(type) =>
+                  onClickCountButton(item.id, item.quantity, type)
+                }
                 onClickRemove={() => removeCartItem(item.id)}
               />
             ))}

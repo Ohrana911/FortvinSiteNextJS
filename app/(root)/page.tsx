@@ -33,6 +33,8 @@ export default function Home() {
 
   const { addCartItem, isInCart, fetchCartItems } = useCartStore();
 
+  const [loadedImages, setLoadedImages] = useState<Record<number, string>>({});
+
   useEffect(() => {
     fetchCartItems();
   }, [fetchCartItems]);
@@ -58,6 +60,26 @@ export default function Home() {
 
       setProducts(data.data);
       setTotalPages(data.totalPages);
+
+      data.data.forEach((p: Product) => {
+        if (p.imageUrl) {
+          const img = new Image();
+          img.src = p.imageUrl;
+
+          img.onload = () => {
+            setLoadedImages((prev) => ({ ...prev, [p.id]: p.imageUrl! }));
+          };
+
+          img.onerror = () => {
+            setLoadedImages((prev) => ({
+              ...prev,
+              [p.id]: "/placeholder.jpg",
+            }));
+          };
+        } else {
+          setLoadedImages((prev) => ({ ...prev, [p.id]: "/placeholder.jpg" }));
+        }
+      });
     };
 
     fetchProducts();
@@ -205,34 +227,42 @@ export default function Home() {
                           {p.saleDescription}
                         </span>
                       )}
+
                       <img
-                        src={p.imageUrl ?? "/placeholder.png"}
+                        src={loadedImages[p.id] ?? "/placeholder.jpg"}
                         alt={p.name}
                         className="w-full h-[280px] object-cover mb-4"
                       />
                       <p>{p.name}</p>
-                      <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
-                        <p className="small-text">
-                          {p.retailPriceRubWithVAT
-                            ? (
-                                (p.quantityPerPallet ?? 1) *
-                                p.retailPriceRubWithVAT
-                              ).toLocaleString("ru-RU", {
-                                minimumFractionDigits: 0,
-                                maximumFractionDigits: 1,
-                              }) + " ₽"
-                            : "—"}
-                          {"/поддон"}
-                        </p>
-                        <h2 className="font-semibold">
-                          {p.retailPriceRubWithVAT} ₽
-                          {p.form != null
-                            ? "/кв.м"
-                            : p.strengthClass != null
-                              ? "/куб.м"
-                              : "/шт"}
-                        </h2>
-                      </div>
+                      {p.retailPriceRubWithVAT !== 0 && (
+                        <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
+                          <p className="small-text">
+                            {p.retailPriceRubWithVAT
+                              ? (
+                                  (p.quantityPerPallet ?? 1) *
+                                  p.retailPriceRubWithVAT
+                                ).toLocaleString("ru-RU", {
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 1,
+                                }) + " ₽"
+                              : "—"}
+                            {"/поддон"}
+                          </p>
+                          <h2 className="font-semibold">
+                            {p.retailPriceRubWithVAT} ₽
+                            {p.form != null
+                              ? "/кв.м"
+                              : p.strengthClass != null
+                                ? "/куб.м"
+                                : "/шт"}
+                          </h2>
+                        </div>
+                      )}
+                      {p.retailPriceRubWithVAT === 0 && (
+                        <div className="font-bold mt-[26px] mb-[10px]">
+                          <h2 className="font-semibold">Цена по запросу</h2>
+                        </div>
+                      )}
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
                       <button
@@ -296,24 +326,42 @@ export default function Home() {
                           {p.saleDescription}
                         </span>
                       )}
+
                       <img
-                        src={p.imageUrl ?? "/placeholder.png"}
+                        src={loadedImages[p.id] ?? "/placeholder.jpg"}
                         alt={p.name}
                         className="w-full h-[280px] object-cover mb-4"
                       />
                       <p>{p.name}</p>
-                      <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
-                        <p className="small-text">
-                          {p.retailPriceRubWithVAT
-                            ? `${p.quantityPerPallet} шт x ${p.retailPriceRubWithVAT} ₽/шт`
-                            : " "}
-                        </p>
-                        <h2 className="font-semibold">
-                          {(p.quantityPerPallet ?? 1) *
-                            (p.retailPriceRubWithVAT ?? 1)}{" "}
-                          ₽
-                        </h2>
-                      </div>
+                      {p.retailPriceRubWithVAT !== 0 && (
+                        <div className="flex flex-col gap-1 mb-[10px] mt-[10px] w-full">
+                          <p className="small-text">
+                            {p.retailPriceRubWithVAT
+                              ? (
+                                  (p.quantityPerPallet ?? 1) *
+                                  p.retailPriceRubWithVAT
+                                ).toLocaleString("ru-RU", {
+                                  minimumFractionDigits: 0,
+                                  maximumFractionDigits: 1,
+                                }) + " ₽"
+                              : "—"}
+                            {"/поддон"}
+                          </p>
+                          <h2 className="font-semibold">
+                            {p.retailPriceRubWithVAT} ₽
+                            {p.form != null
+                              ? "/кв.м"
+                              : p.strengthClass != null
+                                ? "/куб.м"
+                                : "/шт"}
+                          </h2>
+                        </div>
+                      )}
+                      {p.retailPriceRubWithVAT === 0 && (
+                        <div className="font-bold mt-[26px] mb-[10px]">
+                          <h2 className="font-semibold">Цена по запросу</h2>
+                        </div>
+                      )}
                     </Link>
                     <div className="flex items-center justify-end w-full mt-auto gap-2">
                       <button
